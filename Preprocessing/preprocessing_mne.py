@@ -1,7 +1,8 @@
 from itertools import compress
 import numpy as np
 import mne
-
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 def load_raw_data():
     """
@@ -97,3 +98,100 @@ def get_epochs():
     raw_haemo = preprocess_raw_data(raw_intensity)
     epochs = extract_epochs(raw_haemo)
     return epochs
+
+
+def compute_segment_power(data, label_value, seg_samples):
+    """
+    Computes the mean features for each segment in the provided data.
+    Each segment is extracted from an epoch and its mean is calculated
+    along the time axis.
+    
+    Args:
+        data (ndarray): Array of epochs with shape (n_epochs, n_channels, n_times)
+        label_value (int): Label value to assign to each segment from these epochs
+
+    Returns:
+        tuple: A tuple containing:
+            - segs (ndarray): Array of mean features for each segment.
+            - seg_labels (ndarray): Array of corresponding label values.
+    """
+    segs, seg_labels = [], []
+    # Loop over each epoch in the data
+    for epoch in data:
+        n_time = epoch.shape[1]  # total time samples in the epoch
+        n_segs = n_time // seg_samples  # number of full segments that can be extracted
+        # Iterate over each segment in the epoch
+        for i in range(n_segs):
+            # Extract the segment for all channels
+            segment = epoch[:, i * seg_samples : (i + 1) * seg_samples]
+            # Compute mean power as the average squared value for each channel in this segment
+            mean_val = np.mean(segment, axis=1)
+            # Append the computed mean and corresponding label
+            segs.append(mean_val)
+            seg_labels.append(label_value)
+    return np.array(segs), np.array(seg_labels)
+
+# Function to stack the epochs for left tapping and control and split them into s second windows
+def stack_epochs(epochs, s, tmin=0, tmax=10):
+    """
+    Stacks epochs for left tapping and control and splits them into
+    s second windows."
+    """
+    data = epochs.copy().crop(tmin=tmin, tmax=tmax).get_data()
+    labels = epochs.events[:, -1]  # getting labels from epoch events
+    # Stack epochs for left tapping and control
+    left_tapping = data[labels == 2]
+    control = data[labels == 1]
+
+    # Get the sampling frequency from the epochs object
+    sfreq = epochs.info["sfreq"]
+    # Calculate the number of samples per segment based on the window length (s seconds)
+    seg_samples = int(s * sfreq)
+
+    # Compute power features for left tapping segments (label 2)
+    left_features, left_labels = compute_segment_power(left_tapping, 2, seg_samples)
+    # Compute power features for control segments (label 1)
+    control_features, control_labels = compute_segment_power(control, 1, seg_samples)
+
+    # Concatenate the features and labels from both conditions
+    X = np.concatenate([left_features, control_features], axis=0)
+    y = np.concatenate([left_labels, control_labels], axis=0)
+
+    return X, y
+
+
+
+# Computing the PCA for the stacked epochs
+# Compute features and labels from the stacked epochs
+window_length = 5  # seconds
+X, y = stack_epochs(get_epochs(), s=window_length)
+
+# Perform PCA reducing to 4 components
+nr_pcs = 3
+pca = PCA(n_components=nr_pcs)
+X_pca = pca.fit_transform(X)
+
+# Create a grid of plots for the first 4 principal components
+fig, axes = plt.subplots(nr_pcs, nr_pcs, figsize=(12, 12))
+pcs = ['PC 1', 'PC 2', 'PC 3']
+
+for i in range(nr_pcs):
+    for j in range(nr_pcs):
+        ax = axes[i, j]
+        if i == j:
+            # Plot a histogram on the diagonal
+            ax.hist(X_pca[:, i], bins=30, color='gray')
+            ax.set_xlabel(pcs[i])
+            ax.set_ylabel('Count')
+        else:
+            # Scatter plot for the off-diagonals
+            sc = ax.scatter(X_pca[:, j], X_pca[:, i], c=y, cmap='viridis', alpha=0.7)
+            if i == 3:
+                ax.set_xlabel(pcs[j])
+            if j == 0:
+                ax.set_ylabel(pcs[i])
+
+plt.suptitle(f'Pairplot of the First {nr_pcs} Principal Components', fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+fig.colorbar(sc, ax=axes.ravel().tolist(), label='Label')
+plt.show()
