@@ -1,6 +1,8 @@
 from itertools import compress
 import numpy as np
 import mne
+from mne.preprocessing import ICA
+import matplotlib.pyplot as plt
 
 
 def load_raw_data():
@@ -69,7 +71,7 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     """
     events, event_dict = mne.events_from_annotations(raw_haemo)
     # Define rejection criteria: any channel exceeding 80e-6 is considered too noisy.
-    reject_criteria = dict(hbo=80e-6)
+    reject_criteria = dict(hbo=100e-6)
     epochs = mne.Epochs(
         raw_haemo,
         events,
