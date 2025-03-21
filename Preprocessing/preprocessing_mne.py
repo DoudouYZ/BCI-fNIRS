@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def load_raw_data():
+def load_raw_data(subject: int = 0):
     """
     Downloads and loads the fNIRS dataset and performs initial annotations.
     Returns:
@@ -20,8 +20,7 @@ def load_raw_data():
     root=fnirs_data_folder, task="tapping", datatype="nirs", suffix="nirs", extension=".snirf"
     )
     subjects = get_entity_vals(fnirs_data_folder, "subject")
-    print(subjects)
-    bids_path = dataset.update(subject=subjects[1]) # NOTE: CHANGE SUBJECT HERE
+    bids_path = dataset.update(subject=subjects[subject])
     raw_intensity = read_raw_bids(bids_path=bids_path, verbose=False)
     raw_intensity.annotations.delete(raw_intensity.annotations.description == "15.0")
     raw_intensity.annotations.description[:] = [
@@ -98,20 +97,34 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     )
     return epochs
 
-
-def get_epochs():
+def get_group_epochs(num_subjects: int = 5, tmin=-5, tmax=15):
     """
-    Pipeline for loading, preprocessing, and extracting epochs.
+    Pipeline for loading, preprocessing, and extracting epochs for a group of subjects.
     Returns:
         epochs: The extracted epochs.
     """
-    raw_intensity = load_raw_data()
+    epochs = []
+    for subject in range(num_subjects):
+        raw_intensity = load_raw_data(subject)
+        raw_haemo = preprocess_raw_data(raw_intensity)
+        epoch = extract_epochs(raw_haemo, tmin, tmax)
+        epochs.append(epoch)
+    return epochs
+
+def get_epochs_for_subject(subject: int = 0):
+    """
+    Pipeline for loading, preprocessing, and extracting epochs for a single subject.
+    Args:
+        subject: The subject number.
+    Returns:
+        epochs: The extracted epochs.
+    """
+    raw_intensity = load_raw_data(subject)
     raw_haemo = preprocess_raw_data(raw_intensity)
     epochs = extract_epochs(raw_haemo)
     return epochs
 
-
-def compute_segment_power(data, label_value, seg_samples):
+def compute_segment_mean(data, label_value, seg_samples):
     """
     Computes the mean features for each segment in the provided data.
     Each segment is extracted from an epoch and its mean is calculated
@@ -160,9 +173,9 @@ def stack_epochs(epochs, s, tmin=0, tmax=10):
     seg_samples = int(s * sfreq)
 
     # Compute power features for left tapping segments (label 2)
-    left_features, left_labels = compute_segment_power(left_tapping, 2, seg_samples)
+    left_features, left_labels = compute_segment_mean(left_tapping, 2, seg_samples)
     # Compute power features for control segments (label 1)
-    control_features, control_labels = compute_segment_power(control, 1, seg_samples)
+    control_features, control_labels = compute_segment_mean(control, 1, seg_samples)
 
     # Concatenate the features and labels from both conditions
     X = np.concatenate([left_features, control_features], axis=0)
@@ -175,7 +188,7 @@ def stack_epochs(epochs, s, tmin=0, tmax=10):
 # Computing the PCA for the stacked epochs
 # Compute features and labels from the stacked epochs
 window_length = 1  # seconds
-X, y = stack_epochs(get_epochs(), s=window_length)
+X, y = stack_epochs(get_epochs_for_subject(0), s=window_length)
 
 # Perform PCA reducing to 4 components
 nr_pcs = 3
