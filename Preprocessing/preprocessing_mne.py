@@ -1,8 +1,11 @@
 from itertools import compress
 import numpy as np
 import mne
+import mne_nirs
+from mne_bids import BIDSPath, get_entity_vals, read_raw_bids
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 def load_raw_data():
     """
@@ -11,18 +14,26 @@ def load_raw_data():
         raw_intensity: The raw intensity MNE object.
     """
     # Downloading and loading dataset
-    fnirs_data_folder = mne.datasets.fnirs_motor.data_path()
-    fnirs_cw_amplitude_dir = fnirs_data_folder / "Participant-1"
-    raw_intensity = mne.io.read_raw_nirx(fnirs_cw_amplitude_dir, verbose=True)
-    raw_intensity.load_data()
+    fnirs_data_folder = Path(mne_nirs.datasets.fnirs_motor_group.data_path())
 
-    # Annotating and removing unnecessary trigger codes
-    raw_intensity.annotations.set_durations(5)
-    raw_intensity.annotations.rename(
-        {"1.0": "Control", "2.0": "Tapping/Left", "3.0": "Tapping/Right"}
+    dataset = BIDSPath(
+    root=fnirs_data_folder, task="tapping", datatype="nirs", suffix="nirs", extension=".snirf"
     )
-    unwanted = np.nonzero(raw_intensity.annotations.description == "15.0")
-    raw_intensity.annotations.delete(unwanted)
+    subjects = get_entity_vals(fnirs_data_folder, "subject")
+    print(subjects)
+    bids_path = dataset.update(subject=subjects[1]) # NOTE: CHANGE SUBJECT HERE
+    raw_intensity = read_raw_bids(bids_path=bids_path, verbose=False)
+    raw_intensity.annotations.delete(raw_intensity.annotations.description == "15.0")
+    raw_intensity.annotations.description[:] = [
+    d.replace("/", "_") for d in raw_intensity.annotations.description
+    ]
+    # raw_intensity.load_data()
+    
+    # Annotating and removing unnecessary trigger codes
+    # raw_intensity.annotations.set_durations(5)
+    # raw_intensity.annotations.rename(
+    #     {"1.0": "Control", "2.0": "Tapping/Left", "3.0": "Tapping/Right"}
+    # )
 
     return raw_intensity
 
@@ -163,7 +174,7 @@ def stack_epochs(epochs, s, tmin=0, tmax=10):
 
 # Computing the PCA for the stacked epochs
 # Compute features and labels from the stacked epochs
-window_length = 5  # seconds
+window_length = 1  # seconds
 X, y = stack_epochs(get_epochs(), s=window_length)
 
 # Perform PCA reducing to 4 components
