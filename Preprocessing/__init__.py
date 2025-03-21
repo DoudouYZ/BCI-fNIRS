@@ -1,5 +1,5 @@
-from .preprocessing_mne import get_epochs
+from .preprocessing_mne import get_group_epochs
 
 __all__ = [
-    "get_epochs"
+    "get_group_epochs"
     ]
