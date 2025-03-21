@@ -23,18 +23,31 @@ np.random.seed(seed)
 tmin_window, tmax_window = 0, 10
 data = epochs.copy().crop(tmin=tmin_window, tmax=tmax_window).get_data()
 features = data.mean(axis=2)  # [n_epochs, n_channels]
-print(data.shape, features.shape)
-quit()
+data_new = []
+for obs in data:
+    for i in range(len(obs[0])):
+        data_new.append(obs[:,i])
+data_new = np.array(data_new)
+
+
 # Scale the features (it's important to scale before PCA)
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(features)
+X_scaled = scaler.fit_transform(data_new)
 labels = epochs.events[:, -1]  # getting labels from epoch events
 
 # Set the number of PCA components (adjust this as needed)
-n_components = 5
+n_components = 1
 pca = PCA(n_components=n_components)
-X_pca = pca.fit_transform(X_scaled)
+X_pca = pca.fit_transform(X_scaled).flatten()
+print(X_pca.shape)
 
+plt.hist(X_pca, bins=50)
+
+# Add labels and title
+plt.title('Histogram of Data')
+
+plt.show()
+quit()
 # Create a DataFrame with PCA components
 df_pca = pd.DataFrame(X_pca, columns=[f'PC{i+1}' for i in range(n_components)])
 df_pca['Label'] = labels  # Add labels for coloring
@@ -51,7 +64,6 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=
 pipeline_PCA = Pipeline([
     ('scaler', StandardScaler()),
     ('pca', PCA()),  # Dimensionality reduction
-    ('feature_selection', SelectKBest(score_func=f_classif)),  # Select top k features based on ANOVA F-values
     ('classifier', RandomForestClassifier(random_state=42))
 ])
 

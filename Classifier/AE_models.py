@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import numpy as np
+from tqdm import tqdm
 
 # -------------------------------
 # Helper: Cropping1D Module
@@ -34,35 +36,46 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__()
         # First convolution: keep time dimension same
         self.conv1 = nn.Conv1d(in_channels=input_channels, out_channels=32,
-                               kernel_size=(3,1), stride=1, padding=1)
+                               kernel_size=3, stride=1, padding=1)
         # Second convolution: downsample by factor 2
-        self.conv2 = nn.Conv1d(in_channels=32, out_channels=32,
-                               kernel_size=(3,1), stride=1, padding=1)
+        self.avg_pool1 = nn.MaxPool1d(kernel_size=2, stride=2)
+        self.conv2 = nn.Conv1d(in_channels=32, out_channels=64,
+                               kernel_size=3, stride=1, padding=1)
+        self.avg_pool2 = nn.MaxPool1d(kernel_size=2, stride=2)
         # Third convolution: further downsample by factor 2
-        self.conv3 = nn.Conv1d(in_channels=32, out_channels=16,
-                               kernel_size=(3,1), stride=1, padding=1)
+        self.conv3 = nn.Conv1d(in_channels=64, out_channels=32,
+                               kernel_size=2, stride=1, padding=0)
         
         # Compute the output length after conv layers using the formula:
         # L_out = floor((L + 2*padding - kernel_size)/stride + 1)
-        def conv_out_length(L, kernel_size=(3,1), stride=1, padding=1):
-            return (L + 2 * padding - kernel_size[0]) // stride + 1
+        def conv_out_length(L, kernel_size=3, stride=1, padding=1):
+            return (L + 2 * padding - kernel_size) // stride + 1
         
-        L1 = conv_out_length(input_length, kernel_size=(3,1), stride=1, padding=1)
-        L2 = conv_out_length(L1, kernel_size=(3,1), stride=1, padding=1)
-        L3 = conv_out_length(L2, kernel_size=(3,1), stride=1, padding=1)
-        self.conv_output_length = L3  # save for the decoder
+
         
-        self.flattened_size = 16 * L3
-        self.fc = nn.Linear(self.flattened_size, latent_dim)
+        L1 = conv_out_length(input_length, kernel_size=3, stride=1, padding=1)
+        L2 = conv_out_length(L1, kernel_size=2, stride=2, padding=0)
+        L3 = conv_out_length(L2, kernel_size=3, stride=1, padding=1)
+        L5 = conv_out_length(L3, kernel_size=2, stride=1, padding=0)
+        self.conv_output_length = L5  # save for the decoder
+        
+        self.flattened_size = 32 * L5
+        self.encoder_fc1 = nn.Linear(self.flattened_size, self.flattened_size//2)
+        self.encoder_dropout = nn.Dropout(0.5)
+        self.encoder_fc2 = nn.Linear(self.flattened_size//2, latent_dim)
     
     def forward(self, x):
         # x: (batch, input_channels, input_length)
-        x = F.relu(self.conv1(x))     # -> (batch, 32, L)
-        x = F.relu(self.conv2(x))     # -> (batch, 32, L2)
-        x = F.relu(self.conv3(x))     # -> (batch, 16, L3)
+        x = F.leaky_relu(self.conv1(x), negative_slope=0.1)     # -> (batch, 32, L)
+        x = self.avg_pool1(x)
+        x = F.leaky_relu(self.conv2(x), negative_slope=0.1)     # -> (batch, 32, L2)
+        x = F.leaky_relu(self.conv3(x), negative_slope=0.1)     # -> (batch, 16, L3)
         batch_size = x.shape[0]
         x = x.view(batch_size, -1)    # flatten
-        latent = self.fc(x)           # -> (batch, latent_dim)
+        x = self.encoder_dropout(x)
+        x = F.sigmoid(self.encoder_fc1(x))
+        x = self.encoder_dropout(x)
+        latent = self.encoder_fc2(x)           # -> (batch, latent_dim)
         return latent
 
 # -------------------------------
@@ -86,14 +99,16 @@ class ReconstructionDecoder(nn.Module):
         self.original_length = original_length
 
         # First upsampling block
+        self.upsample1 = nn.Upsample(scale_factor=2, mode='nearest')
         self.conv_up1 = nn.Conv1d(in_channels=16, out_channels=32,
-                                  kernel_size=(3,1), stride=1, padding=1)
+                                  kernel_size=3, stride=1, padding=1)
         # Second upsampling block
+        self.upsample2 = nn.Upsample(scale_factor=2, mode='nearest')
         self.conv_up2 = nn.Conv1d(in_channels=32, out_channels=32,
-                                  kernel_size=(3,1), stride=1, padding=1)
+                                  kernel_size=3, stride=1, padding=1)
         # Final reconstruction layer
         self.conv_final = nn.Conv1d(in_channels=32, out_channels=output_channels,
-                                    kernel_size=(3,1), stride=1, padding=1)
+                                    kernel_size=3, stride=1, padding=1)
         # After two upsampling operations, the time dimension becomes conv_output_length * 4.
         self.final_length = conv_output_length * 4
         self.crop_amount = self.final_length - original_length
@@ -153,13 +168,13 @@ class ClassificationAutoencoder(nn.Module):
         """
         super(ClassificationAutoencoder, self).__init__()
         self.encoder = Encoder(input_channels, input_length, latent_dim)
-        self.fc1 = nn.Linear(latent_dim, 32)
-        self.fc2 = nn.Linear(32, num_classes)
+        self.fc1 = nn.Linear(latent_dim, 4)
+        self.fc2 = nn.Linear(4, num_classes)
     
     def forward(self, x):
         z = self.encoder(x)
-        x_cls = F.relu(self.fc1(z))
-        logits = self.fc2(x_cls)  # raw logits; use CrossEntropyLoss which applies softmax internally
+        z = F.relu(self.fc1(z))
+        logits = self.fc2(z)  # raw logits; use CrossEntropyLoss which applies softmax internally
         return logits
     
     def get_latent(self, x):
@@ -168,16 +183,16 @@ class ClassificationAutoencoder(nn.Module):
 # -------------------------------
 # Training Functions
 # -------------------------------
-def train_reconstruction_autoencoder(model, train_loader, val_loader, epochs, device):
+def train_reconstruction_autoencoder(model, train_loader, val_loader, epochs, device, verbose=False):
     """
     Training loop for the reconstruction autoencoder.
     """
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters())
     model.to(device)
+    optimizer = optim.Adam(model.parameters())
     history = {'train_loss': [], 'val_loss': []}
     
-    for epoch in range(epochs):
+    for epoch in tqdm(range(epochs)):
         model.train()
         train_loss = 0.0
         for batch in train_loader:
@@ -201,20 +216,23 @@ def train_reconstruction_autoencoder(model, train_loader, val_loader, epochs, de
         val_loss /= len(val_loader.dataset)
         history['train_loss'].append(train_loss)
         history['val_loss'].append(val_loss)
-        print(f"Reconstruction AE Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Val Loss: {val_loss:.4f}")
+        if verbose: 
+            print(f"Reconstruction AE Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Val Loss: {val_loss:.4f}")
     
     return history
 
-def train_classification_autoencoder(model, train_loader, val_loader, epochs, device):
+def train_classification_autoencoder(model, train_loader, val_loader, epochs, device, verbose=False):
     """
     Training loop for the classification autoencoder.
     """
+    
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters())
     model.to(device)
+    optimizer = optim.Adam(model.parameters())
+    
     history = {'train_loss': [], 'train_acc': [], 'val_loss': [], 'val_acc': []}
     
-    for epoch in range(epochs):
+    for epoch in tqdm(range(epochs)):
         model.train()
         train_loss = 0.0
         correct = 0
@@ -255,6 +273,43 @@ def train_classification_autoencoder(model, train_loader, val_loader, epochs, de
         history['train_acc'].append(train_acc)
         history['val_loss'].append(val_loss)
         history['val_acc'].append(val_acc)
-        print(f"Classification AE Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Train Acc: {train_acc:.4f} - Val Loss: {val_loss:.4f} - Val Acc: {val_acc:.4f}")
+        if verbose:
+            print(f"Classification AE Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Train Acc: {train_acc:.4f} - Val Loss: {val_loss:.4f} - Val Acc: {val_acc:.4f}")
     
     return history
+
+def create_sliding_windows(data, labels, window_length):
+    """
+    Splits each epoch in 'data' into overlapping windows using a sliding window approach,
+    and replicates the corresponding label for each new window.
+    
+    Parameters:
+        data (np.ndarray): Input array with shape (n_epochs, n_channels, n_times)
+        labels (np.ndarray or list): Array or list of labels with length n_epochs.
+        window_length (int): Number of observations (time points) per window.
+        
+    Returns:
+        windows (np.ndarray): Array with shape (n_epochs_new, n_channels, window_length)
+                              where n_epochs_new = n_epochs * (n_times - window_length + 1).
+        new_labels (np.ndarray): Array with shape (n_epochs_new,) where each window
+                                 is assigned the label of its original epoch.
+    """
+    # Create sliding windows along the time axis.
+    # This returns an array of shape (n_epochs, n_channels, n_windows, window_length)
+    windows = np.lib.stride_tricks.sliding_window_view(data, window_length, axis=2)
+    
+    # Transpose to get shape (n_epochs, n_windows, n_channels, window_length)
+    windows = windows.transpose(0, 2, 1, 3)
+    
+    # Reshape to combine the epochs and windows dimensions:
+    n_epochs, n_windows, n_channels, _ = windows.shape
+    windows = windows.reshape(n_epochs * n_windows, n_channels, window_length)
+    start_cut_off = n_windows//5
+    end_cut_off = n_windows//8
+    new_labels  =[]
+    for label in labels:
+        new_labels += [0] * start_cut_off + [label] * (n_windows - start_cut_off - end_cut_off) + [0] * (end_cut_off)
+    # Repeat each label n_windows times to correspond with each window created from an epoch.
+    new_labels = np.array(new_labels)
+    
+    return windows, new_labels
