@@ -100,6 +100,10 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
 def get_group_epochs(num_subjects: int = 5, tmin=-5, tmax=15):
     """
     Pipeline for loading, preprocessing, and extracting epochs for a group of subjects.
+    Args:
+        num_subjects: The number of subjects to process.
+        tmin: Start time before the event.
+        tmax: End time after the event.
     Returns:
         epochs: The extracted epochs.
     """
