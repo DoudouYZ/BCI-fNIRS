@@ -26,25 +26,24 @@ class Cropping1D(nn.Module):
 # Encoder Module
 # -------------------------------
 class Encoder(nn.Module):
-    def __init__(self, input_channels, input_length, latent_dim):
+    def __init__(self, input_channels, input_length, latent_dim, n_channels=40):
         """
         Args:
             input_channels (int): Number of input channels (e.g. 40).
             input_length (int): Number of time steps (e.g. 79).
             latent_dim (int): Dimension of the latent representation.
         """
+        out_channels = 60
         super(Encoder, self).__init__()
         # First convolution: keep time dimension same
-        self.conv1 = nn.Conv1d(in_channels=input_channels, out_channels=32,
+        self.conv1 = nn.Conv1d(in_channels=input_channels, out_channels=40,
                                kernel_size=3, stride=1, padding=1)
         # Second convolution: downsample by factor 2
-        self.avg_pool1 = nn.MaxPool1d(kernel_size=2, stride=2)
-        self.conv2 = nn.Conv1d(in_channels=32, out_channels=64,
+        self.avg_pool1 = nn.AvgPool1d(kernel_size=2, stride=2)
+        self.conv2 = nn.Conv1d(in_channels=40, out_channels=out_channels,
                                kernel_size=3, stride=1, padding=1)
-        self.avg_pool2 = nn.MaxPool1d(kernel_size=2, stride=2)
-        # Third convolution: further downsample by factor 2
-        self.conv3 = nn.Conv1d(in_channels=64, out_channels=32,
-                               kernel_size=2, stride=1, padding=0)
+        self.avg_pool2 = nn.AvgPool1d(kernel_size=2, stride=2)
+
         
         # Compute the output length after conv layers using the formula:
         # L_out = floor((L + 2*padding - kernel_size)/stride + 1)
@@ -56,26 +55,24 @@ class Encoder(nn.Module):
         L1 = conv_out_length(input_length, kernel_size=3, stride=1, padding=1)
         L2 = conv_out_length(L1, kernel_size=2, stride=2, padding=0)
         L3 = conv_out_length(L2, kernel_size=3, stride=1, padding=1)
-        L5 = conv_out_length(L3, kernel_size=2, stride=1, padding=0)
+        L5 = conv_out_length(L3, kernel_size=2, stride=2, padding=0)
         self.conv_output_length = L5  # save for the decoder
         
-        self.flattened_size = 32 * L5
-        self.encoder_fc1 = nn.Linear(self.flattened_size, self.flattened_size//2)
-        self.encoder_dropout = nn.Dropout(0.5)
-        self.encoder_fc2 = nn.Linear(self.flattened_size//2, latent_dim)
+        self.flattened_size = out_channels * L5
+        self.encoder_fc1 = nn.Linear(self.flattened_size, latent_dim)
+        self.encoder_dropout = nn.Dropout(0.2)
+
     
     def forward(self, x):
         # x: (batch, input_channels, input_length)
-        x = F.leaky_relu(self.conv1(x), negative_slope=0.1)     # -> (batch, 32, L)
+        x = F.leaky_relu(self.conv1(x), negative_slope=0.2)     # -> (batch, 32, L)
         x = self.avg_pool1(x)
-        x = F.leaky_relu(self.conv2(x), negative_slope=0.1)     # -> (batch, 32, L2)
-        x = F.leaky_relu(self.conv3(x), negative_slope=0.1)     # -> (batch, 16, L3)
+        x = F.leaky_relu(self.conv2(x), negative_slope=0.2)     # -> (batch, 32, L2)
+        x = self.avg_pool2(x)
         batch_size = x.shape[0]
         x = x.view(batch_size, -1)    # flatten
         x = self.encoder_dropout(x)
-        x = F.sigmoid(self.encoder_fc1(x))
-        x = self.encoder_dropout(x)
-        latent = self.encoder_fc2(x)           # -> (batch, latent_dim)
+        latent = F.sigmoid(self.encoder_fc1(x))  # -> (batch, latent_dim)
         return latent
 
 # -------------------------------
@@ -168,8 +165,8 @@ class ClassificationAutoencoder(nn.Module):
         """
         super(ClassificationAutoencoder, self).__init__()
         self.encoder = Encoder(input_channels, input_length, latent_dim)
-        self.fc1 = nn.Linear(latent_dim, 4)
-        self.fc2 = nn.Linear(4, num_classes)
+        self.fc1 = nn.Linear(latent_dim, 2)
+        self.fc2 = nn.Linear(2, num_classes)
     
     def forward(self, x):
         z = self.encoder(x)
@@ -278,42 +275,6 @@ def train_classification_autoencoder(model, train_loader, val_loader, epochs, de
     
     return history
 
-def create_sliding_windows_old(data, labels, window_length):
-    """
-    Splits each epoch in 'data' into overlapping windows using a sliding window approach,
-    and replicates the corresponding label for each new window.
-    
-    Parameters:
-        data (np.ndarray): Input array with shape (n_epochs, n_channels, n_times)
-        labels (np.ndarray or list): Array or list of labels with length n_epochs.
-        window_length (int): Number of observations (time points) per window.
-        
-    Returns:
-        windows (np.ndarray): Array with shape (n_epochs_new, n_channels, window_length)
-                              where n_epochs_new = n_epochs * (n_times - window_length + 1).
-        new_labels (np.ndarray): Array with shape (n_epochs_new,) where each window
-                                 is assigned the label of its original epoch.
-    """
-    # Create sliding windows along the time axis.
-    # This returns an array of shape (n_epochs, n_channels, n_windows, window_length)
-    windows = np.lib.stride_tricks.sliding_window_view(data, window_length, axis=2)
-    
-    # Transpose to get shape (n_epochs, n_windows, n_channels, window_length)
-    windows = windows.transpose(0, 2, 1, 3)
-    
-    # Reshape to combine the epochs and windows dimensions:
-    n_epochs, n_windows, n_channels, _ = windows.shape
-    windows = windows.reshape(n_epochs * n_windows, n_channels, window_length)
-    start_cut_off = n_windows//5
-    end_cut_off = n_windows//8
-    new_labels  =[]
-    for label in labels:
-        new_labels += [0] * start_cut_off + [label] * (n_windows - start_cut_off - end_cut_off) + [0] * (end_cut_off)
-    # Repeat each label n_windows times to correspond with each window created from an epoch.
-    new_labels = np.array(new_labels)
-    
-    return windows, new_labels
-
 
 def create_sliding_windows(data, labels, window_length):
     """
@@ -350,7 +311,7 @@ def create_sliding_windows(data, labels, window_length):
         
         # Get dimensions for the current array.
         n_epochs, n_windows, n_channels, _ = windows.shape
-        
+    
         # Reshape windows so each sliding window becomes an independent sample:
         # New shape: (n_epochs * n_windows, n_channels, window_length)
         windows_reshaped = windows.reshape(n_epochs * n_windows, n_channels, window_length)
@@ -358,8 +319,8 @@ def create_sliding_windows(data, labels, window_length):
         
         # Compute cutoff indices for the current array.
         # These determine how many windows at the beginning and end get assigned a label of 0.
-        start_cut = n_windows // 5
-        end_cut = n_windows // 8
+        start_cut = 0
+        end_cut = 0
         
         # For each epoch in the current array, create a label vector for its windows.
         for i in label:
