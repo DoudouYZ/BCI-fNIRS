@@ -9,24 +9,24 @@ from pathlib import Path
 import numpy as np
 
 
-def load_raw_data(subject: int = 0):
+def load_raw_data(subject: int = 0, force_download=False):
     """
     Downloads and loads the fNIRS dataset and performs initial annotations.
     Returns:
         raw_intensity: The raw intensity MNE object.
     """
-    # Downloading and loading dataset
-    fnirs_data_folder = Path(mne_nirs.datasets.fnirs_motor_group.data_path())
+    # Force download new data
+    fnirs_data_folder = Path(mne_nirs.datasets.fnirs_motor_group.data_path(force_update=force_download))
 
     dataset = BIDSPath(
-    root=fnirs_data_folder, task="tapping", datatype="nirs", suffix="nirs", extension=".snirf"
+        root=fnirs_data_folder, task="tapping", datatype="nirs", suffix="nirs", extension=".snirf"
     )
     subjects = get_entity_vals(fnirs_data_folder, "subject")
     bids_path = dataset.update(subject=subjects[subject])
     raw_intensity = read_raw_bids(bids_path=bids_path, verbose=False)
     raw_intensity.annotations.delete(raw_intensity.annotations.description == "15.0")
     raw_intensity.annotations.description[:] = [
-    d.replace("/", "_") for d in raw_intensity.annotations.description
+        d.replace("/", "_") for d in raw_intensity.annotations.description
     ]
 
     return raw_intensity
@@ -91,7 +91,7 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     )
     return epochs
 
-def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, hbr_shift=0.0, tmin=-5, tmax=15):
+def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, hbr_shift=0.0, tmin=-5, tmax=15, force_download=False):
     """
     Generate MNE epochs for a given subject by loading, preprocessing, and based on the options, augmenting the data with shifted HbR information.
     This function performs the following steps:
@@ -114,8 +114,7 @@ def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, 
          mne.Epochs: The processed epochs object containing the extracted epochs with optional HbR augmentation.
     """
 
-
-    raw_intensity = load_raw_data(subject)
+    raw_intensity = load_raw_data(subject, force_download=force_download)
     raw_haemo = preprocess_raw_data(raw_intensity)
     epochs = extract_epochs(raw_haemo, tmin, tmax)
 
@@ -141,7 +140,7 @@ def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, 
 
     return epochs
 
-def get_group_epochs(num_subjects: int = 5, add_hbr=False, hbr_multiplier=1.0, hbr_shift=0.0, tmin=-5, tmax=15):
+def get_group_epochs(num_subjects: int = 5, add_hbr=False, hbr_multiplier=1.0, hbr_shift=0.0, tmin=-5, tmax=15, force_download=False):
     """
     Pipeline for loading, preprocessing, and extracting epochs for a group of subjects.
     Args:
@@ -153,7 +152,7 @@ def get_group_epochs(num_subjects: int = 5, add_hbr=False, hbr_multiplier=1.0, h
     """
     epochs = []
     for subject in range(num_subjects):
-        epochs.append(get_epochs_for_subject(subject, add_hbr=add_hbr, hbr_multiplier=hbr_multiplier, hbr_shift=hbr_shift, tmin=tmin, tmax=tmax))
+        epochs.append(get_epochs_for_subject(subject, add_hbr=add_hbr, hbr_multiplier=hbr_multiplier, hbr_shift=hbr_shift, tmin=tmin, tmax=tmax, force_download=force_download))
     return epochs
 
 
@@ -243,11 +242,11 @@ def multiply_hbr_in_epochs(epochs, factor, boundary):
 
 if __name__ == '__main__':
     # 0.128 for full sample rate
-    epochs = get_epochs_for_subject(0, add_hbr=True, hbr_multiplier=5.0, hbr_shift=4.0, tmin=-10, tmax=15)
+    epochs = get_epochs_for_subject(0, add_hbr=False, hbr_multiplier=5.0, hbr_shift=4.0, tmin=-5, tmax=15, force_download=True)
 
     epochs['Tapping_Right'].plot_image(
         combine="mean",
         vmin=-30,
         vmax=30,
-        ts_args=dict(ylim=dict(hbo=[-15, 15], hbr=[-15, 15])),
+        ts_args=dict(ylim=dict(hbo=[-35, 35], hbr=[-35, 35])),
     )

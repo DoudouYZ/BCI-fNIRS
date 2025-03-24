@@ -28,7 +28,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Data Preparation
 # -------------------------
 # Load preprocessed epochs
-epochs = get_group_epochs()
+epochs = get_group_epochs(add_hbr=False, hbr_multiplier=5.0, hbr_shift=4.0, tmin=-10, tmax=15, force_download=False)
 
 
 # Extract data in a given time window (e.g., 0 to 10 seconds)
