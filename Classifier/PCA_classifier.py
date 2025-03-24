@@ -1,10 +1,10 @@
 import os
 import sys
-from AE_models import create_sliding_windows
 current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(current_path, '..'))
 if parent_path not in sys.path:
     sys.path.insert(0, parent_path)
+from AE_models import create_sliding_windows
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.decomposition import PCA, FastICA
