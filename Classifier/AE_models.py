@@ -278,7 +278,7 @@ def train_classification_autoencoder(model, train_loader, val_loader, epochs, de
     
     return history
 
-def create_sliding_windows(data, labels, window_length):
+def create_sliding_windows_old(data, labels, window_length):
     """
     Splits each epoch in 'data' into overlapping windows using a sliding window approach,
     and replicates the corresponding label for each new window.
@@ -313,3 +313,60 @@ def create_sliding_windows(data, labels, window_length):
     new_labels = np.array(new_labels)
     
     return windows, new_labels
+
+
+def create_sliding_windows(data, labels, window_length):
+    """
+    Splits each epoch in each array in 'data' into overlapping windows using a sliding window approach,
+    and replicates the corresponding label for each new window.
+    
+    Parameters:
+        data (list of np.ndarray): Each element has shape (n_epochs, n_channels, n_times).
+                                   Note that n_epochs and n_times may differ between arrays.
+        labels (list or np.ndarray): A list of labels corresponding to each array in data.
+                                     (Each array's epochs are all assigned the same label.)
+        window_length (int): Number of observations (time points) per window.
+        
+    Returns:
+        windows (np.ndarray): Array with shape 
+            (total_new_samples, n_channels, window_length),
+            where total_new_samples is the sum over arrays of (n_epochs * (n_times - window_length + 1)).
+        new_labels (np.ndarray): 1D array of labels of length total_new_samples.
+            For each epoch, the first (n_windows // 5) and the last (n_windows // 8) windows get label 0,
+            and the middle windows get the original label.
+    """
+    windows_all = []
+    new_labels = []
+    # Iterate over each array in data and its corresponding label.
+    for X, label in zip(data, labels):
+        # X has shape (n_epochs, n_channels, n_times)
+        # Create sliding windows along the time axis.
+        # This returns an array of shape (n_epochs, n_channels, n_windows, window_length),
+        # where n_windows = n_times - window_length + 1.
+        windows = np.lib.stride_tricks.sliding_window_view(X, window_length, axis=2)
+        
+        # Transpose to get shape: (n_epochs, n_windows, n_channels, window_length)
+        windows = windows.transpose(0, 2, 1, 3)
+        
+        # Get dimensions for the current array.
+        n_epochs, n_windows, n_channels, _ = windows.shape
+        
+        # Reshape windows so each sliding window becomes an independent sample:
+        # New shape: (n_epochs * n_windows, n_channels, window_length)
+        windows_reshaped = windows.reshape(n_epochs * n_windows, n_channels, window_length)
+        windows_all.append(windows_reshaped)
+        
+        # Compute cutoff indices for the current array.
+        # These determine how many windows at the beginning and end get assigned a label of 0.
+        start_cut = n_windows // 5
+        end_cut = n_windows // 8
+        
+        # For each epoch in the current array, create a label vector for its windows.
+        for i in label:
+            new_labels.extend([0] * start_cut + [i] * (n_windows - start_cut - end_cut) + [0] * (end_cut))
+        
+    # Concatenate windows from all arrays into a single array.
+    windows_all = np.concatenate(windows_all, axis=0)
+    new_labels = np.array(new_labels)  # This is a 1D array.
+    
+    return windows_all.astype(np.float32), new_labels

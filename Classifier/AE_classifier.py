@@ -33,29 +33,37 @@ epochs = get_group_epochs()
 
 # Extract data in a given time window (e.g., 0 to 10 seconds)
 # MNE's get_data() returns an array of shape (n_epochs, n_channels, n_times)
-data = epochs.copy().crop(tmin=0, tmax=10).get_data()
-
+data = []
+for i in range(len(epochs)):
+    data.append(epochs[i].copy().crop(tmin=0, tmax=10).get_data())
 # For PyTorch, we want the input shape to be (batch, channels, time)
-X = data.astype(np.float32)  # shape: (n_epochs, n_channels, n_times)
 
-n_epochs, n_channels, n_times = X.shape
+for X in data:
+    n_epochs, n_channels, n_times = X.shape
 
-for ch in range(n_channels):
-    channel_mean = np.mean(X[:, ch, :])
-    channel_std = np.std(X[:, ch, :])
-    X[:, ch, :] = (X[:, ch, :] - channel_mean) / channel_std
+    for ch in range(n_channels):
+        channel_mean = np.mean(X[:, ch, :])
+        channel_std = np.std(X[:, ch, :])
+        X[:, ch, :] = (X[:, ch, :] - channel_mean) / channel_std
 
 
 # Extract labels (assumed to be in epochs.events[:, -1])
 # Our labels are assumed to be: 1: Control, 2: Tapping/Left, 3: Tapping/Right.
 # To use CrossEntropyLoss, we want labels as LongTensor with values 0,1,2.
-labels = epochs.events[:, -1].astype(np.int64) - 1  # subtract one to have classes 0,1,2
+labels = [epoch.events[:, -1].astype(np.int64) - 1 for epoch in epochs]  # subtract one to have classes 0,1,2
+
+participants = [[i] * len(participant_data) for participant_data in data]
+
+test_idx = 4
 
 # Split into train and test sets
-X_train_np, X_test_np, y_train_np, y_test_np = train_test_split(X, labels, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test =  data[:test_idx] + data[test_idx+1:], data[test_idx], labels[:test_idx] + labels[test_idx+1:], labels[test_idx]
 
-X_train_np, y_train_np = create_sliding_windows(X_train_np, y_train_np, 20)
-X_test_np, y_test_np = create_sliding_windows(X_test_np, y_test_np, 20)
+print(len(X_train))
+quit
+
+X_train_np, y_train_np = create_sliding_windows(X_train, y_train, 20)
+X_test_np, y_test_np = create_sliding_windows([X_test], [y_test], 20)
 # Convert to PyTorch tensors
 X_train = torch.from_numpy(X_train_np)
 X_test = torch.from_numpy(X_test_np)
