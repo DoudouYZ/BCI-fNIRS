@@ -1,6 +1,14 @@
+import os
+import sys
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..'))
+if parent_path not in sys.path:
+    sys.path.insert(0, parent_path)
+
 import numpy as np
 from sklearn.decomposition import PCA
-from .preprocessing_mne import stack_epochs, get_epochs_for_subject
+from Preprocessing import stack_epochs, get_epochs_for_subject
+import argparse
 
 import matplotlib.pyplot as plt
 def visualize_pca_components(subject=0, window_length=1, nr_pcs=3):
@@ -15,8 +23,9 @@ def visualize_pca_components(subject=0, window_length=1, nr_pcs=3):
     Returns:
         tuple: (fig, X_pca, y, pca) - The figure object, PCA-transformed data, labels, and PCA object.
     """
+    subject_epochs = get_epochs_for_subject(subject)
     # Compute features and labels from the stacked epochs
-    X, y = stack_epochs(get_epochs_for_subject(subject), s=window_length)
+    X, y = stack_epochs(subject_epochs, s=window_length)
 
     # Perform PCA reducing to specified number of components
     pca = PCA(n_components=nr_pcs)
@@ -50,3 +59,7 @@ def visualize_pca_components(subject=0, window_length=1, nr_pcs=3):
         fig.colorbar(sc, ax=axes.ravel().tolist(), label='Label')
     
     return fig, X_pca, y, pca
+if __name__ == '__main__':
+    # 0.128 for full sample rate
+    fig, X_pca, y, pca = visualize_pca_components(subject=2, window_length=0.128, nr_pcs=3)
+    plt.show()
