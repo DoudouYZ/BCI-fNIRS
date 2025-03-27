@@ -232,7 +232,8 @@ def train_classification_autoencoder(model, train_loader, val_loader, epochs, de
     
     history = {'train_loss': [], 'train_acc': [], 'val_loss': [], 'val_acc': []}
     
-    for epoch in tqdm(range(epochs)):
+    epoch_iter = tqdm(range(epochs)) if verbose else range(epochs)
+    for epoch in epoch_iter:
         model.train()
         train_loss = 0.0
         correct = 0

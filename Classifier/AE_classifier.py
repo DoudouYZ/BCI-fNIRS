@@ -14,9 +14,9 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 
 # Import your preprocessing pipeline (make sure Preprocessing.py is in your PYTHONPATH)
-from Preprocessing import get_group_epochs
+from Preprocessing import get_group_epochs, multiply_hbr_in_epochs
 import random
-seed = 42
+seed = 43
 np.random.seed(seed)
 random.seed(seed)
 torch.manual_seed(seed)
@@ -28,14 +28,20 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Data Preparation
 # -------------------------
 # Load preprocessed epochs
-epochs = get_group_epochs(add_hbr=False, hbr_multiplier=5.0, hbr_shift=4.0, tmin=-10, tmax=15, force_download=False)
+epochs = get_group_epochs(add_hbr=False, hbr_multiplier=5.0, hbr_shift=1.0, tmin=-5, tmax=15, force_download=False)
 
+# Keep only the HbO channels by selecting channels whose names contain "hbo"
+# for i in range(len(epochs)):
+#     hbo_names = [ch for ch in epochs[i].ch_names if 'hbo' in ch.lower()]
+#     epochs[i].pick(hbo_names)
+
+# epochs = multiply_hbr_in_epochs(epochs, factor=5.0, boundary=3*10**(-6))
 
 # Extract data in a given time window (e.g., 0 to 10 seconds)
 # MNE's get_data() returns an array of shape (n_epochs, n_channels, n_times)
 data = []
 for i in range(len(epochs)):
-    data.append(epochs[i].copy().crop(tmin=0, tmax=10).get_data())
+    data.append(epochs[i].copy().crop(tmin=0, tmax=14).get_data())
 # For PyTorch, we want the input shape to be (batch, channels, time)
 
 for X in data:
@@ -54,7 +60,19 @@ labels = [epoch.events[:, -1].astype(np.int64) - 1 for epoch in epochs]  # subtr
 
 participants = [[i] * len(participant_data) for participant_data in data]
 
-test_idx = 4
+test_idx = 4 # Test subject
+
+# -------------------------
+# Hyperparameters
+# -------------------------
+# X has shape: (n_epochs, n_channels, n_times)
+latent_dim = 2                     # for a 2D latent space visualization
+num_classes = 3
+epochs_num = 4
+window_length = 20
+
+reconstruct = False
+classify = True
 
 # Split into train and test sets
 X_train, X_test, y_train, y_test =  data[:test_idx] + data[test_idx+1:], data[test_idx], labels[:test_idx] + labels[test_idx+1:], labels[test_idx]
@@ -62,8 +80,8 @@ X_train, X_test, y_train, y_test =  data[:test_idx] + data[test_idx+1:], data[te
 print(len(X_train))
 quit
 
-X_train_np, y_train_np = create_sliding_windows(X_train, y_train, 20)
-X_test_np, y_test_np = create_sliding_windows([X_test], [y_test], 20)
+X_train_np, y_train_np = create_sliding_windows(X_train, y_train, window_length=window_length)
+X_test_np, y_test_np = create_sliding_windows([X_test], [y_test], window_length=window_length)
 # Convert to PyTorch tensors
 X_train = torch.from_numpy(X_train_np)
 X_test = torch.from_numpy(X_test_np)
@@ -82,18 +100,8 @@ val_dataset_class = TensorDataset(X_test, y_test)
 train_loader_class = DataLoader(train_dataset_class, batch_size=batch_size, shuffle=True)
 val_loader_class = DataLoader(val_dataset_class, batch_size=batch_size, shuffle=False)
 
-# -------------------------
-# Hyperparameters
-# -------------------------
-# X has shape: (n_epochs, n_channels, n_times)
 input_channels = X_train.shape[1]  # e.g., 40
 input_length = X_train.shape[2]    # e.g., 79 (depends on crop window)
-latent_dim = 2                     # for a 2D latent space visualization
-num_classes = 3
-epochs_num = 30
-
-reconstruct = False
-classify = True
 
 
 if classify:
@@ -102,7 +110,7 @@ if classify:
     # -------------------------
     print("Training Classification Autoencoder...")
     class_ae = ClassificationAutoencoder(input_channels, input_length, latent_dim, num_classes)
-    history_class = train_classification_autoencoder(class_ae, train_loader_class, val_loader_class, epochs_num, device, verbose=False)
+    history_class = train_classification_autoencoder(class_ae, train_loader_class, val_loader_class, epochs_num, device, verbose=True)
 
     # Extract latent representations from the classification AE
     class_ae.eval()

@@ -45,10 +45,9 @@ def preprocess_raw_data(raw_intensity):
     picks = mne.pick_types(raw_intensity.info, meg=False, fnirs=True)
     dists = mne.preprocessing.nirs.source_detector_distances(raw_intensity.info, picks=picks)
     raw_intensity.pick(picks[dists > 0.01])
-
+    
     # Convert raw intensity to optical density
     raw_od = mne.preprocessing.nirs.optical_density(raw_intensity)
-
     # Check the quality of the coupling between the scalp and the optodes
     sci = mne.preprocessing.nirs.scalp_coupling_index(raw_od)
     raw_od.info["bads"] = list(compress(raw_od.ch_names, sci < 0.5))
@@ -57,7 +56,7 @@ def preprocess_raw_data(raw_intensity):
     raw_haemo = mne.preprocessing.nirs.beer_lambert_law(raw_od, ppf=0.1)
 
     # Filtering: apply band pass filter to remove heartbeat and slow drifts
-    raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02)
+    raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
 
     return raw_haemo
 
@@ -87,11 +86,11 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
         baseline=(None, 0),
         preload=True,
         detrend=None,
-        verbose=True,
+        verbose=False,
     )
     return epochs
 
-def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, hbr_shift=0.0, tmin=-5, tmax=15, force_download=False):
+def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=5.0, hbr_shift=3.0, tmin=-5, tmax=15, force_download=False):
     """
     Generate MNE epochs for a given subject by loading, preprocessing, and based on the options, augmenting the data with shifted HbR information.
     This function performs the following steps:
@@ -119,7 +118,7 @@ def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, 
     epochs = extract_epochs(raw_haemo, tmin, tmax)
 
     if add_hbr:
-        epochs = multiply_hbr_in_epochs(epochs, hbr_multiplier, 3*10**(-6)) # 3*10**(-6) looks to be a good boundary fo HbR
+        # epochs = multiply_hbr_in_epochs(epochs, hbr_multiplier, 3*10**(-6)) # 3*10**(-6) looks to be a good boundary fo HbR
         # Identify channel indices for HbO and HbR
         hbo_idx = [i for i, ch in enumerate(epochs.ch_names) if 'hbo' in ch.lower()]
         hbr_idx = [i for i, ch in enumerate(epochs.ch_names) if 'hbr' in ch.lower()]
@@ -129,14 +128,34 @@ def get_epochs_for_subject(subject: int = 0, add_hbr=False, hbr_multiplier=1.0, 
             sample_shift = int(round(hbr_shift * sfreq))
             # Shift the HbR data to the right by 2 seconds
             hbr_data = epochs._data[:, hbr_idx, :]
-            shifted_hbr = np.zeros_like(hbr_data)
-            if sample_shift < hbr_data.shape[2]:
-                shifted_hbr[:, :, sample_shift:] = hbr_data[:, :, :-sample_shift]
+            if sample_shift == 0:
+                shifted_hbr = hbr_data.copy()
             else:
-                shifted_hbr = hbr_data  # fallback if shift is too large
+                shifted_hbr = np.zeros_like(hbr_data)
+                if sample_shift < hbr_data.shape[2]:
+                    shifted_hbr[:, :, sample_shift:] = hbr_data[:, :, :-sample_shift]
+                else:
+                    shifted_hbr = hbr_data  # fallback if shift is too large
             # Add the shifted HbR data to the HbO channels
             if hbo_idx:
                 epochs._data[:, hbo_idx, :] += shifted_hbr
+    else:
+        epochs = multiply_hbr_in_epochs(epochs, hbr_multiplier, 3*10**(-6))
+        # Shift the HbR data without adding to HbO channels
+        hbr_idx = [i for i, ch in enumerate(epochs.ch_names) if 'hbr' in ch.lower()]
+        if hbr_idx:
+            sfreq = epochs.info['sfreq']
+            sample_shift = int(round(hbr_shift * sfreq))
+            hbr_data = epochs._data[:, hbr_idx, :]
+            if sample_shift == 0:
+                shifted_hbr = hbr_data.copy()
+            else:
+                shifted_hbr = np.zeros_like(hbr_data)
+                if sample_shift < hbr_data.shape[2]:
+                    shifted_hbr[:, :, sample_shift:] = hbr_data[:, :, :-sample_shift]
+                else:
+                    shifted_hbr = hbr_data
+            epochs._data[:, hbr_idx, :] = shifted_hbr
 
     return epochs
 
@@ -242,11 +261,11 @@ def multiply_hbr_in_epochs(epochs, factor, boundary):
 
 if __name__ == '__main__':
     # 0.128 for full sample rate
-    epochs = get_epochs_for_subject(0, add_hbr=False, hbr_multiplier=5.0, hbr_shift=4.0, tmin=-5, tmax=15, force_download=True)
+    epochs = get_epochs_for_subject(0, add_hbr=False, hbr_multiplier=5.0, hbr_shift=3.0, tmin=-5, tmax=15, force_download=False)
 
     epochs['Tapping_Right'].plot_image(
         combine="mean",
         vmin=-30,
         vmax=30,
-        ts_args=dict(ylim=dict(hbo=[-35, 35], hbr=[-35, 35])),
+        ts_args=dict(ylim=dict(hbo=[-15, 15], hbr=[-15, 15])),
     )
