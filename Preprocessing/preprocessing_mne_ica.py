@@ -75,7 +75,7 @@ def apply_ica_to_condition(raw, condition_labels):
 
 
 # Choose a condition: "Control", "Tapping/Left", or "Tapping/Right"
-condition_to_use = ["Tapping/Right", "Tapping/Left"] # Change as needed
+condition_to_use = ["Tapping/Left"] # Change as needed
 
 # Load the dataset
 raw_intensity = load_raw_data()
@@ -83,5 +83,17 @@ raw_intensity = load_raw_data()
 # Apply ICA to the selected condition
 ica, raw_clean = apply_ica_to_condition(raw_intensity, condition_to_use)
 
+# Get the data as numpy array
+sources_data = ica.get_sources(raw_clean).get_data()
+
+# Plot Component vs Component
+plt.figure()
+plt.scatter(sources_data[4], sources_data[7], s=3, alpha=0.5)
+plt.title("ICA Component vs Component")
+plt.xlabel("Component")
+plt.ylabel("Component")
+plt.grid(True)
+plt.show()
+
 # **Plot ICA components for the selected condition**
-ica.plot_components()  # This will generate a plot like your uploaded ICA image
+# ica.plot_components()  # This will generate a plot like your uploaded ICA image
