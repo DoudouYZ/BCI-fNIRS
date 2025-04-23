@@ -66,10 +66,10 @@ test_idx = 4 # Test subject
 # Hyperparameters
 # -------------------------
 # X has shape: (n_epochs, n_channels, n_times)
-latent_dim = 2                     # for a 2D latent space visualization
+latent_dim = 3                     # for a 2D latent space visualization
 num_classes = 3
 epochs_num = 4
-window_length = 20
+window_length = 30
 
 reconstruct = False
 classify = True
@@ -127,7 +127,7 @@ if classify:
     handles = [mpatches.Patch(color=plt.cm.viridis(i/2.0), label=legend_labels[i]) for i in sorted(legend_labels.keys())]
     plt.legend(handles=handles, title="Class", bbox_to_anchor=(1.05, 0.5))
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
     # -------------------------
     # Evaluation Metrics for Classification AE
