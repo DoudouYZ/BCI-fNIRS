@@ -16,39 +16,11 @@ import os
 base_dir = os.path.dirname(__file__)
 
 # Build relative path to data file
-data_file = os.path.join(base_dir, "..", "Data", "1_tongue.snirf")
+data_file = os.path.join(base_dir, "..", "Data", "3_hand.snirf")
 
 # Load SNIRF data
 raw_intensity = mne.io.read_raw_snirf(data_file, preload=True)
 
-def preprocess_raw_data(raw_intensity):
-    """
-    Preprocess raw intensity data into haemoglobin concentration
-    by applying channel selection, conversion to optical density,
-    checking scalp coupling, conversion to haemoglobin, and filtering.
-    Args:
-        raw_intensity: The raw intensity MNE object.
-    Returns:
-        raw_haemo: The preprocessed haemoglobin concentration MNE object.
-    """
-    # Remove short channels for neural responses
-    picks = mne.pick_types(raw_intensity.info, meg=False, fnirs=True)
-    dists = mne.preprocessing.nirs.source_detector_distances(raw_intensity.info, picks=picks)
-    raw_intensity.pick(picks[dists > 0.01])
-    
-    # Convert raw intensity to optical density
-    raw_od = mne.preprocessing.nirs.optical_density(raw_intensity)
-    # Check the quality of the coupling between the scalp and the optodes
-    sci = mne.preprocessing.nirs.scalp_coupling_index(raw_od)
-    raw_od.info["bads"] = list(compress(raw_od.ch_names, sci < 0.5))
-
-    # Convert from optical density to haemoglobin concentration using the Beer-Lambert law
-    raw_haemo = mne.preprocessing.nirs.beer_lambert_law(raw_od, ppf=0.1)
-
-    # Filtering: apply band pass filter to remove heartbeat and slow drifts
-    raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
-
-    return raw_haemo
 
 def preprocess_raw_data(raw_intensity):
     """
@@ -60,25 +32,29 @@ def preprocess_raw_data(raw_intensity):
     Returns:
         raw_haemo: The preprocessed haemoglobin concentration MNE object.
     """
-    # Remove short channels for neural responses
-    picks = mne.pick_types(raw_intensity.info, meg=False, fnirs=True)
-    dists = mne.preprocessing.nirs.source_detector_distances(raw_intensity.info, picks=picks)
-    raw_intensity.pick(picks[dists > 0.01])
+    # Don't modify the original data directly
+    raw_copy = raw_intensity.copy()
+
+    # Pick and keep only channels with valid source-detector distances
+    picks = mne.pick_types(raw_copy.info, meg=False, fnirs=True)
+    dists = mne.preprocessing.nirs.source_detector_distances(raw_copy.info, picks=picks)
+    raw_copy.pick(picks[dists > 0.01])
     
     # Convert raw intensity to optical density
-    raw_od = mne.preprocessing.nirs.optical_density(raw_intensity)
-    # Check the quality of the coupling between the scalp and the optodes
+    raw_od = mne.preprocessing.nirs.optical_density(raw_copy)
+
+    # Compute scalp coupling index and drop bad channels
     sci = mne.preprocessing.nirs.scalp_coupling_index(raw_od)
-    raw_od.info["bads"] = list(compress(raw_od.ch_names, sci < 0.5))
+    good_channels = list(compress(raw_od.ch_names, sci >= 0.5))
+    raw_od.pick(good_channels)
 
-    # Convert from optical density to haemoglobin concentration using the Beer-Lambert law
-    raw_haemo = mne.preprocessing.nirs.beer_lambert_law(raw_od, ppf=0.1)
+    # Convert to haemoglobin concentration using Beer-Lambert law
+    raw_haemo = mne.preprocessing.nirs.beer_lambert_law(raw_od, ppf=6.0)
 
-    # Filtering: apply band pass filter to remove heartbeat and slow drifts
+    # Apply band-pass filter
     raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
 
     return raw_haemo
-
 
 def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     """
@@ -109,8 +85,25 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     )
     return epochs
 
-def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=False):
-    raw_intensity = load_raw_data(subject, force_download=force_download)
+if __name__ == "__main__":
+    # Preprocess
     raw_haemo = preprocess_raw_data(raw_intensity)
-    epochs = extract_epochs(raw_haemo, tmin, tmax)
-    return epochs
+    
+    # Extract epochs
+    epochs = extract_epochs(raw_haemo)
+
+    # Plot evoked response
+    times = np.arange(-3.5, 13.2, 3.0)
+    topomap_args = dict(extrapolate="local")
+
+    # Check available event keys
+    print("Available event types:", epochs.event_id)
+
+    # Plot for "1" condition
+    if "1" in epochs.event_id:
+        epochs["1"].average(picks="hbo").plot_joint(
+            times=times, topomap_args=topomap_args
+        )
+        plt.show()
+    else:
+        print("⚠️ 'Tapping' event not found in epochs.")
