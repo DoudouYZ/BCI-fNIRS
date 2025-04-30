@@ -27,7 +27,7 @@ def visualize_ica_components(subject=0, window_length=1, nr_components=3):
     X, y = stack_epochs(subject_epochs, s=window_length)
 
     # Compute ICA on the stacked epochs.
-    ica_model = FastICA(n_components=nr_components, random_state=42)
+    ica_model = FastICA(n_components=nr_components, random_state=42, whiten="arbitrary-variance")
     X_ica = ica_model.fit_transform(X)
 
     # Create a grid of plots for the independent components.
@@ -60,6 +60,6 @@ def visualize_ica_components(subject=0, window_length=1, nr_components=3):
     return fig, X_ica, y, ica_model
 
 if __name__ == '__main__':
-    fig, X_ica, y, ica_model = visualize_ica_components(subject=0, window_length=1, nr_components=3)
+    fig, X_ica, y, ica_model = visualize_ica_components(subject=4, window_length=1, nr_components=3)
     
     plt.show()
