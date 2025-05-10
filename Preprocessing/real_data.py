@@ -16,7 +16,7 @@ import os
 base_dir = os.path.dirname(__file__)
 
 # Build relative path to data file
-data_file = os.path.join(base_dir, "..", "Data", "3_hand.snirf")
+data_file = os.path.join(base_dir, "..", "Data", "2_hand.snirf")
 
 # Load SNIRF data
 raw_intensity = mne.io.read_raw_snirf(data_file, preload=True)
