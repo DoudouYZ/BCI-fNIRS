@@ -4,7 +4,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(current_path, '..'))
 if parent_path not in sys.path:
     sys.path.insert(0, parent_path)
-from AE_models import create_sliding_windows
+from Classifier.AE_models_old import create_sliding_windows
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.decomposition import PCA, FastICA
@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import SelectKBest, f_classif
-from Preprocessing import get_epochs
+from Preprocessing import get_group_epochs
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -24,7 +24,6 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 
 # Import your preprocessing pipeline (make sure Preprocessing.py is in your PYTHONPATH)
-from Preprocessing import get_epochs
 import random
 
 plot = True
@@ -33,7 +32,7 @@ plot = True
 # Data Preparation
 # -------------------------
 # Load preprocessed epochs
-epochs = get_epochs()
+epochs = get_group_epochs()[0]
 
 seed = 42
 np.random.seed(seed)
@@ -62,7 +61,7 @@ labels = epochs.events[:, -1].astype(np.int64) - 1  # subtract one to have class
 
 # Split into train and test sets
 
-X_train_np, y_train_np = create_sliding_windows(X, labels, 1)
+X_train_np, y_train_np = create_sliding_windows([X], [labels], 1)
 n_epochs, n_channels, window_length = X_train_np.shape
 X_train_np = X_train_np.reshape(n_epochs, n_channels)
 
