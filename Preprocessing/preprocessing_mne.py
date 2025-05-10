@@ -155,11 +155,3 @@ def stack_epochs(epochs, s, tmin=0, tmax=10):
     y = np.concatenate([left_labels, control_labels], axis=0)
 
     return X, y
-
-if __name__ == "__main__":
-    # Preprocess the raw intensity data
-    raw_haemo = preprocess_raw_data(raw_intensity)
-
-    # Plot the preprocessed data
-    raw_haemo.plot(n_channels=len(raw_haemo.ch_names), duration=1200, show_scrollbars=False)
-    plt.show()
