@@ -15,7 +15,7 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 
 # Import your preprocessing pipeline (make sure Preprocessing.py is in your PYTHONPATH)
-from Preprocessing import get_group_epochs_subtracting_short, get_group_epochs
+from Preprocessing import get_group_epochs_subtracting_short, get_group_epochs, multiply_hbr_in_epochs
 import random
 import itertools
 import pandas as pd

@@ -62,4 +62,5 @@ def visualize_pca_components(subject=0, window_length=1, nr_pcs=3):
 if __name__ == '__main__':
     # 0.128 for full sample rate
     fig, X_pca, y, pca = visualize_pca_components(subject=2, window_length=0.128, nr_pcs=3)
+    print("it should show now ...")
     plt.show()

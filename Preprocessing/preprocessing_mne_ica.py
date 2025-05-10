@@ -75,7 +75,7 @@ def apply_ica_to_condition(raw, condition_labels):
 
 
 # Choose a condition: "Control", "Tapping/Left", or "Tapping/Right"
-condition_to_use = ["Tapping/Right", "Tapping/Left"] # Change as needed
+condition_to_use = ["Tapping/Left"] # Change as needed
 
 # Load the dataset
 raw_intensity = load_raw_data()
@@ -83,5 +83,52 @@ raw_intensity = load_raw_data()
 # Apply ICA to the selected condition
 ica, raw_clean = apply_ica_to_condition(raw_intensity, condition_to_use)
 
+# Get the data as numpy array
+sources_data = ica.get_sources(raw_clean).get_data()
+
+# --- Extract events and epochs per condition ---
+events, event_dict = mne.events_from_annotations(raw_clean)
+
+# Create epochs for each condition
+epochs_by_condition = {}
+conditions = ["Tapping/Right", "Tapping/Left", "Control"]
+for cond in conditions:
+    epochs_by_condition[cond] = mne.Epochs(
+        raw_clean, events, event_id={cond: event_dict[cond]},
+        tmin=0, tmax=5, baseline=None, preload=True
+    )
+
+# --- Extract ICA sources for the good components ---
+ica_sources = ica.get_sources(raw_clean)
+sources_data = ica_sources.get_data()  # shape: (n_components, n_times)
+times = ica_sources.times
+
+# --- Plotting setup ---
+component_x = 4 # ICA004
+component_y = 7 # ICA007
+colors = {"Tapping/Right": "red", "Tapping/Left": "blue", "Control": "green"}
+
+plt.figure(figsize=(8, 6))
+
+# --- Plot scatter for each condition ---
+for cond in conditions:
+    epochs = epochs_by_condition[cond]
+    sources_epochs = ica.get_sources(epochs).get_data()  # (n_components, n_epochs, n_times)
+    
+    # Average across time for each epoch (optional: could use other features)
+    x_vals = sources_epochs[component_x].mean(axis=1)
+    y_vals = sources_epochs[component_y].mean(axis=1)
+    
+    plt.scatter(x_vals, y_vals, label=cond, alpha=0.7, s=20, color=colors[cond])
+
+# --- Final plot formatting ---
+plt.title("ICA Components: Condition-wise Scatter")
+plt.xlabel(f"ICA{component_x:03d}")
+plt.ylabel(f"ICA{component_y:03d}")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
 # **Plot ICA components for the selected condition**
-ica.plot_components()  # This will generate a plot like your uploaded ICA image
+# ica.plot_components()  # This will generate a plot like your uploaded ICA image
