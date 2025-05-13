@@ -96,6 +96,17 @@ def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=Fals
     epochs = extract_epochs(raw_haemo, tmin, tmax)
     return epochs
 
+def get_continuous_subject_data(subject: int = 0, force_download=False):
+    """
+    Load & preprocess a subject, then return the continuous haemoglobin time series.
+    Returns:
+        raw_haemo: the filtered haemoglobin MNE Raw object
+        sfreq: sampling frequency in Hz
+    """
+    raw_intensity = load_raw_data(subject, force_download=force_download)
+    raw_haemo = preprocess_raw_data(raw_intensity)
+    sfreq = raw_haemo.info['sfreq']
+    return raw_haemo, sfreq
 
 def compute_segment_mean(data, label_value, seg_samples):
     """

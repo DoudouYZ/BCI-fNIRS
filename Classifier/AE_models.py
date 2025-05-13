@@ -375,7 +375,7 @@ def train_mixture_vae(model, train_loader, val_loader,
             'va_kl': []}
 
     rng = tqdm(range(epochs)) if verbose else range(epochs)
-    for ep in rng:
+    for i, ep in enumerate(rng):
         # ---- train ----
         model.train()
         rec_sum = kl_sum = 0.
@@ -384,8 +384,9 @@ def train_mixture_vae(model, train_loader, val_loader,
             recon, mu, logvar = model(x)
             rec = mse(recon, x)
             kl  = kl_mixture_gaussian(mu, logvar,
-                                      prior_means, prior_logvars, pi_mix)
+                                    prior_means, prior_logvars, pi_mix)
             loss = rec + beta * kl
+        
             opt.zero_grad(); loss.backward(); opt.step()
             rec_sum += rec.item() * x.size(0)
             kl_sum  += kl.item()  * x.size(0)
@@ -468,6 +469,76 @@ def create_sliding_windows(data, labels, window_length):
     
     return windows_all.astype(np.float32), new_labels
 
+def create_sliding_windows_no_classes(data, window_length):
+    """
+    Split a continuous multichannel time series into overlapping windows.
+    
+    Parameters
+    ----------
+    data : np.ndarray, shape (n_channels, n_times)
+        The continuous signal for each channel.
+    window_length : int
+        Number of timepoints per sliding window.
+
+    Returns
+    -------
+    windows : np.ndarray, shape (n_windows, n_channels, window_length)
+        Overlapping windows, where
+          n_windows = n_times - window_length + 1.
+    """
+    # 1) Get sliding windows along the time axis.
+    #    Result: (n_channels, n_windows, window_length)
+    windows = np.lib.stride_tricks.sliding_window_view(
+        data, window_length, axis=1
+    )
+    
+    # 2) Reorder to (n_windows, n_channels, window_length)
+    windows = windows.transpose(1, 0, 2)
+    
+    # 3) Cast to float32 and return
+    return windows.astype(np.float32)
+
+
+def per_timepoint_labels(window_labels, window_length):
+    """
+    Compute a 1-D label for each original time-sample.
+
+    Each sample’s label is the mean of the labels of all sliding
+    windows that cover that sample (stride = 1).
+
+    Parameters
+    ----------
+    window_labels : 1-D array-like, shape (n_windows,)
+        Label for each sliding window.
+    window_length : int
+        Number of samples per window.
+
+    Returns
+    -------
+    sample_labels : np.ndarray, shape (n_windows + window_length - 1,)
+        Label for every unique time-point, in chronological order.
+        `sample_labels[t]` is the averaged label of the t-th sample
+        of the original continuous signal.
+    """
+    window_labels = np.asarray(window_labels, dtype=float)
+    n_windows = window_labels.size
+
+    # --- denominator: how many windows overlap each time-point ---
+    counts = np.convolve(
+        np.ones(n_windows, dtype=int),        # 1 for every window
+        np.ones(window_length, dtype=int),    # box filter of length L
+        mode="full"                           # ➜ length n_windows+L-1
+    )
+
+    # --- numerator: sum of labels of windows covering each sample ---
+    sums = np.convolve(
+        window_labels,                        # window labels
+        np.ones(window_length, dtype=float),  # same box filter
+        mode="full"
+    )
+
+    # element-wise average
+    return sums / counts
 def add_noise_batch(data, noise_std=0.01):
     """
     Adds Gaussian noise independently to each channel of every sample.
