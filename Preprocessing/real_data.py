@@ -21,7 +21,6 @@ data_file = os.path.join(base_dir, "..", "Data", "2_hand.snirf")
 # Load SNIRF data
 raw_intensity = mne.io.read_raw_snirf(data_file, preload=True)
 
-
 def preprocess_raw_data(raw_intensity):
     """
     Preprocess raw intensity data into haemoglobin concentration
@@ -85,25 +84,32 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     )
     return epochs
 
-if __name__ == "__main__":
-    # Preprocess
-    raw_haemo = preprocess_raw_data(raw_intensity)
+# Plot time series of raw intensity data
+
+raw_od = mne.preprocessing.nirs.optical_density(raw_intensity)
+raw_od.plot(n_channels=len(raw_od.ch_names), duration=500, show_scrollbars=False)
+plt.show()
+
+
+# if __name__ == "__main__":
+#     # Preprocess
+#     raw_haemo = preprocess_raw_data(raw_intensity)
     
-    # Extract epochs
-    epochs = extract_epochs(raw_haemo)
+#     # Extract epochs
+#     epochs = extract_epochs(raw_haemo)
 
-    # Plot evoked response
-    times = np.arange(-3.5, 13.2, 3.0)
-    topomap_args = dict(extrapolate="local")
+#     # Plot evoked response
+#     times = np.arange(-3.5, 13.2, 3.0)
+#     topomap_args = dict(extrapolate="local")
 
-    # Check available event keys
-    print("Available event types:", epochs.event_id)
+#     # Check available event keys
+#     print("Available event types:", epochs.event_id)
 
-    # Plot for "1" condition
-    if "1" in epochs.event_id:
-        epochs["1"].average(picks="hbo").plot_joint(
-            times=times, topomap_args=topomap_args
-        )
-        plt.show()
-    else:
-        print("⚠️ 'Tapping' event not found in epochs.")
+#     # Plot for "1" condition
+#     if "control" in epochs.event_id:
+#         epochs["control"].average(picks="hbo").plot_joint(
+#             times=times, topomap_args=topomap_args
+#         )
+#         plt.show()
+#     else:
+#         print("⚠️ 'Tapping' event not found in epochs.")

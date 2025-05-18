@@ -15,7 +15,7 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 
 # Import your preprocessing pipeline (make sure Preprocessing.py is in your PYTHONPATH)
-from Preprocessing import get_group_epochs_subtracting_short, get_group_epochs, multiply_hbr_in_epochs
+from Preprocessing import get_group_epochs_subtracting_short, get_continuous_subject_data
 import random
 import itertools
 import pandas as pd
@@ -52,7 +52,7 @@ def run_AE(
         # Data Preparation
         # -------------------------
         # Load preprocessed epochs
-        epochs = get_group_epochs(tmin=-5, add_hbr=False, hbr_multiplier=5.0, hbr_shift=1.0)
+        epochs = get_continuous_subject_data(subject=test_participant)
 
 
         # Extract data in a given time window (e.g., 0 to 10 seconds)
@@ -434,30 +434,10 @@ print("Best mean test accuracy:", best_score)
 quit()
 """
 
-results = run_mixture_vae_single_subject(
-             device,
-             participant_idx = 0,
-             latent_dim      = 2,
-             epochs_num      = 60,
-             beta            = 0.085,
-             means           = 1,
-             logvar          = -1.8,
-             verbose         = True)
 
-lat    = results["latent"]
-pred   = results["pred_labels"]
-labels = results["labels"]
-acc    = results["acc"]
-
-print(acc)
-plt.scatter(lat[:,0], lat[:,1], c=labels, cmap="coolwarm", s=12)
-plt.scatter(*results["prior_means"].T, c="black", marker="X", s=80)
-plt.title(f"Latent space + nearest‑mean classifier(acc: {acc})")
-plt.show()
-"""
 results = run_AE(device=device, 
                  test_participant=4, 
-                 mode="mixture-vae", 
+                 mode="reconstruction", 
                  epochs_num=25, 
                  verbose=True, 
                  latent_dim=2, 
@@ -500,4 +480,4 @@ plt.xlabel('Latent Dimension 1')
 plt.ylabel('Latent Dimension 2')
 plt.legend(handles=handles, title="Class", bbox_to_anchor=(1.05, 0.5))
 plt.tight_layout()
-plt.show()"""
+plt.show()
