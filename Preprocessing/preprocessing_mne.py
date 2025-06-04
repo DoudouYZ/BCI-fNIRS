@@ -98,7 +98,7 @@ def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=Fals
     epochs = extract_epochs(raw_haemo, tmin, tmax)
     return epochs
 
-def get_control_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=False):
+def get_raw_control_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=False):
     """
     Load & preprocess a subject, then return the epochs for control condition.
     Returns:
