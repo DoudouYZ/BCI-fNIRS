@@ -60,7 +60,7 @@ def load_data(subject=3):
                         np.full(right_data.shape[0], 3)])
     return X, orig_indices, y, control_data, left_data, right_data
 
-def run_ica(X, n_components=5):
+def run_ica(X, n_components=5, standardized=False):
     """
     Run Independent Component Analysis (ICA) to unmix the data.
 
@@ -71,10 +71,12 @@ def run_ica(X, n_components=5):
     Returns:
         X_ica: Transformed data with independent components.
     """
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    if standardized:
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+        X = X_scaled
     ica = FastICA(n_components=n_components, max_iter=1000, tol=0.0001, random_state=42)
-    X_ica = ica.fit_transform(X_scaled)
+    X_ica = ica.fit_transform(X)
     return X_ica
 
 def compute_sliding_windows(X_ica, y, window_size, step_size):
@@ -128,7 +130,7 @@ if __name__ == '__main__':
     X, orig_indices, y, control_data, left_data, right_data = load_data(subject=3)
     
     # Run ICA to obtain independent components
-    X_ica = run_ica(X, n_components=5)
+    X_ica = run_ica(X, n_components=5, standardized=False)
     
     # Plot the independent components
     plot_ica_components(X_ica)
