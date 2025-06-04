@@ -98,6 +98,15 @@ def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=Fals
     epochs = extract_epochs(raw_haemo, tmin, tmax)
     return epochs
 
+def get_control_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=False):
+    """
+    Load & preprocess a subject, then return the epochs for control condition.
+    Returns:
+        epochs: the epochs for control condition
+    """
+    epochs = get_raw_subject_data(subject, tmin=tmin, tmax=tmax, force_download=force_download)
+    return epochs['Control']
+
 def get_continuous_subject_data(subject: int = 0, force_download=False):
     """
     Load & preprocess a subject, then return the continuous haemoglobin time series.
