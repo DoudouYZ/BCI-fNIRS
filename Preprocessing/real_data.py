@@ -16,7 +16,7 @@ import os
 base_dir = os.path.dirname(__file__)
 
 # Build relative path to data file
-data_file = os.path.join(base_dir, "..", "Data", "2_hand.snirf")
+data_file = os.path.join(base_dir, "..", "Data", "3_tongue.snirf")
 
 # Load SNIRF data
 raw_intensity = mne.io.read_raw_snirf(data_file, preload=True)
@@ -84,12 +84,39 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
     )
     return epochs
 
-# Plot time series of raw intensity data
 
-raw_od = mne.preprocessing.nirs.optical_density(raw_intensity)
-raw_od.plot(n_channels=len(raw_od.ch_names), duration=500, show_scrollbars=False)
-plt.show()
+if __name__ == "__main__":
+    import os
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from mne.preprocessing.nirs import optical_density
 
+    # 1) Locate & read your raw intensity SNIRF
+    base_dir  = os.path.dirname(__file__)
+    data_file = os.path.join(base_dir, "..", "Data", "3_hand.snirf")
+    raw_intensity = mne.io.read_raw_snirf(data_file, preload=True)
+
+    # 2) Preprocess: intensity → HbO/HbR
+    raw_haemo = preprocess_raw_data(raw_intensity)
+
+    # 3) Extract epochs (tmin/tmax you choose)
+    epochs = extract_epochs(raw_haemo, tmin=-5.0, tmax=15.0)
+
+    # 4) (Optional) Plot raw optical‐density time series
+    raw_od = optical_density(raw_intensity)
+    raw_od.plot(n_channels=len(raw_od.ch_names), duration=500, show_scrollbars=False)
+    plt.show()
+
+    # 5) Check which event keys you have
+    print("Available events:", epochs.event_id)  
+
+    # 6) Now your joint‐plot on the “1” condition (or rename to “activation” if you remap)
+    times        = np.arange(-3.5, 13.2, 3.0)
+    topomap_args = dict(extrapolate="local")
+
+    evoked_1 = epochs["control"].average(picks="hbo")
+    evoked_1.plot_joint(times=times, topomap_args=topomap_args)
+    plt.show()
 
 # if __name__ == "__main__":
 #     # Preprocess
