@@ -86,6 +86,7 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
         reject_by_annotation=True,
         proj=True,
         baseline=(None, 0),
+        # baseline=(0, 0), 
         preload=True,
         detrend=None,
         verbose=False,
