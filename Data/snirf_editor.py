@@ -4,14 +4,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mne
 
-file_path = 'Data/1_tongue.snirf'
+file_path = 'Data/2_hand.snirf'
 
 # Delete existing 'control' group if it exists
 with h5py.File(file_path, 'r+') as f:
-    # ✅ Now it's safe to use `f`
     for key in list(f['nirs']):
-        if key.startswith('stim'):
-            name = f['nirs'][key]['name'][()].decode()
+        group = f['nirs'][key]
+        if 'name' in group:
+            name = group['name'][()].decode()
             if name == 'control':
                 del f['nirs'][key]
                 print(f"Deleted existing '{key}' group with name 'control'.")
@@ -19,10 +19,10 @@ with h5py.File(file_path, 'r+') as f:
 # Print all existing events
 with h5py.File(file_path, 'r') as f:
     for key in f['nirs']:
-        if key.startswith('stim'):
-            stim_group = f['nirs'][key]
-            name = stim_group['name'][()].decode()
-            data = stim_group['data'][()]
+        group = f['nirs'][key]
+        if 'name' in group:
+            name = group['name'][()].decode()
+            data = group['data'][()]
             print(f"\nStimulus: {name}")
             for i, (onset, duration, amplitude) in enumerate(data):
                 end_time = onset + duration
@@ -55,17 +55,17 @@ control_events = np.array(control_events)
 
 # Add to SNIRF file
 with h5py.File(file_path, 'r+') as f:
-    # Remove existing "control" group if needed
     for key in list(f['nirs']):
-        if key.startswith('stim'):
-            name = f['nirs'][key]['name'][()].decode()
+        group = f['nirs'][key]
+        if 'name' in group:
+            name = group['name'][()].decode()
             if name == 'control':
                 del f['nirs'][key]
                 print(f"Deleted existing '{key}' group with name 'control'.")
 
     # Create new control group
     stim_keys = [k for k in f['nirs'].keys() if k.startswith('stim')]
-    next_index = max([int(k[4:]) for k in stim_keys]) + 1
+    next_index = max([int(k[4:]) for k in stim_keys]) + 1 if stim_keys else 1
     stim_name = f'stim{next_index}'
 
     stim_control = f['nirs'].create_group(stim_name)
@@ -75,7 +75,6 @@ with h5py.File(file_path, 'r+') as f:
 print(f"✅ Created '{stim_name}' with label 'control', centered in gaps, all 10s long.")
 
 # Load the data
-
 with h5py.File(file_path, 'r') as f:
     stim1_data = None
     control_data = None
@@ -99,7 +98,7 @@ if stim1_data is not None:
     for onset, duration in zip(onsets, durations):
         plt.axvspan(onset, onset + duration, color='orange', alpha=0.5, label='stim 1')
 
-# Plot control in lightblue
+# Plot control in light blue
 if control_data is not None:
     onsets = control_data[:, 0]
     durations = control_data[:, 1]
