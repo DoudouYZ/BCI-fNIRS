@@ -52,7 +52,7 @@ def run_AE(
         # Data Preparation
         # -------------------------
         # Load preprocessed epochs
-        epochs = get_continuous_subject_data(subject=test_participant)
+        epochs = get_group_epochs_subtracting_short(tmin=-5, add_hbr=False)
 
 
         # Extract data in a given time window (e.g., 0 to 10 seconds)
@@ -204,7 +204,7 @@ def run_mixture_vae_single_subject(
     # Data Preparation
     # -------------------------
     # Load preprocessed epochs
-    epochs = get_group_epochs(tmin=-5, add_hbr=False, hbr_multiplier=5.0, hbr_shift=1.0)
+    epochs = get_group_epochs_subtracting_short(tmin=-5, add_hbr=False, hbr_multiplier=5.0, hbr_shift=1.0)
     labels = [epoch.events[:, -1].astype(np.int64) - 1 for epoch in epochs]  # subtract one to have classes 0,1,2
     labels = labels[participant_idx]
     X = epochs[participant_idx]
@@ -253,7 +253,8 @@ def run_mixture_vae_single_subject(
     hist = train_mixture_vae(model, loader, loader,          # same data for “val”
                              prior_means, prior_logvars, pi_mix,
                              epochs_num, device,
-                             beta=beta, verbose=verbose)
+                             beta=beta, verbose=verbose,
+                             ramp_up=True)
 
     # ---------- latent + clustering ----------
     model.eval()
@@ -433,51 +434,41 @@ print("Best parameters:", best_params)
 print("Best mean test accuracy:", best_score)
 quit()
 """
-
-
-results = run_AE(device=device, 
-                 test_participant=4, 
-                 mode="reconstruction", 
-                 epochs_num=25, 
-                 verbose=True, 
-                 latent_dim=2, 
-                 transform_data=True)
-
+results = run_AE(
+    device,
+    4,
+    mode="reconstruction",         # <-- new: either "classification" or "reconstruction"
+    latent_dim=2,
+    num_classes=3,
+    epochs_num=100,
+    verbose=True,
+    transform_data=True,
+    noise_std=0.01,
+    subtract_max=0.01,
+    scale_max=0.01,
+    shift_max=0,
+    data=None,
+    labels=None,
+)
 
 # unpack
-mode         = results["mode"]
-latent_test  = results["latent_test"]
-y_test       = results["y_test"]
-latent_train = results["latent_train"]
-y_train      = results["y_train"]
-score        = results["accuracy"]      # accuracy or MSE depending on mode
+latent       = results["latent"]       # shape (N, 2)
+true_labels  = np.array(results["labels"], dtype=int)  # 0 or 1
+acc          = results["acc"]
 
-# common legend setup
-legend_labels = {0: "Control", 1: "Tapping/Left", 2: "Tapping/Right"}
-handles = [
-    mpatches.Patch(color=plt.cm.viridis(i/2.0), label=legend_labels[i])
-    for i in sorted(legend_labels)
-]
-
-
-# test set scatter
+# plot
 plt.figure(figsize=(7, 5))
-plt.scatter(latent_test[:, 0], latent_test[:, 1],
-            c=y_test, cmap='viridis', s=15, alpha=0.2)
-plt.title(f'{mode.capitalize()} AE test  (score: {score:.2f})')
-plt.xlabel('Latent Dimension 1')
-plt.ylabel('Latent Dimension 2')
-plt.legend(handles=handles, title="Class", bbox_to_anchor=(1.05, 0.5))
-plt.tight_layout()
-plt.show()
-
-# train set scatter
-plt.figure(figsize=(7, 5))
-plt.scatter(latent_train[:, 0], latent_train[:, 1],
-            c=y_train, cmap='viridis', s=8, alpha=0.2)
-plt.title(f'{mode.capitalize()} AE train')
-plt.xlabel('Latent Dimension 1')
-plt.ylabel('Latent Dimension 2')
-plt.legend(handles=handles, title="Class", bbox_to_anchor=(1.05, 0.5))
+sc = plt.scatter(
+    latent[:, 0], latent[:, 1],
+    c=true_labels,
+    cmap='viridis',
+    s=20,
+    alpha=0.7
+)
+cbar = plt.colorbar(sc, ticks=[0, 1])
+cbar.ax.set_yticklabels(['Control', 'Tapping'])
+plt.title(f"Mixture VAE latent space (acc: {acc:.2f})")
+plt.xlabel("Latent dimension 1")
+plt.ylabel("Latent dimension 2")
 plt.tight_layout()
 plt.show()

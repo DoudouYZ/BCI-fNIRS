@@ -98,15 +98,17 @@ def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=Fals
 
 def get_continuous_subject_data(subject: int = 0, force_download=False):
     """
-    Load & preprocess a subject, then return the continuous haemoglobin time series.
-    Returns:
-        raw_haemo: the filtered haemoglobin MNE Raw object
-        sfreq: sampling frequency in Hz
+    Load & preprocess a subject, then return:
+      - raw_haemo: the filtered haemoglobin MNE Raw
+      - sfreq:     sampling frequency in Hz
+      - onsets:    np.ndarray, annotation times [sec]
+      - descs:     list of str, annotation labels
     """
     raw_intensity = load_raw_data(subject, force_download=force_download)
-    raw_haemo = preprocess_raw_data(raw_intensity)
-    sfreq = raw_haemo.info['sfreq']
-    return raw_haemo, sfreq
+    raw_haemo     = preprocess_raw_data(raw_intensity)
+    sfreq         = raw_haemo.info['sfreq']
+    onsets        = raw_haemo.annotations.onset        # in seconds
+    return raw_haemo, sfreq, onsets
 
 def compute_segment_mean(data, label_value, seg_samples):
     """

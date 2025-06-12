@@ -27,7 +27,7 @@ class Cropping1D(nn.Module):
 # Encoder Module
 # -------------------------------
 class Encoder(nn.Module):
-    def __init__(self, input_channels, input_length, latent_dim):
+    def __init__(self, input_channels, input_length, latent_dim, k_size=(9,9,7,7,3), out_channels=(16, 16, 32, 64, 32)):
         """
         Args:
             input_channels (int): Number of input channels (e.g. 40).
@@ -36,20 +36,28 @@ class Encoder(nn.Module):
         """
         super(Encoder, self).__init__()
         # First convolution: keep time dimension same
-        self.conv1 = nn.Conv1d(in_channels=input_channels, out_channels=16,
-                               kernel_size=9, stride=1, padding=4)
-        self.conv2 = nn.Conv1d(in_channels=16, out_channels=16,
-                               kernel_size=9, stride=1, padding=4)
-        # Second convolution: downsample by factor 2
+        self.conv1 = nn.Conv1d(in_channels=input_channels, out_channels=out_channels[0],
+                               kernel_size=k_size[0], stride=1, padding=k_size[0]//2)
+
+        self.conv2 = nn.Conv1d(in_channels=out_channels[0], out_channels=out_channels[1],
+                               kernel_size=k_size[1], stride=1, padding=k_size[1]//2)
+        
         self.avg_pool1 = nn.MaxPool1d(kernel_size=2, stride=2)
-        self.conv3 = nn.Conv1d(in_channels=16, out_channels=32,
-                               kernel_size=7, stride=1, padding=3)
-        self.conv4 = nn.Conv1d(in_channels=32, out_channels=64,
-                               kernel_size=7, stride=1, padding=3)
+
+        # Second convolution: downsample by factor 2
+
+        self.conv3 = nn.Conv1d(in_channels=out_channels[1], out_channels=out_channels[2],
+                               kernel_size=k_size[2], stride=1, padding=k_size[2]//2)
+        
+
+        self.conv4 = nn.Conv1d(in_channels=out_channels[2], out_channels=out_channels[3],
+                               kernel_size=k_size[3], stride=1, padding=k_size[3]//2)
+        
         self.avg_pool2 = nn.MaxPool1d(kernel_size=2, stride=2)
-        # Third convolution: further downsample by factor 2
-        self.conv5 = nn.Conv1d(in_channels=64, out_channels=32,
-                               kernel_size=3, stride=1, padding=1)
+            
+        self.conv5 = nn.Conv1d(in_channels=out_channels[3], out_channels=out_channels[4],
+                               kernel_size=k_size[4], stride=1, padding=k_size[4]//2)
+
         
         # Compute the output length after conv layers using the formula:
         # L_out = floor((L + 2*padding - kernel_size)/stride + 1)
@@ -58,31 +66,42 @@ class Encoder(nn.Module):
         
 
         
-        L = conv_out_length(input_length, kernel_size=11, stride=1, padding=5)
+        L = conv_out_length(input_length, kernel_size=k_size[0], stride=1, padding=k_size[0]//2)
 
         L = conv_out_length(L, kernel_size=2, stride=2, padding=0)
 
-        L = conv_out_length(L, kernel_size=7, stride=1, padding=3)
+        L = conv_out_length(L, kernel_size=k_size[1], stride=1, padding=k_size[1]//2)
 
         L = conv_out_length(L, kernel_size=2, stride=2, padding=0)
         
-        L = conv_out_length(L, kernel_size=3, stride=1, padding=1)
+        L = conv_out_length(L, kernel_size=k_size[2], stride=1, padding=k_size[2]//2)
+
+       # L = conv_out_length(L, kernel_size=2, stride=2, padding=0)
+        
+        L = conv_out_length(L, kernel_size=k_size[3], stride=1, padding=k_size[3]//2)
         self.conv_output_length = L  # save for the decoder
         
-        self.flattened_size = 32 * L
+        self.flattened_size = out_channels[4] * L
         self.encoder_fc1 = nn.Linear(self.flattened_size, self.flattened_size)
         self.encoder_dropout = nn.Dropout(0.5)
         self.encoder_fc2 = nn.Linear(self.flattened_size, latent_dim)
     
     def forward(self, x):
         # x: (batch, input_channels, input_length)
+
         x = F.relu(self.conv1(x))     # -> (batch, 32, L)
-        x = F.relu(self.conv2(x))     # -> (batch, 32, L)
+        x = F.relu(self.conv2(x))     # -> (batch, 32, L2)
+
         x = self.avg_pool1(x)
+
         x = F.relu(self.conv3(x))     # -> (batch, 32, L2)
         x = F.relu(self.conv4(x))     # -> (batch, 32, L)
+
         x = self.avg_pool2(x)
-        x = F.relu(self.conv5(x))     # -> (batch, 16, L3)
+
+        x = F.relu(self.conv5(x))     # -> (batch, 32, L)
+
+        
         batch_size = x.shape[0]
         x = x.view(batch_size, -1)    # flatten
         x = self.encoder_dropout(x)
@@ -122,46 +141,67 @@ class ReconstructionAutoencoder(nn.Module):
     Uses the same Encoder you already have and a symmetric decoder that
     up-samples + convolves to rebuild the original (n_channels, n_times) input.
     """
-    def __init__(self, input_channels: int, input_length: int, latent_dim: int):
+    def __init__(self, input_channels: int, input_length: int, latent_dim: int,
+                 k_size=(9,9,7,7,3), 
+                 out_channels=(16, 16, 32, 64, 32),):
         super().__init__()
 
         # ------------------ encoder ------------------
-        self.encoder = Encoder(input_channels, input_length, latent_dim)
-        L_enc      = self.encoder.conv_output_length   # time-length after encoder
-        flat_size  = 16 * L_enc                        # 16 channels * L_enc
+        self.encoder = Encoder(input_channels, input_length, latent_dim, k_size=k_size, out_channels=out_channels)
+        L_enc  = self.encoder.conv_output_length       # time length after final Conv
+        C_enc  = out_channels[-1]                      # 64 in default
+        flat   = C_enc * L_enc
 
         # ------------------ decoder ------------------
-        # We'll build it as a single nn.Sequential so you can just call self.decoder(z)
-        layers = []
-        # 1) dense → (batch, 16 * L_enc), then reshape → (batch,16,L_enc)
-        layers += [
-            nn.Linear(latent_dim, flat_size),
-            # PyTorch >=1.8 has Unflatten; if you don't have it, replace with a lambda in forward
-            nn.Unflatten(1, (16, L_enc))
+        self.encoder = Encoder(input_channels, input_length, latent_dim,
+                            k_size=k_size, out_channels=out_channels)
+
+        L_enc  = self.encoder.conv_output_length     # time length after encoder
+        C_enc  = out_channels[-1]                    # last encoder channel count
+        flat   = C_enc * L_enc                       # features fed to Linear
+
+        layers = [
+            # 1) dense → unflatten to (B, C_enc, L_enc)
+            nn.Linear(latent_dim, flat),
+            nn.Unflatten(1, (C_enc, L_enc))          # (B, C_enc, L_enc)
+
+            # --- mirror of conv5 + pool2 -----------------------------------
+            , nn.Upsample(scale_factor=2, mode='nearest')
+            , nn.Conv1d(C_enc, out_channels[3],
+                        kernel_size=k_size[4], padding=k_size[4] // 2)
+            , nn.ReLU(inplace=True)
+
+            , nn.Conv1d(out_channels[3], out_channels[2],
+                        kernel_size=k_size[3], padding=k_size[3] // 2)
+            , nn.ReLU(inplace=True)
+            # --- mirror of conv4 + pool1 -----------------------------------
+            , nn.Upsample(scale_factor=2, mode='nearest')
+            
+
+            # --- mirror of conv3 -------------------------------------------
+            , nn.Conv1d(out_channels[2], out_channels[1],
+                        kernel_size=k_size[2], padding=k_size[2] // 2)
+            , nn.ReLU(inplace=True)
+
+            # --- mirror of conv2 -------------------------------------------
+            , nn.Conv1d(out_channels[1], out_channels[0],
+                        kernel_size=k_size[1], padding=k_size[1] // 2)
+            , nn.ReLU(inplace=True)
+
+            # --- mirror of conv1 -------------------------------------------
+            , nn.Conv1d(out_channels[0], input_channels,
+                        kernel_size=k_size[0], padding=k_size[0] // 2)
         ]
-        # 2) upsample + conv + ReLU (reverse of conv3)
-        layers += [
-            nn.Upsample(scale_factor=2, mode='nearest'),
-            nn.Conv1d(16, 32, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
-        ]
-        # 3) upsample + conv + ReLU (reverse of conv2 + pool2)
-        layers += [
-            nn.Upsample(scale_factor=2, mode='nearest'),
-            nn.Conv1d(32, 16, kernel_size=7, padding=3),
-            nn.ReLU(inplace=True),
-        ]
-        # 4) final conv (reverse of conv1)
-        layers += [
-            nn.Conv1d(16, input_channels, kernel_size=11, padding=5),
-        ]
-        # 5) optional crop if we overshot in time
-        out_len = L_enc * 4
+
+        # optional cropping if we overshoot in time
+        out_len = L_enc * 4                    # two 2×-upsamples → ×4
         if out_len > input_length:
-            excess = out_len - input_length
-            layers.append(Cropping1D(crop_right=excess))
+            layers.append(Cropping1D(out_len - input_length))
 
         self.decoder = nn.Sequential(*layers)
+
+
+
 
     def forward(self, x):
         # 1) encode to latent
@@ -176,10 +216,10 @@ class ReconstructionAutoencoder(nn.Module):
 
 # ─────────────────────────  Mixture-prior VAE  ──────────────────────────
 class MixtureVAE(nn.Module):
-    def __init__(self, input_channels, input_length, latent_dim):
+    def __init__(self, input_channels, input_length, latent_dim, k_size=(9,9,7,3), out_channels=(16, 16, 32, 64)):
         super().__init__()
         # 1a) Reuse your conv‐stack from Encoder, but stop before its final fc to latent
-        self.backbone = Encoder(input_channels, input_length, latent_dim)
+        self.backbone = Encoder(input_channels, input_length, latent_dim, k_size=k_size, out_channels=out_channels)
         # The backbone currently ends in a single Linear→latent_dim.
         # We want instead two heads (mu & logvar). So swap that single head out:
         hidden_size = self.backbone.encoder_fc2.in_features  # size before latent
@@ -365,8 +405,9 @@ def train_reconstruction_autoencoder(model, train_loader, val_loader,
 
 def train_mixture_vae(model, train_loader, val_loader,
                       prior_means, prior_logvars, pi_mix,
-                      epochs, device, beta=1.0, verbose=False):
-
+                      epochs, device, beta=1.0, verbose=False, ramp_up=False):
+    if ramp_up and beta != 0:
+        beta_new = np.linspace(0.01, beta, epochs)
     opt = optim.Adam(model.parameters(), lr=1e-3)
     mse = nn.MSELoss()
     hist = {'tr_rec': [], 
@@ -376,6 +417,8 @@ def train_mixture_vae(model, train_loader, val_loader,
 
     rng = tqdm(range(epochs)) if verbose else range(epochs)
     for i, ep in enumerate(rng):
+        if ramp_up and beta != 0:
+            beta = beta_new[i]
         # ---- train ----
         model.train()
         rec_sum = kl_sum = 0.
@@ -383,7 +426,10 @@ def train_mixture_vae(model, train_loader, val_loader,
             x = x.to(device)
             recon, mu, logvar = model(x)
             rec = mse(recon, x)
-            kl  = kl_mixture_gaussian(mu, logvar,
+            if beta == 0.0:
+                kl = torch.zeros_like(rec)         # no KL, no NaNs
+            else:
+                kl  = kl_mixture_gaussian(mu, logvar,
                                     prior_means, prior_logvars, pi_mix)
             loss = rec + beta * kl
         
@@ -408,8 +454,10 @@ def train_mixture_vae(model, train_loader, val_loader,
         hist['va_rec'].append(rec_val/Nva);  hist['va_kl'].append(kl_val/Nva)
 
         if verbose:
+            pass
+        if ep % 20 == 0:
             print(f"E{ep+1:04d}/{epochs}  rec {hist['tr_rec'][-1]:.3e}  "
-                  f"kl {hist['tr_kl'][-1]:.3e}")
+                f"kl {hist['tr_kl'][-1]:.3e}")
     return hist
 
 
@@ -469,76 +517,92 @@ def create_sliding_windows(data, labels, window_length):
     
     return windows_all.astype(np.float32), new_labels
 
-def create_sliding_windows_no_classes(data, window_length):
+
+def create_sliding_windows_no_classes(
+    data: np.ndarray,
+    window_length: int,
+    times: np.ndarray,
+    events: np.ndarray,
+    buffer: float = 0.0,
+    no_overlap = True,
+) -> np.ndarray:
     """
-    Split a continuous multichannel time series into overlapping windows.
-    
+    Split a continuous multichannel time series into overlapping windows,
+    *excluding* any window that overlaps within `buffer` seconds of a transition.
+
     Parameters
     ----------
     data : np.ndarray, shape (n_channels, n_times)
         The continuous signal for each channel.
     window_length : int
         Number of timepoints per sliding window.
+    times : np.ndarray, shape (n_times,)
+        Timestamp of each sample in the same units as `events` and `buffer`.
+    events : np.ndarray, shape (n_events,)
+        Times at which state transitions occur.
+    buffer : float, default=0.0
+        Plus/minus buffer (in same units as `times`) around each event to *exclude* windows.
 
     Returns
     -------
-    windows : np.ndarray, shape (n_windows, n_channels, window_length)
-        Overlapping windows, where
-          n_windows = n_times - window_length + 1.
+    windows : np.ndarray, shape (n_kept_windows, n_channels, window_length)
+        Overlapping windows whose full time‐range lies outside every
+        `(event - buffer, event + buffer)` interval.
     """
-    # 1) Get sliding windows along the time axis.
-    #    Result: (n_channels, n_windows, window_length)
-    windows = np.lib.stride_tricks.sliding_window_view(
-        data, window_length, axis=1
-    )
-    
-    # 2) Reorder to (n_windows, n_channels, window_length)
-    windows = windows.transpose(1, 0, 2)
-    
-    # 3) Cast to float32 and return
-    return windows.astype(np.float32)
+    # 1) Build sliding‐window view on data: (n_channels, n_windows, window_length)
+    data_w = np.lib.stride_tricks.sliding_window_view(data, window_length, axis=1)
+    # 2) Move windows to axis-0: (n_windows, n_channels, window_length)
+    data_w = data_w.transpose(1, 0, 2)
 
+    if not no_overlap:
+        return data_w.astype(np.float32)
+    # 3) Build matching sliding‐window view on times: (n_windows, window_length)
+    time_w = np.lib.stride_tricks.sliding_window_view(times, window_length, axis=0)
 
-def per_timepoint_labels(window_labels, window_length):
+    # 4) Determine which windows overlap any event±buffer
+    n_windows = time_w.shape[0]
+    bad = np.zeros(n_windows, dtype=bool)
+    for ev in events:
+        # mark windows where *any* sample falls within [ev-buffer, ev+buffer]
+        in_band = (time_w >= (ev - buffer)) & (time_w <= (ev + buffer))
+        bad |= in_band.any(axis=1)
+
+    # 5) Keep only the “good” windows
+    good_idx = np.nonzero(~bad)[0]
+    starts     = good_idx                     # start index of each kept window
+
+    kept = data_w[good_idx]
+
+    return kept.astype(np.float32), starts
+
+def per_timepoint_labels_sparse(
+    window_labels: np.ndarray,
+    window_length: int,
+    starts: np.ndarray,
+    n_times: int
+):
     """
-    Compute a 1-D label for each original time-sample.
-
-    Each sample’s label is the mean of the labels of all sliding
-    windows that cover that sample (stride = 1).
-
-    Parameters
-    ----------
-    window_labels : 1-D array-like, shape (n_windows,)
-        Label for each sliding window.
-    window_length : int
-        Number of samples per window.
-
-    Returns
-    -------
-    sample_labels : np.ndarray, shape (n_windows + window_length - 1,)
-        Label for every unique time-point, in chronological order.
-        `sample_labels[t]` is the averaged label of the t-th sample
-        of the original continuous signal.
+    Average window_labels over all windows that cover each sample,
+    given arbitrary (non-consecutive) window start indices.
+    Returns:
+        labels_per_sample : 1-D float array length == n_times
+        covered_mask      : bool array, True where at least one window covers
     """
-    window_labels = np.asarray(window_labels, dtype=float)
-    n_windows = window_labels.size
+    sums   = np.zeros(n_times, dtype=float)
+    counts = np.zeros(n_times, dtype=int)
 
-    # --- denominator: how many windows overlap each time-point ---
-    counts = np.convolve(
-        np.ones(n_windows, dtype=int),        # 1 for every window
-        np.ones(window_length, dtype=int),    # box filter of length L
-        mode="full"                           # ➜ length n_windows+L-1
-    )
+    for lbl, s in zip(window_labels, starts):
+        e = s + window_length                 # end (exclusive)
+        sums  [s:e] += lbl
+        counts[s:e] += 1
 
-    # --- numerator: sum of labels of windows covering each sample ---
-    sums = np.convolve(
-        window_labels,                        # window labels
-        np.ones(window_length, dtype=float),  # same box filter
-        mode="full"
-    )
+    covered = counts > 0
+    labels_per_sample = np.zeros(n_times, dtype=float)
+    labels_per_sample[covered] = sums[covered] / counts[covered]
+    labels_per_sample[~covered] = np.nan      # or leave at 0
 
-    # element-wise average
-    return sums / counts
+    return labels_per_sample, covered
+
 def add_noise_batch(data, noise_std=0.01):
     """
     Adds Gaussian noise independently to each channel of every sample.
