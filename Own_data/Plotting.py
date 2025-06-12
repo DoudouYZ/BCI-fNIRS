@@ -13,7 +13,7 @@ import h5py
 # Nikolaj : 3
 
 # Load the data
-file_path = 'Data/2_tongue.snirf'
+file_path = '2_hand.snirf'
 
 
 with h5py.File(file_path, 'r') as f:
@@ -37,7 +37,7 @@ if stim1_data is not None:
     onsets = stim1_data[:, 0]
     durations = stim1_data[:, 1]
     for onset, duration in zip(onsets, durations):
-        plt.axvspan(onset, onset + duration, color='orange', alpha=0.5, label='stim 1')
+        plt.axvspan(onset, onset + duration, color='orange', alpha=0.5, label='activation')
 
 # Plot control in lightblue
 if control_data is not None:
