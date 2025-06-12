@@ -3,6 +3,7 @@ import numpy as np
 from numpy.random import default_rng
 from scipy.stats import ttest_rel
 from tqdm import tqdm
+from itertools import compress
 import mne
 from mne.preprocessing.nirs import (
     optical_density,
@@ -20,6 +21,10 @@ def read_snirf(snirf_path):
     print(f"Loading {snirf_path}")
     raw = mne.io.read_raw_snirf(snirf_path, preload=True)
     raw_od = optical_density(raw)
+    # Check the quality of the coupling between the scalp and the optodes
+    sci = mne.preprocessing.nirs.scalp_coupling_index(raw_od)
+    raw_od.info["bads"] = list(compress(raw_od.ch_names, sci < 0.5))
+    # Convert from optical density to haemoglobin concentration using the Beer-Lambert law
     raw_haemo = beer_lambert_law(raw_od)
     # Filtering: apply band pass filter to remove heartbeat and slow drifts
     raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
@@ -189,7 +194,7 @@ def replace_fraction_with_control(tap_epochs, control_epochs, frac, *, seed=123)
 # --- MAIN ---
 script_dir = os.path.dirname(__file__)
 snirf_path = os.path.abspath(
-    os.path.join(script_dir, '..', 'Data', '2_hand.snirf')
+    os.path.join(script_dir, '..', 'Data', '3_tongue.snirf')
 )
 raw_haemo = read_snirf(snirf_path)
 time_window = (0, 13)
@@ -290,6 +295,7 @@ result_ctrl_hbr = combined_test(
     pick="hbr",
     n_perm=PERMUTATIONS
 )
+
 print(f"Control Split (HbR): combined p = {result_ctrl_hbr['p_combined']:.4g} "
       f"(phase p = {result_ctrl_hbr['p_phase']:.4g}, power p = {result_ctrl_hbr['p_power']:.4g})")
 # =========================  END APPEND  =========================
