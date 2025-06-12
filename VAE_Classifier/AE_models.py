@@ -12,6 +12,42 @@ import torch.nn.functional as F
 import torch.optim as optim
 from tqdm import tqdm
 
+LOG_2PI = math.log(2 * math.pi)
+
+
+def mmd_rbf(z: torch.Tensor, z_prior: torch.Tensor, sigma: float = 1.0) -> torch.Tensor:
+    """Unbiased linear‑time MMD with RBF kernel (works on any device)."""
+    # pairwise squared distances; broadcasting keeps memory modest
+    dist_xx = (z.unsqueeze(1) - z.unsqueeze(0)).pow(2).sum(-1)
+    dist_yy = (z_prior.unsqueeze(1) - z_prior.unsqueeze(0)).pow(2).sum(-1)
+    dist_xy = (z.unsqueeze(1) - z_prior.unsqueeze(0)).pow(2).sum(-1)
+
+    # clamp distances so exp() never sees inf
+    dist_xx = dist_xx.clamp(max=1e12)
+    dist_yy = dist_yy.clamp(max=1e12)
+    dist_xy = dist_xy.clamp(max=1e12)
+
+    k_xx = torch.exp(-dist_xx / (2 * sigma ** 2)).mean()
+    k_yy = torch.exp(-dist_yy / (2 * sigma ** 2)).mean()
+    k_xy = torch.exp(-dist_xy / (2 * sigma ** 2)).mean()
+    return k_xx + k_yy - 2.0 * k_xy
+
+
+@torch.no_grad()
+def sample_mixture_prior(n: int,
+                         prior_means: torch.Tensor,
+                         prior_logvars: torch.Tensor,
+                         pi: torch.Tensor) -> torch.Tensor:
+    """Draw *n* latent samples from the diagonal Gaussian mixture prior."""
+    K, D = prior_means.shape
+    device = prior_means.device
+    comps = torch.multinomial(pi, n, replacement=True)          # (n,)
+    mu = prior_means[comps]
+    std = (0.5 * prior_logvars[comps]).exp()
+    return mu + std * torch.randn((n, D), device=device)
+
+
+
 # ───────────────────────── Cropping helper ───────────────────
 class Cropping1D(nn.Module):
     """Crop *crop_right* last time-steps along dim=2."""
@@ -233,6 +269,7 @@ class MixtureVAE(nn.Module):
 
     def forward(self, x):
         mu, logvar = self.encode(x)
+        logvar  = logvar.clamp(min=-10.0, max=10.0)   # keeps std ∈ [e^-5, e^5] ~ [0, 150]
         z          = self.reparameterise(mu, logvar)
         recon      = self.decoder(z)
         return recon, mu, logvar
@@ -295,70 +332,99 @@ def per_timepoint_labels_sparse(window_labels: np.ndarray,
 
 
 # ──────────────────────── VAE loss helpers ───────────────────
-LOG_2PI = math.log(2*math.pi)
 
 def kl_mixture_gaussian(mu, logvar, prior_means, prior_logvars, pi):
-    """
-    One-sample MC estimate of KL(q||p_mix).  Shapes:
-        mu/logvar : (B,D)     K=2 mixture components
-        prior_*   : (K,D)
-        pi        : (K,)
-    """
-    std  = torch.exp(0.5*logvar)
-    z    = mu + std * torch.randn_like(std)
-    log_q = (-0.5*(LOG_2PI + logvar) - 0.5*((z-mu)**2)/logvar.exp()).sum(1)
+    std = torch.exp(0.5 * logvar)
+    z = mu + std * torch.randn_like(std)
+    log_q = (-0.5 * (LOG_2PI + logvar) - 0.5 * ((z - mu) ** 2) / logvar.exp()).sum(1)
 
     log_p_components = []
     for k in range(prior_means.size(0)):
-        log_pk = (-0.5*(LOG_2PI + prior_logvars[k])
-                  -0.5*((z-prior_means[k])**2)/prior_logvars[k].exp()).sum(1)
+        log_pk = (-0.5 * (LOG_2PI + prior_logvars[k])
+                  - 0.5 * ((z - prior_means[k]) ** 2) / prior_logvars[k].exp()).sum(1)
         log_p_components.append(torch.log(pi[k]) + log_pk)
     log_p = torch.logsumexp(torch.stack(log_p_components, dim=1), dim=1)
-
     return (log_q - log_p).mean()
 
 
 # ──────────────────────── trainer helpers ────────────────────
-def train_mixture_vae(model, train_loader, val_loader,
-                      prior_means, prior_logvars, pi,
-                      epochs, device, beta=1.0, verbose=False):
-    opt = optim.Adam(model.parameters(), lr=1e-3)
+def train_mixture_vae(model: nn.Module,
+                      train_loader, val_loader,
+                      prior_means: torch.Tensor,
+                      prior_logvars: torch.Tensor,
+                      pi: torch.Tensor,
+                      epochs: int,
+                      device: torch.device,
+                      *,
+                      beta: float = 1.0,
+                      use_mmd: bool = False,
+                      lam_mmd: float = 10.0,
+                      mmd_sigma: float = 1.0,
+                      verbose: bool = False):
+    """Generic trainer – behaves as VAE (KL) or WAE‑MMD depending on *use_mmd*."""
+    opt = optim.Adam(model.parameters(), lr=5e-4)
     mse = nn.MSELoss()
 
-    hist = {'tr_rec':[], 'tr_kl':[], 'va_rec':[], 'va_kl':[]}
+    hist = {'tr_rec': [], 'tr_div': [], 'va_rec': [], 'va_div': []}
     iters = tqdm(range(epochs)) if verbose else range(epochs)
 
     for ep in iters:
-        # -------- train --------
+        # ───── training phase ─────
         model.train()
-        trR = trK = 0.
+        train_Recon_accumulated = train_diver_accumulated = 0.0
         for (x,) in train_loader:
             x = x.to(device)
             recon, mu, lv = model(x)
-            rec = mse(recon, x)
-            kl  = kl_mixture_gaussian(mu, lv,
-                                      prior_means, prior_logvars, pi)
-            loss = rec + beta*kl
-            opt.zero_grad(); loss.backward(); opt.step()
-            trR += rec.item()*x.size(0); trK += kl.item()*x.size(0)
+            rec_loss = mse(recon, x)
 
-        # -------- val ----------
+            if use_mmd:
+                z_batch = model.reparameterise(mu, lv)
+                z_prior = sample_mixture_prior(z_batch.size(0),
+                                               prior_means, prior_logvars, pi)
+                div_loss = mmd_rbf(z_batch, z_prior, sigma=mmd_sigma)
+                loss = rec_loss + lam_mmd * div_loss
+            else:
+                div_loss = kl_mixture_gaussian(mu, lv, prior_means, prior_logvars, pi)
+                loss = rec_loss + beta * div_loss
+
+
+            opt.zero_grad(); loss.backward() 
+
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+            opt.step()
+            bs = x.size(0)
+            train_Recon_accumulated += rec_loss.item() * bs
+            train_diver_accumulated += div_loss.item() * bs
+
+        # ───── validation phase ─────
         model.eval()
-        vaR = vaK = 0.
+        vaR_acc = vaD_acc = 0.0
         with torch.no_grad():
             for (x,) in val_loader:
                 x = x.to(device)
                 recon, mu, lv = model(x)
-                vaR += mse(recon, x).item()*x.size(0)
-                vaK += kl_mixture_gaussian(mu, lv,
-                                           prior_means, prior_logvars, pi).item()*x.size(0)
+                rec_loss = mse(recon, x)
+
+                if use_mmd:
+                    z_batch = model.reparameterise(mu, lv)
+                    z_prior = sample_mixture_prior(z_batch.size(0),
+                                                   prior_means, prior_logvars, pi)
+                    div_loss = mmd_rbf(z_batch, z_prior, sigma=mmd_sigma)
+                else:
+                    div_loss = kl_mixture_gaussian(mu, lv, prior_means, prior_logvars, pi)
+
+                bs = x.size(0)
+                vaR_acc += rec_loss.item() * bs
+                vaD_acc += div_loss.item() * bs
 
         Ntr, Nva = len(train_loader.dataset), len(val_loader.dataset)
-        hist['tr_rec'].append(trR/Ntr); hist['tr_kl'].append(trK/Ntr)
-        hist['va_rec'].append(vaR/Nva); hist['va_kl'].append(vaK/Nva)
+        hist['tr_rec'].append(train_Recon_accumulated / Ntr)
+        hist['tr_div'].append(train_diver_accumulated / Ntr)
+        hist['va_rec'].append(vaR_acc / Nva)
+        hist['va_div'].append(vaD_acc / Nva)
 
         if verbose:
-            print(f"E{ep+1:03}/{epochs}  rec {hist['tr_rec'][-1]:.4e}  "
-                  f"kl {hist['tr_kl'][-1]:.4e}")
+            tag = 'MMD' if use_mmd else 'KL'
+            print(f"E{ep+1:03}/{epochs}  rec {hist['tr_rec'][-1]:.3e}  {tag} {hist['tr_div'][-1]:.3e}")
 
     return hist

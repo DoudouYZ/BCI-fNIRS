@@ -6,7 +6,7 @@ Works with the new committee_for_subject that returns
 or {"all_control": {...}} when ALL_CONTROL=True.
 """
 
-import os, sys
+import sys
 from pathlib import Path
 import numpy as np
 from tqdm import tqdm
@@ -80,18 +80,22 @@ def post_process(res):
 # master function
 # ------------------------------------------------------------------
 def save_results(participant_idx=4, ALL_CONTROL=False):
-    # ---------- hyper-parameters ----------
+    # ---------- hyper‑parameters ----------
     seeds         = tuple(range(1))
-    means         = 1.2
+    means         = 1.5
     logvar        = 0
-    beta          = 0.75
+    beta          = 0.75          # only used if use_mmd=False
     window_length = 64
     window_buffer = 2.0
     latent_dim    = 8
-    epochs_num    = 300
+    epochs_num    = 100
+
+    # new WAE knobs (will be ignored if committee use_mmd=False)
+    use_mmd   = True
+    lam_mmd   = 25
+    mmd_sigma = 2.5
 
     # --------------------------------------
-    # run committee(s)
     results_dict = committee_for_subject(
         participant_idx=participant_idx,
         seeds=seeds,
@@ -102,6 +106,9 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
         window_buffer=window_buffer,
         latent_dim=latent_dim,
         epochs_num=epochs_num,
+        use_mmd=use_mmd,          
+        lam_mmd=lam_mmd,          
+        mmd_sigma=mmd_sigma,      
         verbose=True,
         ALL_CONTROL=ALL_CONTROL,
         debug=False

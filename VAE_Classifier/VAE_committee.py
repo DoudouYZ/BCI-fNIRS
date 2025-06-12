@@ -1,25 +1,11 @@
 """
-vae_committee.py
-Train ‘committees’ of Mixture-VAEs on one subject’s continuous fNIRS
-recording and return consensus label traces.
-
-Returned structure
-------------------
-committee_for_subject(...) →
-    {
-      "right":       {consensus, times, events, event_names,
-                      starts, raw, latents, streams},
-      "left":        { ... same keys ... },
-      "all_control": { ... }                 # ← only if ALL_CONTROL=True
-    }
-
-Each sub-dict is ready for downstream save/plot code.
+vae_committee.py – Committee trainer upgraded for optional WAE‑MMD.
+Only the **signatures** and the call into train_mixture_vae changed.
 """
 
 from __future__ import annotations
 import gc, random, sys
 from pathlib import Path
-
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, TensorDataset
@@ -27,14 +13,12 @@ from tqdm import tqdm
 import mne
 
 # ------------------------------------------------------------------
-# project-local imports
-# ------------------------------------------------------------------
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root))
 
 from AE_models import (
     MixtureVAE,
-    train_mixture_vae,
+    train_mixture_vae,           # ← same name, now supports MMD
     create_sliding_windows_no_classes,
     per_timepoint_labels_sparse,
 )
@@ -104,15 +88,28 @@ def load_and_preprocess(
 
 
 # ───────────────────────────── train one VAE model ─────────────────
+# ─────────────────────────── train one model ───────────────────────────
+
 def train_single_model(
-            X_t: torch.Tensor, starts: np.ndarray,
-            n_times: int, n_channels: int, *,
-            latent_dim: int, beta: float, seed: int,
-            means: float = 1.2, logvar: float = -1.0,
-            epochs_num: int = 25, device=None,
-            k_size=(9,9,7,7,3), out_channels=(16,16,32,64,32),
-            verbose=False,
+        X_t: torch.Tensor, starts: np.ndarray,
+        n_times: int, n_channels: int,
+        *,
+        latent_dim: int = 8,
+        beta: float = 0.2,
+        use_mmd: bool = True,
+        lam_mmd: float = 10.0,
+        mmd_sigma: float = 1.0,
+        seed: int = 42,
+        means: float = 1.2,
+        logvar: float = -1.0,
+        epochs_num: int = 25,
+        device=None,
+        k_size=(9, 9, 7, 7, 3),
+        out_channels=(16, 16, 32, 64, 32),
+        verbose=False,
     ):
+    """Train one MixtureVAE (or WAE‑MMD) and return the label stream."""
+
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -124,22 +121,28 @@ def train_single_model(
     model = MixtureVAE(n_channels, X_t.shape[2], latent_dim,
                        k_size=k_size, out_channels=out_channels).to(device)
 
-    prior_mu  = torch.full((2, latent_dim),  means, device=device)
+    prior_mu  = torch.full((2, latent_dim), means, device=device)
     prior_mu[0] *= -1
     prior_lv  = torch.full_like(prior_mu, logvar)
     pi_mix    = torch.tensor([0.5, 0.5], device=device)
 
+    # ----- train (VAE or WAE depending on flag) -----
     train_mixture_vae(model, loader, loader,
                       prior_mu, prior_lv, pi_mix,
-                      epochs_num, device, beta=beta, verbose=verbose)
+                      epochs_num, device,
+                      beta=beta,
+                      use_mmd=use_mmd,
+                      lam_mmd=lam_mmd,
+                      mmd_sigma=mmd_sigma,
+                      verbose=verbose)
 
+    # ----- get latents + assign hard labels -----
     model.eval()
     with torch.no_grad():
         mu, _ = model.encode(X_t.to(device))
     latent = mu.cpu().numpy()
-
-    d0 = ((latent - prior_mu[0].cpu().numpy())**2).sum(1)
-    d1 = ((latent - prior_mu[1].cpu().numpy())**2).sum(1)
+    d0 = ((latent - prior_mu[0].cpu().numpy()) ** 2).sum(1)
+    d1 = ((latent - prior_mu[1].cpu().numpy()) ** 2).sum(1)
     win_labels = np.where(d0 < d1, 0, 1)
 
     sample_labels, covered = per_timepoint_labels_sparse(
@@ -155,6 +158,7 @@ def _run_committee(X, times, events, event_names, raw,
                    window_length, window_buffer,
                    latent_dim, epochs_num,
                    device, k_size, out_channels,
+                   use_mmd=True, lam_mmd=10.0, mmd_sigma=1.0,
                    verbose, debug=False):
 
     n_ch, n_times = X.shape
@@ -167,13 +171,14 @@ def _run_committee(X, times, events, event_names, raw,
 
     label_streams, latent_list, covered = [], [], None
     for sd in seeds:
-        stream, cvd, latent = train_single_model(
-            X_t, starts, n_times, n_ch,
-            latent_dim=latent_dim, beta=beta,
-            means=means, logvar=logvar, seed=sd,
-            epochs_num=epochs_num, device=device,
-            k_size=k_size, out_channels=out_channels,
-            verbose=verbose)
+        stream, cvd, latent = train_single_model( X_t, starts, n_times, n_ch,
+                                                  latent_dim=latent_dim, beta=beta,
+                                                  use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+                                                  means=means, logvar=logvar, seed=sd,
+                                                  epochs_num=epochs_num, device=device,
+                                                  k_size=k_size, out_channels=out_channels,
+                                                  verbose=verbose)
+         
         label_streams.append(stream); latent_list.append(latent); covered=cvd
 
     label_streams = np.vstack(label_streams)[:, covered]
@@ -205,6 +210,7 @@ def committee_for_subject(
         beta=0.2, means=1.0, logvar=-1.0,
         window_length=32, window_buffer=1.0,
         latent_dim=10, epochs_num=25,
+        use_mmd=True, lam_mmd=10.0, mmd_sigma=1.0,
         ALL_CONTROL=False, verbose=False, debug=False,
         device=None,
         k_size=(15,13,9,7,3),
@@ -223,6 +229,7 @@ def committee_for_subject(
         Xc, raw, sfreq, evc, tc = load_and_preprocess(participant_idx, all_control=True)
         res_ctrl = _run_committee(
             Xc, tc, evc, _get_event_names(raw, evc), raw,
+            use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
             seeds=seeds, beta=beta, means=means, logvar=logvar,
             window_length=window_length, window_buffer=window_buffer,
             latent_dim=latent_dim, epochs_num=epochs_num,
@@ -255,6 +262,7 @@ def committee_for_subject(
     X_r,t_r,ev_r,nm_r = subset({"Control","Right"})
     res_r = _run_committee(
         X_r,t_r,ev_r,nm_r,raw,
+        use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
         seeds=seeds,beta=beta,means=means,logvar=logvar,
         window_length=window_length,window_buffer=window_buffer,
         latent_dim=latent_dim,epochs_num=epochs_num,
@@ -265,6 +273,7 @@ def committee_for_subject(
     X_l,t_l,ev_l,nm_l = subset({"Control","Left"})
     res_l = _run_committee(
         X_l,t_l,ev_l,nm_l,raw,
+        use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
         seeds=seeds,beta=beta,means=means,logvar=logvar,
         window_length=window_length,window_buffer=window_buffer,
         latent_dim=latent_dim,epochs_num=epochs_num,
