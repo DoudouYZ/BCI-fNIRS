@@ -58,10 +58,12 @@ def preprocess_raw_data(raw_intensity):
     # Filtering: apply band pass filter to remove heartbeat and slow drifts
     raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
 
+    # raw_haemo.pick_channels(raw_haemo.ch_names[:20]) # Uncomment to remove HbR
+    # print("Number of nodes in data:", len(raw_haemo.ch_names))
     return raw_haemo
 
 
-def extract_epochs(raw_haemo, tmin=-5, tmax=15):
+def extract_epochs(raw_haemo, tmin=-5, tmax=15, verbose=False):
     """
     Extracts epochs from preprocessed data.
     Args:
@@ -84,9 +86,10 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
         reject_by_annotation=True,
         proj=True,
         baseline=(None, 0),
+        # baseline=(0, 0), 
         preload=True,
         detrend=None,
-        verbose=False,
+        verbose=verbose,
     )
     return epochs
 
@@ -95,6 +98,15 @@ def get_raw_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=Fals
     raw_haemo = preprocess_raw_data(raw_intensity)
     epochs = extract_epochs(raw_haemo, tmin, tmax)
     return epochs
+
+def get_raw_control_subject_data(subject: int = 0, tmin=-5, tmax=15, force_download=False):
+    """
+    Load & preprocess a subject, then return the epochs for control condition.
+    Returns:
+        epochs: the epochs for control condition
+    """
+    epochs = get_raw_subject_data(subject, tmin=tmin, tmax=tmax, force_download=force_download)
+    return epochs['Control']
 
 def get_continuous_subject_data(subject: int = 0, force_download=False):
     """
