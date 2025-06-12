@@ -10,7 +10,7 @@ from numpy.random import default_rng
 from tqdm import tqdm
 
 # Insert parent folder for custom modules if needed
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from Preprocessing.preprocessing_mne import get_raw_subject_data
 
 os.environ["LOKY_MAX_CPU_COUNT"] = "8"

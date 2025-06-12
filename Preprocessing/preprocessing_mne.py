@@ -63,7 +63,7 @@ def preprocess_raw_data(raw_intensity):
     return raw_haemo
 
 
-def extract_epochs(raw_haemo, tmin=-5, tmax=15):
+def extract_epochs(raw_haemo, tmin=-5, tmax=15, verbose=False):
     """
     Extracts epochs from preprocessed data.
     Args:
@@ -89,7 +89,7 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15):
         # baseline=(0, 0), 
         preload=True,
         detrend=None,
-        verbose=False,
+        verbose=verbose,
     )
     return epochs
 

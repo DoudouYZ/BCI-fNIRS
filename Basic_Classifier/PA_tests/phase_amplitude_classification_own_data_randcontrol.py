@@ -91,78 +91,6 @@ def get_epochs_data(epochs_obj, pick=None):
         min_len = data_arr.shape[2]
         times = epochs_obj.times[:min_len]
         return data_arr, times
-    
-
-# def make_epochs_rand_control(raw_hb, baseline=(None, 0)):
-#     """
-#     Epoch raw_hb around two annotation types:
-#       '1'          → activation (fixed time window)
-#       'control'    → control (random time window with same duration as activation)
-#     Returns a dict: {'activation': Epochs, 'control': Epochs}
-#     """
-#     ann_map = {'1': 1, 'control': 2}
-#     events, used_id = mne.events_from_annotations(raw_hb, event_id=ann_map)
-
-#     # Fixed time window for activation epochs.
-#     activation_tmin = -5.0
-#     activation_tmax = 15.0
-#     duration = activation_tmax - activation_tmin  # duration to be preserved
-
-#     # Randomly sample control epoch window.
-#     rng = np.random.default_rng()
-#     control_tmin = rng.uniform(-10.0, 5.0)  # for example, anywhere in [-7, -1]
-#     control_tmax = control_tmin + duration
-
-#     # Define rejection criteria.
-#     reject_criteria = dict(hbo=80e-6)
-
-#     # Create activation epochs with fixed parameters.
-#     epochs_activation = mne.Epochs(
-#         raw_hb,
-#         events,
-#         event_id={'1': used_id['1']},
-#         tmin=activation_tmin,
-#         tmax=activation_tmax,
-#         reject=reject_criteria,
-#         reject_by_annotation=True,
-#         proj=True,
-#         baseline=baseline,
-#         preload=True,
-#         detrend=None,
-#         verbose=True,
-#     )
-
-#     # Create control epochs with randomly sampled tmin and tmax.
-#     epochs_control = mne.Epochs(
-#         raw_hb,
-#         events,
-#         event_id={'control': used_id['control']},
-#         tmin=control_tmin,
-#         tmax=control_tmax,
-#         reject=reject_criteria,
-#         reject_by_annotation=True,
-#         proj=True,
-#         baseline=(None, control_tmin+5.0),
-#         preload=True,
-#         detrend=None,
-#         verbose=True,
-#     )
-
-#     # Make sure both epochs have the same time axis.
-#     if len(epochs_activation.times) != len(epochs_control.times):
-#         min_len = min(len(epochs_activation.times), len(epochs_control.times))
-#         # Crop activation epochs if needed
-#         epochs_activation._data = epochs_activation.get_data()[:, :, :min_len]
-#         epochs_activation._times = epochs_activation.times[:min_len]
-#         # Also crop control epochs for consistency (if needed)
-#         epochs_control._data = epochs_control.get_data()[:, :, :min_len]
-#         epochs_control._times = epochs_control.times[:min_len]
-#         print(f"Length of activation epochs ({len(epochs_activation.times)}) ")
-#         print(f"length of control epochs ({len(epochs_control.times)}) ")
-#     return {
-#         'activation': epochs_activation,
-#         'control':    epochs_control
-#     }
 
 
 def make_epochs_rand_control(raw_hb, baseline=(None, 0)):
@@ -224,17 +152,7 @@ def make_epochs_rand_control(raw_hb, baseline=(None, 0)):
         # The new epoch's time vector will start at tmin_i.
         epoch_i = mne.EpochsArray(data[np.newaxis, ...], raw_hb.info, tmin=tmin_i, baseline=baseline)
         control_epochs_list.append(epoch_i)
-    
-    # Concatenate all control epochs.
-    # epochs_control = mne.concatenate_epochs(control_epochs_list)
-    
-    # # Crop both activation and control epochs so that their time axes have the same length.
-    # min_len = min(len(epochs_activation.times), len(epochs_control.times))
-    # epochs_activation._data = epochs_activation.get_data()[:, :, :min_len]
-    # epochs_activation._times = epochs_activation.times[:min_len]
-    # epochs_control._data = epochs_control.get_data()[:, :, :min_len]
-    # epochs_control._times = epochs_control.times[:min_len]
-    
+
     return {'activation': epochs_activation, 'control': control_epochs_list}
 
 
@@ -263,24 +181,6 @@ def avg_rms_pick(epochs, pick, time_window):
     evoked = epochs.average(picks=pick)
     idx = np.where((evoked.times >= time_window[0]) & (evoked.times <= time_window[1]))[0]
     return _rms(evoked.data[:, idx])
-
-# def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, time_window, n_perm=5000, seed=42):
-#     """
-#     Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick.
-#     Returns the observed difference (A − B) and a two-sided p-value.
-#     """
-#     rng = default_rng(seed)
-#     all_ep = mne.concatenate_epochs([epochs_a, epochs_b])
-#     n_a = len(epochs_a)
-#     observed = avg_rms_pick(epochs_a, pick, time_window) - avg_rms_pick(epochs_b, pick, time_window)
-#     null_dist = np.empty(n_perm)
-#     for i in tqdm(range(n_perm), desc=f"Permutations ({pick})"):
-#         idx = rng.permutation(len(all_ep))
-#         ep_a = all_ep[idx[:n_a]]
-#         ep_b = all_ep[idx[n_a:]]
-#         null_dist[i] = avg_rms_pick(ep_a, pick, time_window) - avg_rms_pick(ep_b, pick, time_window)
-#     p_val = (np.sum(np.abs(null_dist) >= abs(observed)) + 1) / (n_perm + 1)
-#     return observed, p_val
 
 def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, time_window, n_perm=5000, seed=42):
     rng = default_rng(seed)

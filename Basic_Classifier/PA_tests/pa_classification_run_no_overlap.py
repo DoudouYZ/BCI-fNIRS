@@ -10,6 +10,7 @@ from numpy.random import default_rng
 import numpy as np
 from scipy.stats import ttest_rel
 from tqdm import tqdm 
+from numpy.random import default_rng
 # Insert parent folder for custom modules
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Preprocessing.preprocessing_mne import get_raw_subject_data
@@ -67,37 +68,47 @@ def extract_epoch_means(epochs_obj, time_window, pick_type):
     idx = np.where((epochs_obj.times >= time_window[0]) & (epochs_obj.times <= time_window[1]))[0]
     return np.mean(np.square(data[:, :, idx]), axis=(1, 2))
 
-
-
-# --- Helper functions (existing) ---
-def _rms(x):
-    """Root-mean-square of an array."""
-    return np.sqrt(np.mean(np.square(x)))
-
-def avg_rms_pick_window(epochs, pick, time_window):
-    """
-    RMS of the channel-averaged signal computed only within a time window.
-    """
-    evoked = epochs.average(picks=pick)
-    idx = np.where((evoked.times >= time_window[0]) & (evoked.times <= time_window[1]))[0]
-    return _rms(evoked.data[:, idx])
+def compute_avg_rms(data, times, time_window):
+    # Compute the average signal (evoked) across epochs
+    evoked = np.mean(data, axis=0)  # shape: (n_channels, n_times)
+    # Identify indices within the desired time window
+    idx = np.where((times >= time_window[0]) & (times <= time_window[1]))[0]
+    # Return RMS over selected time points
+    return np.sqrt(np.mean(evoked[:, idx] ** 2))
 
 def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, time_window, n_perm=5000, seed=42):
     """
-    Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick,
-    computed only over the specified time window.
-    Returns the observed difference (A − B) and a two-sided p-value.
+    Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick.
+    This version extracts the underlying data, crops the time axis to the minimum length,
+    and then performs the permutation test. Returns the observed difference (A – B) and a two-sided p-value.
     """
     rng = default_rng(seed)
-    all_ep = mne.concatenate_epochs([epochs_a, epochs_b])
-    n_a = len(epochs_a)
-    observed = avg_rms_pick_window(epochs_a, pick, time_window) - avg_rms_pick_window(epochs_b, pick, time_window)
+    # Get data arrays for the given pick
+    data_a = epochs_a.get_data(picks=pick)  # shape: (n_epochs_a, n_channels, n_times_a)
+    data_b = epochs_b.get_data(picks=pick)  # shape: (n_epochs_b, n_channels, n_times_b)
+    # Crop time axis to minimum length
+    min_t = min(data_a.shape[2], data_b.shape[2])
+    data_a = data_a[:, :, :min_t]
+    data_b = data_b[:, :, :min_t]
+    # Use the time vector from one of the epochs
+    times = epochs_a.times[:min_t]
+
+    n_a = data_a.shape[0]
+    n_total = data_a.shape[0] + data_b.shape[0]
+
+    observed = compute_avg_rms(data_a, times, time_window) - compute_avg_rms(data_b, times, time_window)
+
+    # Concatenate the two datasets along the epoch dimension
+    all_data = np.concatenate([data_a, data_b], axis=0)
+
     null_dist = np.empty(n_perm)
-    for i in range(n_perm):
-        idx = rng.permutation(len(all_ep))
-        ep_a = all_ep[idx[:n_a]]
-        ep_b = all_ep[idx[n_a:]]
-        null_dist[i] = avg_rms_pick_window(ep_a, pick, time_window) - avg_rms_pick_window(ep_b, pick, time_window)
+    for i in tqdm(range(n_perm), desc=f"Permutations ({pick})"):
+        perm_idx = rng.permutation(n_total)
+        sel_a = all_data[perm_idx[:n_a]]
+        sel_b = all_data[perm_idx[n_a:]]
+        diff = compute_avg_rms(sel_a, times, time_window) - compute_avg_rms(sel_b, times, time_window)
+        null_dist[i] = diff
+
     p_val = (np.sum(np.abs(null_dist) >= abs(observed)) + 1) / (n_perm + 1)
     return observed, p_val
 
@@ -142,48 +153,79 @@ def combined_test(epochs_a, epochs_b, time_window, pick, n_perm=5000, seed=42):
     p_comb = tipplets_combined_p(p_phase, p_power)
     return {'p_phase': p_phase, 'p_power': p_power, 'p_combined': p_comb}
 
-def replace_fraction_with_control(tap_epochs, control_epochs, frac, *, seed=123):
+def replace_fraction_with_control_no_overlap_both(tap_left_epochs, tap_right_epochs, control_epochs, frac, *, seed=123):
     """
-    Return a new Epochs object in which a fraction (`frac`) of `tap_epochs`
-    has been replaced by randomly-selected epochs from `control_epochs`.
-    The total number of epochs and their order are preserved.
+    Replace a fraction of both tapping left and tapping right epochs with control epochs.
+    The control epochs used for replacement are removed from the control group,
+    ensuring that none of the control epochs appear in both groups.
+    
+    Parameters:
+        tap_left_epochs (mne.Epochs): tapping left epochs.
+        tap_right_epochs (mne.Epochs): tapping right epochs.
+        control_epochs (mne.Epochs): original control epochs.
+        frac (float): fraction of tapping epochs to replace.
+        seed (int): random seed.
+    
+    Returns:
+        tuple: (new_left, new_right, new_control) where:
+            - new_left: tapping left epochs with replacement.
+            - new_right: tapping right epochs with replacement.
+            - new_control: the control epochs excluding those used for replacement.
     """
-    assert 0.0 <= frac <= 1.0, "Fraction must be between 0 and 1."
     rng = default_rng(seed)
+    n_replace_left = int(round(frac * len(tap_left_epochs)))
+    n_replace_right = int(round(frac * len(tap_right_epochs)))
+    total_replace = n_replace_left + n_replace_right
 
-    n_total = len(tap_epochs)
-    n_replace = int(round(frac * n_total))
-    if n_replace == 0:
-        return tap_epochs.copy()
+    if total_replace > len(control_epochs):
+        raise ValueError("Not enough control epochs to replace the required fraction.")
 
-    n_keep = n_total - n_replace
-    tap_keep_idx = rng.choice(n_total, size=n_keep, replace=False)
-    ctrl_idx = rng.choice(len(control_epochs), size=n_replace, replace=False)
+    # Randomly choose disjoint control indices for left and right replacements.
+    ctrl_indices = rng.permutation(len(control_epochs))
+    left_ctrl_idx = ctrl_indices[:n_replace_left]
+    right_ctrl_idx = ctrl_indices[n_replace_left: n_replace_left + n_replace_right]
+    remaining_ctrl_idx = ctrl_indices[n_replace_left + n_replace_right:]
+    
+    # Create new tapping left group by combining kept tapping epochs with control replacements.
+    n_keep_left = len(tap_left_epochs) - n_replace_left
+    left_keep_idx = rng.choice(len(tap_left_epochs), size=n_keep_left, replace=False)
+    new_left = mne.concatenate_epochs([tap_left_epochs[left_keep_idx],
+                                       control_epochs[left_ctrl_idx]])
+    new_left = new_left[rng.permutation(len(new_left))]
 
-    mixed = mne.concatenate_epochs([tap_epochs[tap_keep_idx],
-                                    control_epochs[ctrl_idx]])
-    mixed = mixed[rng.permutation(len(mixed))]  # shuffle order
-
-    return mixed
+    # Create new tapping right group.
+    n_keep_right = len(tap_right_epochs) - n_replace_right
+    right_keep_idx = rng.choice(len(tap_right_epochs), size=n_keep_right, replace=False)
+    new_right = mne.concatenate_epochs([tap_right_epochs[right_keep_idx],
+                                        control_epochs[right_ctrl_idx]])
+    new_right = new_right[rng.permutation(len(new_right))]
+    
+    # New control group excludes all epochs used for replacement.
+    new_control = control_epochs[remaining_ctrl_idx]
+    
+    return new_left, new_right, new_control
 
 # --- MAIN ---
 time_window = (0, 13)
-subjects = [1, 2, 3, 4]
-fractions = np.arange(0.0, 0.75 + 0.05, 0.05)
+subjects = [0, 1, 2, 3, 4]
+fractions = np.arange(0.0, 0.30 + 0.05, 0.05)
+
+# Global list to collect results across all subjects.
+results_total = []
 
 for subj in subjects:
-    epochs, evoked_dict = load_data(subject=subj, time_window=time_window)
-    results_all = []
+    epochs, evoked_dict = load_data(subject=subj, time_window=(0,11))
     
     for frac in fractions:
-        for seed in range(7):
-            tap_left_mixed  = replace_fraction_with_control(epochs["Tapping_Left"], epochs["Control"], frac, seed=seed)
-            tap_right_mixed = replace_fraction_with_control(epochs["Tapping_Right"], epochs["Control"], frac, seed=seed)
+        for seed in range(2):
+            # Get new tapping groups and updated control group with no overlap.
+            tap_left_mixed, tap_right_mixed, new_control = replace_fraction_with_control_no_overlap_both(
+                epochs["Tapping_Left"], epochs["Tapping_Right"], epochs["Control"], frac, seed=seed)
             
-            res_left_hbo  = combined_test(tap_left_mixed, epochs["Control"], time_window, pick="hbo", seed=seed)
-            res_left_hbr  = combined_test(tap_left_mixed, epochs["Control"], time_window, pick="hbr", seed=seed)
-            res_right_hbo = combined_test(tap_right_mixed,epochs["Control"], time_window, pick="hbo", seed=seed)
-            res_right_hbr = combined_test(tap_right_mixed,epochs["Control"], time_window, pick="hbr", seed=seed)
+            res_left_hbo  = combined_test(tap_left_mixed,  new_control, (0,11), pick="hbo", seed=seed)
+            res_left_hbr  = combined_test(tap_left_mixed,  new_control, (0,11), pick="hbr", seed=seed)
+            res_right_hbo = combined_test(tap_right_mixed, new_control, (0,11), pick="hbo", seed=seed)
+            res_right_hbr = combined_test(tap_right_mixed, new_control, (0,11), pick="hbr", seed=seed)
             
             p_combined_list = [res_left_hbo['p_combined'], res_left_hbr['p_combined'],
                                res_right_hbo['p_combined'], res_right_hbr['p_combined']]
@@ -214,26 +256,18 @@ for subj in subjects:
                 "right_hbr_p_power": res_right_hbr['p_power'],
                 "right_hbr_p_combined": res_right_hbr['p_combined']
             }
-            results_all.append(result_row)
+            results_total.append(result_row)
+            
+            print(f"\n Subject {subj}, Fraction {frac:.2f}, Seed {seed}, smallest comb p = {smallest_combined:.4e}, smallest overall p = {smallest_overall:.4e} \n")
 
-            print(f"\n Subject {subj}, Fraction {frac:.2f}, Seed {seed} \n")
-    
-    # Save the file with all individual (frac,seed) results
-    df_all = pd.DataFrame(results_all)
-    csv_all = f"subject_{subj}_control_replacement_all_results.csv"
-    df_all.to_csv(csv_all, index=False)
-    
-    # Aggregate: compute mean and std for each p-value per fraction
-    p_cols = ["smallest_combined_p", "smallest_overall_p",
-              "left_hbo_p_phase", "left_hbo_p_power", "left_hbo_p_combined",
-              "left_hbr_p_phase", "left_hbr_p_power", "left_hbr_p_combined",
-              "right_hbo_p_phase", "right_hbo_p_power", "right_hbo_p_combined",
-              "right_hbr_p_phase", "right_hbr_p_power", "right_hbr_p_combined"]
-    aggregations = {col: ['mean', 'std'] for col in p_cols}
-    df_summary = df_all.groupby("CONTROL_REPLACEMENT_FRAC").agg(aggregations)
-    # Flatten the column MultiIndex
-    df_summary.columns = ['_'.join(col) for col in df_summary.columns.values]
-    df_summary = df_summary.reset_index()
-    
-    csv_summary = f"subject_{subj}_control_replacement_summary.csv"
-    df_summary.to_csv(csv_summary, index=False)
+# Save combined total results into a CSV file.
+df_total = pd.DataFrame(results_total)
+total_csv = "combined_all_results.csv"
+df_total.to_csv(total_csv, index=False)
+print(f"Total results saved to {total_csv}")
+
+# For the summary, sort the results by subject so each subject's data appears in its own section.
+df_summary = df_total.sort_values(by=["subject", "CONTROL_REPLACEMENT_FRAC", "seed"])
+summary_csv = "combined_summary.csv"
+df_summary.to_csv(summary_csv, index=False)
+print(f"Summary results saved to {summary_csv}")
