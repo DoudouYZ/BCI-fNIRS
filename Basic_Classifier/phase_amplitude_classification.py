@@ -73,28 +73,30 @@ def _rms(x):
     """Root-mean-square of an array."""
     return np.sqrt(np.mean(np.square(x)))
 
-def avg_rms_pick(epochs, pick):
+def avg_rms_pick_window(epochs, pick, time_window):
     """
-    RMS of the channel-averaged signal using a specific pick.
+    RMS of the channel-averaged signal computed only within a time window.
     """
     evoked = epochs.average(picks=pick)
-    return _rms(evoked.data)
+    idx = np.where((evoked.times >= time_window[0]) & (evoked.times <= time_window[1]))[0]
+    return _rms(evoked.data[:, idx])
 
-def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, n_perm=5000, seed=42):
+def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, time_window, n_perm=5000, seed=42):
     """
-    Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick.
+    Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick,
+    computed only over the specified time window.
     Returns the observed difference (A − B) and a two-sided p-value.
     """
     rng = default_rng(seed)
     all_ep = mne.concatenate_epochs([epochs_a, epochs_b])
     n_a = len(epochs_a)
-    observed = avg_rms_pick(epochs_a, pick) - avg_rms_pick(epochs_b, pick)
+    observed = avg_rms_pick_window(epochs_a, pick, time_window) - avg_rms_pick_window(epochs_b, pick, time_window)
     null_dist = np.empty(n_perm)
     for i in tqdm(range(n_perm), desc=f"Permutations ({pick})"):
         idx = rng.permutation(len(all_ep))
         ep_a = all_ep[idx[:n_a]]
         ep_b = all_ep[idx[n_a:]]
-        null_dist[i] = avg_rms_pick(ep_a, pick) - avg_rms_pick(ep_b, pick)
+        null_dist[i] = avg_rms_pick_window(ep_a, pick, time_window) - avg_rms_pick_window(ep_b, pick, time_window)
     p_val = (np.sum(np.abs(null_dist) >= abs(observed)) + 1) / (n_perm + 1)
     return observed, p_val
 
@@ -132,7 +134,6 @@ def tipplets_combined_p(p1, p2):
     """
     return 1 - (1 - min(p1, p2))**2
 
-# --- Combined test function ---
 def combined_test(epochs_a, epochs_b, time_window, pick, n_perm=5000, seed=42):
     """
     Runs both the phase-alignment permutation test and the average power test.
@@ -141,10 +142,11 @@ def combined_test(epochs_a, epochs_b, time_window, pick, n_perm=5000, seed=42):
         'p_power': average power test p-value,
         'p_combined': Tippett's combined p-value.
     """
-    _, p_phase = permutation_rms_test_pick(epochs_a, epochs_b, pick=pick, n_perm=n_perm, seed=seed)
+    _, p_phase = permutation_rms_test_pick(epochs_a, epochs_b, pick=pick, time_window=time_window, n_perm=n_perm, seed=seed)
     p_power = average_power_test(epochs_a, epochs_b, time_window, pick)
     p_comb = tipplets_combined_p(p_phase, p_power)
     return {'p_phase': p_phase, 'p_power': p_power, 'p_combined': p_comb}
+
 
 def replace_fraction_with_control(tap_epochs, control_epochs, frac, *, seed=123):
     """
@@ -171,11 +173,11 @@ def replace_fraction_with_control(tap_epochs, control_epochs, frac, *, seed=123)
     return mixed
 
 # --- MAIN ---
-subject = 2
-time_window = (0, 11)
+subject = 0
+time_window = (0, 13)
 epochs, evoked_dict = load_data(subject=subject, time_window=time_window)
-CONTROL_REPLACEMENT_FRAC = 0.45
-PERMUTATIONS = 5_000
+CONTROL_REPLACEMENT_FRAC = 0.70
+PERMUTATIONS = 5000
 
 # color_dict = {
 # "Tapping_Left/HbO": "#AA3377",
@@ -255,4 +257,3 @@ c_half1, c_half2 = _split_random_half(control_epochs, seed=99)
 result_ctrl_hbr = combined_test(c_half1, c_half2, time_window, pick="hbr", n_perm=PERMUTATIONS)
 print(f"Control Split (HbR): combined p = {result_ctrl_hbr['p_combined']:.4g} "
       f"(phase p = {result_ctrl_hbr['p_phase']:.4g}, power p = {result_ctrl_hbr['p_power']:.4g})")
-# =========================  END APPEND  =========================
