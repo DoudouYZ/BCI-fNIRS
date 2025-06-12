@@ -4,7 +4,12 @@ from numpy.random import default_rng
 from scipy.stats import ttest_rel
 from tqdm import tqdm
 import mne
-from mne.preprocessing.nirs import optical_density, beer_lambert_law
+from mne.preprocessing.nirs import (
+    optical_density,
+    beer_lambert_law,
+    scalp_coupling_index,
+    temporal_derivative_distribution_repair
+)
 
 # --- I/O & EPOCHING --------------------------------------------------------
 
@@ -15,8 +20,11 @@ def read_snirf(snirf_path):
     print(f"Loading {snirf_path}")
     raw = mne.io.read_raw_snirf(snirf_path, preload=True)
     raw_od = optical_density(raw)
-    raw_hb = beer_lambert_law(raw_od)
-    return raw_hb
+    raw_haemo = beer_lambert_law(raw_od)
+    # Filtering: apply band pass filter to remove heartbeat and slow drifts
+    raw_haemo.filter(0.05, 0.7, h_trans_bandwidth=0.2, l_trans_bandwidth=0.02, verbose=False)
+
+    return raw_haemo
 
 
 def make_epochs(raw_hb, tmin=-5.0, tmax=15.0, baseline=(None, 0)):
@@ -26,231 +34,37 @@ def make_epochs(raw_hb, tmin=-5.0, tmax=15.0, baseline=(None, 0)):
       'gap_period' → control
     Returns a dict: {'activation': Epochs, 'control': Epochs}
     """
+    tmin = -5.0
+    tmax = 15.0
+
     ann_map = {'1': 1, 'control': 2}
     events, used_id = mne.events_from_annotations(raw_hb, event_id=ann_map)
 
-    # OPTION A: just epoch everything, pick by type later
-    all_epochs = mne.Epochs(
-        raw_hb,
+    # Define rejection criteria: any channel exceeding 80e-6 is considered too noisy.
+    reject_criteria = dict(hbo=80e-6)
+    epochs = mne.Epochs(
+        raw_haemo,
         events,
         event_id=used_id,
         tmin=tmin,
         tmax=tmax,
-        baseline=None,
-        preload=True
+        reject=reject_criteria,
+        reject_by_annotation=True,
+        proj=True,
+        baseline=(None, 0),
+        # baseline=(0, 0), 
+        preload=True,
+        detrend=None,
+        verbose=True,
     )
 
     return {
-        'activation': all_epochs['1'],
-        'control':    all_epochs['control']
+        'activation': epochs['1'],
+        'control':    epochs['control']
     }
 
 
 # # --- STATISTICAL TESTS -----------------------------------------------------
-
-# def extract_epoch_means(epochs_obj, time_window, pick):
-#     data = epochs_obj.get_data(picks=pick)
-#     idx = np.where((epochs_obj.times >= time_window[0]) &
-#                    (epochs_obj.times <= time_window[1]))[0]
-#     return np.mean(np.square(data[:, :, idx]), axis=(1, 2))
-
-# def _rms(x):
-#     return np.sqrt(np.mean(np.square(x)))
-
-# def avg_rms_pick(epochs, pick):
-#     return _rms(epochs.average(picks=pick).data)
-
-# def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, n_perm=5000, seed=42):
-#     rng = default_rng(seed)
-#     all_ep = mne.concatenate_epochs([epochs_a, epochs_b])
-#     n_a = len(epochs_a)
-#     obs = avg_rms_pick(epochs_a, pick) - avg_rms_pick(epochs_b, pick)
-#     null = np.empty(n_perm)
-#     for i in tqdm(range(n_perm), desc=f"Permutations ({pick})"):
-#         idx = rng.permutation(len(all_ep))
-#         null[i] = (
-#             avg_rms_pick(all_ep[idx[:n_a]], pick)
-#           - avg_rms_pick(all_ep[idx[n_a:]], pick)
-#         )
-#     p = (np.sum(np.abs(null) >= abs(obs)) + 1) / (n_perm + 1)
-#     return obs, p
-
-# def average_power_test(epochs_a, epochs_b, time_window, pick):
-#     a = extract_epoch_means(epochs_a, time_window, pick)
-#     b = extract_epoch_means(epochs_b, time_window, pick)
-#     n = min(len(a), len(b))
-#     return ttest_rel(a[:n], b[:n]).pvalue
-
-# def tippett_combined_p(p1, p2):
-#     return 1 - (1 - min(p1, p2))**2
-
-# def combined_test(epochs_a, epochs_b, time_window, pick, n_perm=5000, seed=42):
-#     _, p_phase = permutation_rms_test_pick(
-#         epochs_a, epochs_b, pick=pick, n_perm=n_perm, seed=seed
-#     )
-#     p_power = average_power_test(epochs_a, epochs_b, time_window, pick)
-#     return {
-#         'p_phase':    p_phase,
-#         'p_power':    p_power,
-#         'p_combined': tippett_combined_p(p_phase, p_power),
-#     }
-
-# def _split_random_half(epochs, *, seed=99):
-#     rng = default_rng(seed)
-#     idx = rng.permutation(len(epochs))
-#     half = len(epochs) // 2
-#     return epochs[idx[:half]], epochs[idx[half:half*2]]
-
-# def replace_fraction_with_control(tap_epochs, ctrl_epochs, frac, *, seed=123):
-#     rng = default_rng(seed)
-#     N = len(tap_epochs)
-#     R = int(round(frac * N))
-#     if R == 0:
-#         return tap_epochs.copy()
-#     keep = rng.choice(N, size=N - R, replace=False)
-#     take = rng.choice(len(ctrl_epochs), size=R, replace=False)
-#     mixed = mne.concatenate_epochs([
-#         tap_epochs[keep],
-#         ctrl_epochs[take]
-#     ])
-#     return mixed[rng.permutation(len(mixed))]
-
-# # --- MAIN ------------------------------------------------------------------
-
-# if __name__ == "__main__":
-#     # 1) locate your file
-#     here      = os.path.dirname(__file__)
-#     snirf     = os.path.abspath(os.path.join(here, '..', 'Data', '2_dummy_hand.snirf'))
-
-#     # 2) read & convert
-#     raw_hb    = read_snirf(snirf)
-
-#     # 3) epoch activation vs. control
-#     epochs    = make_epochs(raw_hb, tmin=-5.0, tmax=15.0)
-
-#     # 4) optional: build evokeds
-#     evoked = {}
-#     for cond, eps in epochs.items():
-#         evoked[f"{cond}/HbO"] = (
-#             eps.average(picks='hbo').rename_channels(lambda x: x[:-4])
-#         )
-#         evoked[f"{cond}/HbR"] = (
-#             eps.average(picks='hbr').rename_channels(lambda x: x[:-4])
-#         )
-
-#     # 5) mixed vs. control
-#     FRAC      = 0.0
-#     N_PERM    = 5000
-#     print(f"\n--- Mixed Activation (frac={FRAC:.2f}) vs. Control ---")
-#     mixed_act = replace_fraction_with_control(epochs['activation'],
-#                                               epochs['control'],
-#                                               FRAC, seed=42)
-#     for pk in ('hbo', 'hbr'):
-#         res = combined_test(mixed_act, epochs['control'],
-#                             time_window=(0.0, 11.0),
-#                             pick=pk, n_perm=N_PERM, seed=42)
-#         print(f"{pk.upper()}: combined p={res['p_combined']:.4g} "
-#               f"(phase={res['p_phase']:.4g}, power={res['p_power']:.4g})")
-
-#     # 6) control‐split sanity check
-#     print("\n--- Control Split Tests ---")
-#     for pk in ('hbo', 'hbr'):
-#         h1, h2 = _split_random_half(epochs['control'], seed=99)
-#         res    = combined_test(h1, h2,
-#                                time_window=(0.0, 11.0),
-#                                pick=pk, n_perm=N_PERM, seed=42)
-#         print(f"{pk.upper()}: combined p={res['p_combined']:.4g} "
-#               f"(phase={res['p_phase']:.4g}, power={res['p_power']:.4g})")
-# # import os
-# import sys
-# import numpy as np
-# import random
-# import matplotlib.pyplot as plt
-# import mne
-# import mne
-# from numpy.random import default_rng
-# import numpy as np
-# from scipy.stats import ttest_rel
-# from tqdm import tqdm 
-# from mne.preprocessing.nirs import optical_density, beer_lambert_law
-# # Insert parent folder for custom modules
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-# from Preprocessing.preprocessing_mne import get_raw_subject_data
-
-# os.environ["LOKY_MAX_CPU_COUNT"] = "8"
-
-# raw = mne.io.read_raw_snirf("../Data/2_dummy_hand.snirf", preload=True)
-# raw_od = optical_density(raw)
-# raw_hb = beer_lambert_law(raw_od)
-# events, event_id = mne.events_from_annotations(
-#     raw_hb,
-#     event_id={"activation": 1, "control": 2}
-# )
-
-# def read_snirf(snirf_path):
-#     """
-#     Read a SNIRF file, convert to HbO/HbR, and return a Raw object.
-#     """
-#     raw = mne.io.read_raw_snirf(snirf_path, preload=True)
-#     from mne.preprocessing.nirs import optical_density, beer_lambert_law
-#     raw_od = optical_density(raw)
-#     raw_hb = beer_lambert_law(raw_od)
-#     return raw_hb
-
-# def make_epochs(raw_hb, event_id, tmin=-5.0, tmax=15.0, baseline=(None, 0)):
-#     """
-#     Epoch a Raw (HbO/HbR) around events in event_id.
-#     Returns an Epochs dict keyed by condition.
-#     """
-#     events, _ = mne.events_from_annotations(raw_hb, event_id=event_id)
-#     picks = {"hbo": True, "hbr": True}
-#     all_epochs = mne.Epochs(
-#         raw_hb, events, event_id=event_id,
-#         tmin=tmin, tmax=tmax,
-#         picks=picks, baseline=baseline,
-#         preload=True
-#     )
-#     # split into a dict for easy access
-#     return {cond: all_epochs[cond] for cond in event_id}
-
-
-# def load_data(subject=3, time_window=(-5, 15)):
-#     """
-#     Load data, perform averaging tests and plots for evoked responses,
-#     and return concatenated data along with original epoch information.
-    
-#     This function retains all mean tests and plots of averaged epochs.
-#     ICA-related functionality has been removed.
-    
-#     Returns:
-#         tuple: (X, orig_indices, y, control_data, left_data, right_data, numb_samples)
-#     """
-
-#     # tmin = time_window[0]
-#     # tmax = time_window[1]
-#     tmin = -5.0
-#     tmax = 15.0
-
-#     picks = {"hbo": True, "hbr": True}
-
-#     # Load subject epochs
-#     epochs = mne.Epochs(raw_hb, events, event_id, tmin=tmin, tmax=tmax, pick=picks, baseline=None, preload=True)
-
-#     # Compute evoked responses for each condition and rename channels
-#     evoked_dict = {
-#         "Tapping_Left/HbO": epochs["Tapping_Left"].average(picks="hbo"),
-#         "Tapping_Left/HbR": epochs["Tapping_Left"].average(picks="hbr"),
-#         "Tapping_Right/HbO": epochs["Tapping_Right"].average(picks="hbo"),
-#         "Tapping_Right/HbR": epochs["Tapping_Right"].average(picks="hbr"),
-#         "Control/HbO": epochs["Control"].average(picks="hbo"),
-#         "Control/HbR": epochs["Control"].average(picks="hbr"),
-#     }
-#     for condition in evoked_dict:
-#         evoked_dict[condition].rename_channels(lambda x: x[:-4])
-
-#     return epochs, evoked_dict
-
-
 def extract_epoch_means(epochs_obj, time_window, pick_type):
     """
     Compute the mean power for each epoch over channels and a time window.
@@ -274,14 +88,15 @@ def _rms(x):
     """Root-mean-square of an array."""
     return np.sqrt(np.mean(np.square(x)))
 
-def avg_rms_pick(epochs, pick):
+def avg_rms_pick(epochs, pick, time_window):
     """
     RMS of the channel-averaged signal using a specific pick.
     """
     evoked = epochs.average(picks=pick)
-    return _rms(evoked.data)
+    idx = np.where((evoked.times >= time_window[0]) & (evoked.times <= time_window[1]))[0]
+    return _rms(evoked.data[:, idx])
 
-def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, n_perm=5000, seed=42):
+def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, time_window, n_perm=5000, seed=42):
     """
     Non-parametric permutation test on the RMS of the channel-averaged signal for a given pick.
     Returns the observed difference (A − B) and a two-sided p-value.
@@ -289,13 +104,13 @@ def permutation_rms_test_pick(epochs_a, epochs_b, *, pick, n_perm=5000, seed=42)
     rng = default_rng(seed)
     all_ep = mne.concatenate_epochs([epochs_a, epochs_b])
     n_a = len(epochs_a)
-    observed = avg_rms_pick(epochs_a, pick) - avg_rms_pick(epochs_b, pick)
+    observed = avg_rms_pick(epochs_a, pick, time_window) - avg_rms_pick(epochs_b, pick, time_window)
     null_dist = np.empty(n_perm)
     for i in tqdm(range(n_perm), desc=f"Permutations ({pick})"):
         idx = rng.permutation(len(all_ep))
         ep_a = all_ep[idx[:n_a]]
         ep_b = all_ep[idx[n_a:]]
-        null_dist[i] = avg_rms_pick(ep_a, pick) - avg_rms_pick(ep_b, pick)
+        null_dist[i] = avg_rms_pick(ep_a, pick, time_window) - avg_rms_pick(ep_b, pick, time_window)
     p_val = (np.sum(np.abs(null_dist) >= abs(observed)) + 1) / (n_perm + 1)
     return observed, p_val
 
@@ -342,7 +157,7 @@ def combined_test(epochs_a, epochs_b, time_window, pick, n_perm=5000, seed=42):
         'p_power': average power test p-value,
         'p_combined': Tippett's combined p-value.
     """
-    _, p_phase = permutation_rms_test_pick(epochs_a, epochs_b, pick=pick, n_perm=n_perm, seed=seed)
+    _, p_phase = permutation_rms_test_pick(epochs_a, epochs_b, pick=pick, time_window=time_window, n_perm=n_perm, seed=seed)
     p_power = average_power_test(epochs_a, epochs_b, time_window, pick)
     p_comb = tipplets_combined_p(p_phase, p_power)
     return {'p_phase': p_phase, 'p_power': p_power, 'p_combined': p_comb}
@@ -374,11 +189,11 @@ def replace_fraction_with_control(tap_epochs, control_epochs, frac, *, seed=123)
 # --- MAIN ---
 script_dir = os.path.dirname(__file__)
 snirf_path = os.path.abspath(
-    os.path.join(script_dir, '..', 'Data', '3_tongue.snirf')
+    os.path.join(script_dir, '..', 'Data', '2_hand.snirf')
 )
-raw_hb = read_snirf(snirf_path)
-time_window = (0, 10)
-epochs_dict = make_epochs(raw_hb,
+raw_haemo = read_snirf(snirf_path)
+time_window = (0, 13)
+epochs_dict = make_epochs(raw_haemo,
                           tmin=time_window[0],
                           tmax=time_window[1])
 epochs = epochs_dict
