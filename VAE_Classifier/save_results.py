@@ -30,7 +30,7 @@ def _to_nparray(v):
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root))
 
-from Classifier.VAE_committee import committee_for_subject
+from VAE_committee import committee_for_subject
 
 
 # ------------------------------------------------------------------
