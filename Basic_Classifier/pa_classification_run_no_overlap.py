@@ -195,7 +195,7 @@ def replace_fraction_with_control_no_overlap_both(tap_left_epochs, tap_right_epo
 
 # --- MAIN ---
 time_window = (0, 11)
-subjects = [0, 1, 2, 3, 4]
+subjects = [3, 4]
 fractions = np.arange(0.0, 0.30 + 0.05, 0.05)
 
 for subj in subjects:
