@@ -81,19 +81,19 @@ def post_process(res):
 # ------------------------------------------------------------------
 def save_results(participant_idx=4, ALL_CONTROL=False):
     # ---------- hyper‑parameters ----------
-    seeds         = tuple(range(1))
-    means         = 1.5
-    logvar        = 0
+    seeds         = tuple(range(5))
+    means         = 1.3
+    logvar        = -0.2
     beta          = 0.75          # only used if use_mmd=False
     window_length = 64
-    window_buffer = 2.0
+    window_buffer = 2.3
     latent_dim    = 8
-    epochs_num    = 100
+    epochs_num    = 60
 
     # new WAE knobs (will be ignored if committee use_mmd=False)
     use_mmd   = True
     lam_mmd   = 25
-    mmd_sigma = 2.5
+    mmd_sigma = 1.8
 
     # --------------------------------------
     results_dict = committee_for_subject(
@@ -132,15 +132,13 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
         for key in list(res.keys()):
             res[key] = _to_nparray(res[key])
         np.savez(out_path, **res)
-        print(f"✓ saved {out_path}")
+        print(f"Saved {out_path}")
 
 
 # ------------------------------------------------------------------
 if __name__ == "__main__":
     IDs = (0,1,2,3,4)
     ctrl = (False, True)
-    IDs = (2,)
-    ctrl = (False, )
     pbar = tqdm(total=len(IDs)*len(ctrl), desc="saving results")
     for pid in IDs:
         for ctrl_flag in ctrl:
