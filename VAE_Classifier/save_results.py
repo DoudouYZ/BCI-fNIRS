@@ -132,7 +132,7 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
         for key in list(res.keys()):
             res[key] = _to_nparray(res[key])
         np.savez(out_path, **res)
-        print(f"✓ saved {out_path}")
+        print(f"Saved {out_path}")
 
 
 # ------------------------------------------------------------------

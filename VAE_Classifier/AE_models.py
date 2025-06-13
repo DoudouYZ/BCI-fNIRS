@@ -14,6 +14,13 @@ from tqdm import tqdm
 
 LOG_2PI = math.log(2 * math.pi)
 
+def mmd_multiscale(z: torch.Tensor,
+                   z_prior: torch.Tensor,
+                   sigmas: Sequence[float] = (0.5, 1.0, 2.0, 4.0)
+                  ) -> torch.Tensor:
+    """Sum of RBF-MMD at multiple bandwidths."""
+    return sum(mmd_rbf(z, z_prior, sigma=s) for s in sigmas)
+
 
 def mmd_rbf(z: torch.Tensor, z_prior: torch.Tensor, sigma: float = 1.0) -> torch.Tensor:
     """Unbiased linear‑time MMD with RBF kernel (works on any device)."""
@@ -387,7 +394,13 @@ def train_mixture_vae(model: nn.Module,
                 z_batch = model.reparameterise(mu, lv)
                 z_prior = sample_mixture_prior(z_batch.size(0),
                                                prior_means, prior_logvars, pi)
+                # z_batch = model.reparameterise(mu, lv)
+                # sample more prior points for stability
+                # z_prior = sample_mixture_prior(z_batch.size(0)*2, prior_means, prior_logvars, pi)
+
                 div_loss = mmd_rbf(z_batch, z_prior, sigma=mmd_sigma)
+                # div_loss = mmd_multiscale(z_batch, z_prior,
+                #             sigmas=(0.5,1.0,2.0, 4.0))   # pick scales spanning your mode‐gap
                 loss = rec_loss + lam_mmd * div_loss
             else:
                 div_loss = kl_mixture_gaussian(mu, lv, prior_means, prior_logvars, pi)
@@ -416,6 +429,13 @@ def train_mixture_vae(model: nn.Module,
                     z_prior = sample_mixture_prior(z_batch.size(0),
                                                    prior_means, prior_logvars, pi)
                     div_loss = mmd_rbf(z_batch, z_prior, sigma=mmd_sigma)
+                    # z_batch = model.reparameterise(mu, lv)
+                    # # sample more prior points for stability
+                    # z_prior = sample_mixture_prior(z_batch.size(0)*2, prior_means, prior_logvars, pi)
+
+                    # # div_loss = mmd_rbf(z_batch, z_prior, sigma=mmd_sigma)
+                    # div_loss = mmd_multiscale(z_batch, z_prior,
+                    #             sigmas=(0.5,1.0,2.0))   # pick scales spanning your mode‐gap
                 else:
                     div_loss = kl_mixture_gaussian(mu, lv, prior_means, prior_logvars, pi)
 

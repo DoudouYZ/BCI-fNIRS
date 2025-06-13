@@ -22,7 +22,7 @@ from AE_models import (
     create_sliding_windows_no_classes,
     per_timepoint_labels_sparse,
 )
-from Preprocessing import get_continuous_subject_data
+from Preprocessing import get_continuous_subject_data, get_raw_subject_data
 
 # ───────────────────────────── helper: event-name lookup ──────────
 def _get_event_names(raw: mne.io.BaseRaw, events: np.ndarray) -> list[str]:
@@ -203,6 +203,86 @@ def _run_committee(X, times, events, event_names, raw,
 
 
 # ───────────────────────────── public entry point ─────────────────
+# def committee_for_subject(
+#         participant_idx: int,
+#         *,
+#         seeds=(41,42,43),
+#         beta=0.2, means=1.0, logvar=-1.0,
+#         window_length=32, window_buffer=1.0,
+#         latent_dim=10, epochs_num=25,
+#         use_mmd=True, lam_mmd=10.0, mmd_sigma=1.0,
+#         ALL_CONTROL=False, verbose=False, debug=False,
+#         device=None,
+#         k_size=(15,13,9,7,3),
+#         out_channels=(16,16,32,64,32)):
+#     """
+#     Returns
+#     -------
+#     { "right": {...}, "left": {...} }           (normal run)
+#     { "all_control": {...} }                    (if ALL_CONTROL=True)
+#     """
+#     if device is None:
+#         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+#     # ------------------------- control-only quick-path ------------------
+#     if ALL_CONTROL:
+#         Xc, raw, sfreq, evc, tc = load_and_preprocess(participant_idx, all_control=True)
+#         res_ctrl = _run_committee(
+#             Xc, tc, evc, _get_event_names(raw, evc), raw,
+#             use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+#             seeds=seeds, beta=beta, means=means, logvar=logvar,
+#             window_length=window_length, window_buffer=window_buffer,
+#             latent_dim=latent_dim, epochs_num=epochs_num,
+#             device=device, k_size=k_size, out_channels=out_channels,
+#             verbose=verbose, debug=debug)
+#         return {"all_control": res_ctrl}
+
+#     # ------------------------- full recording once ---------------------
+#     X_full, raw, sfreq, events_full, times_full = load_and_preprocess(
+#         participant_idx, all_control=False)
+
+#     on, desc = raw.annotations.onset, raw.annotations.description
+#     epochs = [(("Right"  if "Tapping_Right" in d else
+#                 "Left"   if "Tapping_Left"  in d else
+#                 "Control"),
+#                on[i], on[i+1] if i+1<len(on) else times_full[-1]+1/sfreq)
+#               for i,d in enumerate(desc)]
+
+#     def subset(cond_keep):
+#         mask = np.zeros_like(times_full, bool)
+#         ev, names = [], []
+#         for cond,s,e in epochs:
+#             if cond in cond_keep:
+#                 mask |= (times_full>=s)&(times_full<e)
+#                 ev.append(s); names.append(cond)
+#         ev.append(times_full[-1] + 1/sfreq)
+#         return X_full[:,mask], times_full[mask], np.array(ev), names
+
+#     # -------------- RIGHT committee --------------
+#     X_r,t_r,ev_r,nm_r = subset({"Control","Right"})
+#     res_r = _run_committee(
+#         X_r,t_r,ev_r,nm_r,raw,
+#         use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+#         seeds=seeds,beta=beta,means=means,logvar=logvar,
+#         window_length=window_length,window_buffer=window_buffer,
+#         latent_dim=latent_dim,epochs_num=epochs_num,
+#         device=device,k_size=k_size,out_channels=out_channels,
+#         verbose=verbose,debug=debug)
+
+#     # -------------- LEFT committee ---------------
+#     X_l,t_l,ev_l,nm_l = subset({"Control","Left"})
+#     res_l = _run_committee(
+#         X_l,t_l,ev_l,nm_l,raw,
+#         use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+#         seeds=seeds,beta=beta,means=means,logvar=logvar,
+#         window_length=window_length,window_buffer=window_buffer,
+#         latent_dim=latent_dim,epochs_num=epochs_num,
+#         device=device,k_size=k_size,out_channels=out_channels,
+#         verbose=verbose,debug=debug)
+
+#     return {"right": res_r, "left": res_l}
+
+
 def committee_for_subject(
         participant_idx: int,
         *,
@@ -211,18 +291,40 @@ def committee_for_subject(
         window_length=32, window_buffer=1.0,
         latent_dim=10, epochs_num=25,
         use_mmd=True, lam_mmd=10.0, mmd_sigma=1.0,
-        ALL_CONTROL=False, verbose=False, debug=False,
+        ALL_CONTROL=False, use_epochs=False,         # << added use_epochs
+        verbose=False, debug=False,
         device=None,
         k_size=(15,13,9,7,3),
         out_channels=(16,16,32,64,32)):
-    """
-    Returns
-    -------
-    { "right": {...}, "left": {...} }           (normal run)
-    { "all_control": {...} }                    (if ALL_CONTROL=True)
-    """
+
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # —————— EPOCHS‐BASED QUICK PATH ——————
+    if use_epochs:
+        # (1) load MNE epochs, get numpy array
+        epochs = get_raw_subject_data(subject=participant_idx)
+        sfreq  = epochs.info["sfreq"]
+        data   = epochs.get_data()                     # (n_epochs, n_ch, T)
+        n_epochs, n_ch, T = data.shape
+
+        # (2) concatenate epochs along time
+        X_concat  = data.transpose(1,0,2).reshape(n_ch, n_epochs * T)
+        times      = np.arange(n_epochs * T) / sfreq    # dummy time axis in seconds
+        events     = np.arange(0, (n_epochs+1)*T, T) / sfreq
+        event_names = ["Epoch"] * len(events)
+
+        # (3) hand off to your existing runner
+        res_epochs = _run_committee(
+            X_concat, times, events, event_names, epochs,
+            use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+            seeds=seeds, beta=beta, means=means, logvar=logvar,
+            window_length=window_length, window_buffer=window_buffer,
+            latent_dim=latent_dim, epochs_num=epochs_num,
+            device=device, k_size=k_size, out_channels=out_channels,
+            verbose=verbose, debug=debug
+        )
+        return {"epochs": res_epochs}
 
     # ------------------------- control-only quick-path ------------------
     if ALL_CONTROL:
