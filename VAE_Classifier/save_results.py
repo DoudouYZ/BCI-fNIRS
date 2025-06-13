@@ -81,14 +81,14 @@ def post_process(res):
 # ------------------------------------------------------------------
 def save_results(participant_idx=4, ALL_CONTROL=False):
     # ---------- hyper‑parameters ----------
-    seeds         = tuple(range(5))
+    seeds         = tuple(range(1))
     means         = 1.3
-    logvar        = -0.2
+    logvar        = -0.5
     beta          = 0.75          # only used if use_mmd=False
     window_length = 64
     window_buffer = 2.3
     latent_dim    = 8
-    epochs_num    = 60
+    epochs_num    = 20
 
     # new WAE knobs (will be ignored if committee use_mmd=False)
     use_mmd   = True
@@ -139,6 +139,8 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
 if __name__ == "__main__":
     IDs = (0,1,2,3,4)
     ctrl = (False, True)
+    IDs = (4,)
+    ctrl = (False,)
     pbar = tqdm(total=len(IDs)*len(ctrl), desc="saving results")
     for pid in IDs:
         for ctrl_flag in ctrl:

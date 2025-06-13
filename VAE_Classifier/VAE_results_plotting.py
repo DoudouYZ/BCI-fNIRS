@@ -197,6 +197,6 @@ if __name__ == "__main__":
     plot_interval_mean_grid()
     plot_histogram_grid()
     plot_mc_grid()
-    plot_epoch_mean_grid()
-    plot_latent_pca(subj_idx=2)
+    # plot_epoch_mean_grid()
+    plot_latent_pca(subj_idx=4)
     print("✓  All plots saved to", PLOTS_DIR)
