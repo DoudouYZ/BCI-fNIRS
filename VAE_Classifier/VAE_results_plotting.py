@@ -22,7 +22,8 @@ from matplotlib.ticker import PercentFormatter
 from sklearn.decomposition import PCA
 
 # ------------------------------------------------------------------ CONFIG
-PLOTS_DIR   = Path("VAE_plots");  PLOTS_DIR.mkdir(exist_ok=True)
+plot_dir_path = "VAE_plots_with_mmd_rampup"
+PLOTS_DIR   = Path(plot_dir_path);  PLOTS_DIR.mkdir(exist_ok=True)
 PARTICIPANTS = [0, 1, 2, 3, 4]
 SEEDS_NR    = 1
 SAMPLE_SIZE = 100
@@ -44,6 +45,11 @@ def bg(ax, xlim, colour, alpha=.15):
     ax.add_patch(Rectangle((xlim[0], ax.get_ylim()[0]),
                            xlim[1]-xlim[0], ax.get_ylim()[1]-ax.get_ylim()[0],
                            facecolor=colour, alpha=alpha, zorder=-1))
+
+
+#########################################################
+################## PLOTING FUNCTIONS ####################
+#########################################################
 
 # ─────────────────────────── 1. interval-mean grid ───────────────────────
 def plot_interval_mean_grid():
@@ -113,7 +119,6 @@ def plot_histogram_grid():
     plt.tight_layout()
     plt.savefig(PLOTS_DIR / "histogram_grid.png", dpi=300)
     plt.close()
-
 
 # ─────────────────────────── 3. Monte-Carlo grid ────────────────────────
 def plot_mc_grid():

@@ -82,18 +82,18 @@ def post_process(res):
 def save_results(participant_idx=4, ALL_CONTROL=False):
     # ---------- hyper‑parameters ----------
     seeds         = tuple(range(1))
-    means         = 1.5
+    means         = 1.3
     logvar        = 0
     beta          = 0.75          # only used if use_mmd=False
-    window_length = 64
-    window_buffer = 2.0
+    window_length = 160
+    window_buffer = 2.3
     latent_dim    = 8
-    epochs_num    = 100
+    epochs_num    = 40
 
     # new WAE knobs (will be ignored if committee use_mmd=False)
     use_mmd   = True
-    lam_mmd   = 25
-    mmd_sigma = 2.5
+    lam_mmd   = 35
+    mmd_sigma = 1.8
 
     # --------------------------------------
     results_dict = committee_for_subject(
@@ -109,7 +109,7 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
         use_mmd=use_mmd,          
         lam_mmd=lam_mmd,          
         mmd_sigma=mmd_sigma,      
-        verbose=True,
+        verbose=False,
         ALL_CONTROL=ALL_CONTROL,
         debug=False
     )
@@ -139,7 +139,6 @@ def save_results(participant_idx=4, ALL_CONTROL=False):
 if __name__ == "__main__":
     IDs = (0,1,2,3,4)
     ctrl = (False, True)
-    IDs = (2,)
     ctrl = (False, )
     pbar = tqdm(total=len(IDs)*len(ctrl), desc="saving results")
     for pid in IDs:

@@ -362,7 +362,11 @@ def train_mixture_vae(model: nn.Module,
                       mmd_sigma: float = 1.0,
                       verbose: bool = False):
     """Generic trainer – behaves as VAE (KL) or WAE‑MMD depending on *use_mmd*."""
-    opt = optim.Adam(model.parameters(), lr=5e-4)
+    mmd_rampup = True
+    if mmd_rampup:
+        lam_mmd_list = range(5, lam_mmd, epochs)
+
+    opt = optim.Adam(model.parameters(), lr=1e-3)
     mse = nn.MSELoss()
 
     hist = {'tr_rec': [], 'tr_div': [], 'va_rec': [], 'va_div': []}
@@ -370,6 +374,8 @@ def train_mixture_vae(model: nn.Module,
 
     for ep in iters:
         # ───── training phase ─────
+        if mmd_rampup:
+            lam_mmd = lam_mmd_list[ep]
         model.train()
         train_Recon_accumulated = train_diver_accumulated = 0.0
         for (x,) in train_loader:
