@@ -16,12 +16,7 @@ import mne
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root))
 
-from AE_models import (
-    MixtureVAE,
-    train_mixture_vae,           # ← same name, now supports MMD
-    create_sliding_windows_no_classes,
-    per_timepoint_labels_sparse,
-)
+from AE_models import *
 from Preprocessing import get_continuous_subject_data, get_raw_subject_data
 
 # ───────────────────────────── helper: event-name lookup ──────────
@@ -90,51 +85,64 @@ def load_and_preprocess(
 # ───────────────────────────── train one VAE model ─────────────────
 # ─────────────────────────── train one model ───────────────────────────
 
-def train_single_model(
-        X_t: torch.Tensor, starts: np.ndarray,
-        n_times: int, n_channels: int,
-        *,
-        latent_dim: int = 8,
-        beta: float = 0.2,
-        use_mmd: bool = True,
-        lam_mmd: float = 10.0,
-        mmd_sigma: float = 1.0,
-        seed: int = 42,
-        means: float = 1.2,
-        logvar: float = -1.0,
-        epochs_num: int = 25,
-        device=None,
-        k_size=(9, 9, 7, 7, 3),
-        out_channels=(16, 16, 32, 64, 32),
-        verbose=False,
-    ):
-    """Train one MixtureVAE (or WAE‑MMD) and return the label stream."""
-
+def train_single_model(X_t: torch.Tensor, starts: np.ndarray, epoch_ids: np.ndarray,
+                       n_times: int, n_channels: int,
+                       *, latent_dim: int = 8,
+                       beta: float = 0.2,
+                       use_mmd: bool = True,
+                       lam_mmd: float = 10.0,
+                       mmd_sigma: float = 1.0,
+                       seed: int = 42,
+                       means: float = 1.2,
+                       logvar: float = -1.0,
+                       epochs_num: int = 25,
+                       device=None,
+                       k_size=(9, 9, 7, 7, 3),
+                       out_channels=(16, 16, 32, 64, 32),
+                       verbose=False):
+    """Train one MixtureVAE (or WAE‑MMD) with epoch information and return the label stream."""
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    import random, gc, torch, numpy as np
     random.seed(seed); np.random.seed(seed)
     torch.manual_seed(seed); torch.cuda.manual_seed(seed)
+    
+    # Build a dataset from the windows and the computed epoch_ids.
+    from torch.utils.data import DataLoader, TensorDataset
+    # Convert epoch_ids to tensor
+    epoch_ids_tensor = torch.from_numpy(epoch_ids)
+    dataset = TensorDataset(X_t, epoch_ids_tensor)
+    loader = DataLoader(dataset, batch_size=64, shuffle=True)
 
-    loader = DataLoader(TensorDataset(X_t), batch_size=64, shuffle=True)
-
-    model = MixtureVAE(n_channels, X_t.shape[2], latent_dim,
-                       k_size=k_size, out_channels=out_channels).to(device)
+    # model uses NewMixtureVAE from AE_models.py
+    from AE_models import train_mixture_vae  # use the modified trainer
+    model = NewMixtureVAE(X_t.shape[2], latent_dim, k_size=k_size, out_channels=out_channels).to(device)
 
     prior_mu  = torch.full((2, latent_dim), means, device=device)
     prior_mu[0] *= -1
     prior_lv  = torch.full_like(prior_mu, logvar)
     pi_mix    = torch.tensor([0.5, 0.5], device=device)
 
-    # ----- train (VAE or WAE depending on flag) -----
-    train_mixture_vae(model, loader, loader,
-                      prior_mu, prior_lv, pi_mix,
-                      epochs_num, device,
-                      beta=beta,
-                      use_mmd=use_mmd,
-                      lam_mmd=lam_mmd,
-                      mmd_sigma=mmd_sigma,
-                      verbose=verbose)
+    # Split loader into training and validation; here we use 90/10 split.
+    n_total = len(dataset)
+    n_train = int(0.9 * n_total)
+    from torch.utils.data import random_split
+    train_ds, val_ds = random_split(dataset, [n_train, n_total - n_train])
+    train_loader = DataLoader(train_ds, batch_size=64, shuffle=True)
+    val_loader = DataLoader(val_ds, batch_size=64, shuffle=False)
+
+    # Use an added consistency_weight to nudge windows from the same epoch to agree.
+    # consistency_weight = 1.0  # adjust weight as needed
+
+    hist = train_mixture_vae(model, train_loader, val_loader,
+                             prior_mu, prior_lv, pi_mix,
+                             epochs_num, device,
+                             beta=beta,
+                             use_mmd=use_mmd,
+                             lam_mmd=lam_mmd,
+                             mmd_sigma=mmd_sigma,
+                             verbose=verbose)
 
     # ----- get latents + assign hard labels -----
     model.eval()
@@ -153,6 +161,54 @@ def train_single_model(
 
 
 # ───────────────────────────── run committee on subset ────────────
+# def _run_committee(X, times, events, event_names, raw,
+#                    *, seeds, beta, means, logvar,
+#                    window_length, window_buffer,
+#                    latent_dim, epochs_num,
+#                    device, k_size, out_channels,
+#                    use_mmd=True, lam_mmd=10.0, mmd_sigma=1.0,
+#                    verbose, debug=False):
+
+#     n_ch, n_times = X.shape
+#     X_win, starts = create_sliding_windows_no_classes(
+#         X, window_length, times, events, buffer=window_buffer)
+#     X_t = torch.from_numpy(X_win)
+
+#     if debug:
+#         print(f"[DEBUG] windows kept   : {len(starts)}")
+
+#     label_streams, latent_list, covered = [], [], None
+#     for sd in seeds:
+#         stream, cvd, latent = train_single_model( X_t, starts, n_times, n_ch,
+#                                                   latent_dim=latent_dim, beta=beta,
+#                                                   use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
+#                                                   means=means, logvar=logvar, seed=sd,
+#                                                   epochs_num=epochs_num, device=device,
+#                                                   k_size=k_size, out_channels=out_channels,
+#                                                   verbose=verbose)
+         
+#         label_streams.append(stream); latent_list.append(latent); covered=cvd
+
+#     label_streams = np.vstack(label_streams)[:, covered]
+#     ref, valid = label_streams[0], ~np.isnan(label_streams[0])
+#     for i in range(1, label_streams.shape[0]):
+#         if np.corrcoef(ref[valid], label_streams[i, valid])[0,1] < 0:
+#             label_streams[i] = 1 - label_streams[i]
+#     consensus = np.nanmean(label_streams, axis=0)
+#     times_trim = times[covered]
+
+#     if debug:
+#         print(f"[DEBUG] samples covered: {covered.sum()}")
+
+#     return dict(consensus=consensus,
+#                 times=times_trim,
+#                 events=events,
+#                 event_names=event_names,
+#                 starts=starts,
+#                 raw=raw,
+#                 latents=latent_list,
+#                 streams=label_streams)
+
 def _run_committee(X, times, events, event_names, raw,
                    *, seeds, beta, means, logvar,
                    window_length, window_buffer,
@@ -162,7 +218,8 @@ def _run_committee(X, times, events, event_names, raw,
                    verbose, debug=False):
 
     n_ch, n_times = X.shape
-    X_win, starts = create_sliding_windows_no_classes(
+    # Now also get epoch_ids from the windowing helper.
+    X_win, starts, epoch_ids = create_sliding_windows_no_classes(
         X, window_length, times, events, buffer=window_buffer)
     X_t = torch.from_numpy(X_win)
 
@@ -171,20 +228,22 @@ def _run_committee(X, times, events, event_names, raw,
 
     label_streams, latent_list, covered = [], [], None
     for sd in seeds:
-        stream, cvd, latent = train_single_model( X_t, starts, n_times, n_ch,
+        stream, cvd, latent = train_single_model( X_t, starts, epoch_ids,
+                                                  n_times, n_ch,
                                                   latent_dim=latent_dim, beta=beta,
                                                   use_mmd=use_mmd, lam_mmd=lam_mmd, mmd_sigma=mmd_sigma,
                                                   means=means, logvar=logvar, seed=sd,
                                                   epochs_num=epochs_num, device=device,
                                                   k_size=k_size, out_channels=out_channels,
                                                   verbose=verbose)
-         
-        label_streams.append(stream); latent_list.append(latent); covered=cvd
+        label_streams.append(stream)
+        latent_list.append(latent)
+        covered = cvd
 
     label_streams = np.vstack(label_streams)[:, covered]
     ref, valid = label_streams[0], ~np.isnan(label_streams[0])
     for i in range(1, label_streams.shape[0]):
-        if np.corrcoef(ref[valid], label_streams[i, valid])[0,1] < 0:
+        if np.corrcoef(ref[valid], label_streams[i, valid])[0, 1] < 0:
             label_streams[i] = 1 - label_streams[i]
     consensus = np.nanmean(label_streams, axis=0)
     times_trim = times[covered]

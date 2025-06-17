@@ -89,7 +89,7 @@ def extract_epochs(raw_haemo, tmin=-5, tmax=15, verbose=False):
         # baseline=(0, 0), 
         preload=True,
         detrend=None,
-        verbose=verbose,
+        verbose=False,
     )
     return epochs
 

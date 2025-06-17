@@ -82,10 +82,10 @@ def post_process(res):
 def save_results(participant_idx=4, ALL_CONTROL=False):
     # ---------- hyper‑parameters ----------
     seeds         = tuple(range(1))
-    means         = 1.3
-    logvar        = -0.5
+    means         = 1.0
+    logvar        = 0.0
     beta          = 0.75          # only used if use_mmd=False
-    window_length = 64
+    window_length = 80
     window_buffer = 2.3
     latent_dim    = 8
     epochs_num    = 20

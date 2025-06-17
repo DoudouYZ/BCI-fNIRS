@@ -1,0 +1,2420 @@
+Running subject 0, fraction 0.00...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.00, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.00, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 11: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.00, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.05...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.05, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.05, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 11: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.05, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.10...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.10, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.10, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 11: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.10, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.15...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.15, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.15, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 11: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.15, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.20...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.20, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.20, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 11: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.20, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.25...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.25, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 4: False
+Subject 0, frac 0.25, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.25, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 1: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 2: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 3: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 4: False
+Subject 0, frac 0.25, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 9: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 11: False
+Subject 0, frac 0.25, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 15: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.25, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.30...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.30, Tapping_Left, inner seed 0: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 1: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 3: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 6: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 8: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 11: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 13: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 15: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 18: True
+Subject 0, frac 0.30, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 0: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 1: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 2: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 3: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 4: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 5: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 6: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 7: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 8: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 9: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 11: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 12: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 13: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 14: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 15: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 16: False
+Subject 0, frac 0.30, Tapping_Right, inner seed 17: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 18: True
+Subject 0, frac 0.30, Tapping_Right, inner seed 19: True
+Running subject 0, fraction 0.35...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.35, Tapping_Left, inner seed 0: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 1: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 2: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 3: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 4: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 5: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 6: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 7: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 8: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 9: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 10: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 11: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 12: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 13: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 14: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 15: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 16: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.35, Tapping_Left, inner seed 18: False
+Subject 0, frac 0.35, Tapping_Left, inner seed 19: True
+Subject 0, frac 0.35, Tapping_Right, inner seed 0: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 1: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 2: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 3: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 4: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 5: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 6: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 7: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 8: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 9: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.35, Tapping_Right, inner seed 11: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 12: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 13: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 14: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 15: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 16: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 17: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 18: False
+Subject 0, frac 0.35, Tapping_Right, inner seed 19: False
+Running subject 0, fraction 0.40...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.40, Tapping_Left, inner seed 0: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 1: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 2: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 3: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 4: True
+Subject 0, frac 0.40, Tapping_Left, inner seed 5: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 6: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 7: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 8: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 9: True
+Subject 0, frac 0.40, Tapping_Left, inner seed 10: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 11: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 12: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 13: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 14: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 15: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 16: True
+Subject 0, frac 0.40, Tapping_Left, inner seed 17: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 18: False
+Subject 0, frac 0.40, Tapping_Left, inner seed 19: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 0: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 1: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 2: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 3: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 4: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 5: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 6: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 7: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 8: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 9: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 10: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 11: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 12: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 13: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 14: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 15: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 16: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 17: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 18: False
+Subject 0, frac 0.40, Tapping_Right, inner seed 19: False
+Running subject 0, fraction 0.45...
+Reading 0 ... 23238  =      0.000 ...  2974.464 secs...
+Not setting metadata
+28 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 0, frac 0.45, Tapping_Left, inner seed 0: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 1: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 2: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 3: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 4: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 5: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 6: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 7: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 8: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 9: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 10: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 11: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 12: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 13: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 14: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 15: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 16: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 17: True
+Subject 0, frac 0.45, Tapping_Left, inner seed 18: False
+Subject 0, frac 0.45, Tapping_Left, inner seed 19: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 0: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 1: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 2: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 3: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 4: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 5: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 6: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 7: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 8: True
+Subject 0, frac 0.45, Tapping_Right, inner seed 9: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 10: True
+Subject 0, frac 0.45, Tapping_Right, inner seed 11: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 12: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 13: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 14: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 15: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 16: True
+Subject 0, frac 0.45, Tapping_Right, inner seed 17: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 18: False
+Subject 0, frac 0.45, Tapping_Right, inner seed 19: False
+Running subject 1, fraction 0.00...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.00, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.00, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.00, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.05...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.05, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.05, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.05, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.10...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.10, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.10, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.10, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.15...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.15, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.15, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.15, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.20...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.20, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.20, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 3: False
+Subject 1, frac 0.20, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 13: False
+Subject 1, frac 0.20, Tapping_Right, inner seed 14: False
+Subject 1, frac 0.20, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 17: False
+Subject 1, frac 0.20, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.20, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.25...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.25, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.25, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 0: False
+Subject 1, frac 0.25, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.25, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.30...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.30, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.30, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 0: False
+Subject 1, frac 0.30, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.30, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.35...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.35, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 6: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.35, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.35, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.40...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.40, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 4: False
+Subject 1, frac 0.40, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 6: False
+Subject 1, frac 0.40, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 8: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 11: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 12: False
+Subject 1, frac 0.40, Tapping_Left, inner seed 13: False
+Subject 1, frac 0.40, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 15: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 16: False
+Subject 1, frac 0.40, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.40, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 0: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 1: False
+Subject 1, frac 0.40, Tapping_Right, inner seed 2: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 8: False
+Subject 1, frac 0.40, Tapping_Right, inner seed 9: False
+Subject 1, frac 0.40, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 13: False
+Subject 1, frac 0.40, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 17: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.40, Tapping_Right, inner seed 19: True
+Running subject 1, fraction 0.45...
+Reading 0 ... 18877  =      0.000 ...  2416.256 secs...
+Not setting metadata
+14 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+8 matching events found
+Applying baseline correction (mode: mean)
+Subject 1, frac 0.45, Tapping_Left, inner seed 0: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 1: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 2: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 3: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 4: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 5: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 6: False
+Subject 1, frac 0.45, Tapping_Left, inner seed 7: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 8: False
+Subject 1, frac 0.45, Tapping_Left, inner seed 9: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 10: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 11: False
+Subject 1, frac 0.45, Tapping_Left, inner seed 12: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 13: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 14: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 15: False
+Subject 1, frac 0.45, Tapping_Left, inner seed 16: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 17: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 18: True
+Subject 1, frac 0.45, Tapping_Left, inner seed 19: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 0: False
+Subject 1, frac 0.45, Tapping_Right, inner seed 1: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 2: False
+Subject 1, frac 0.45, Tapping_Right, inner seed 3: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 4: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 5: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 6: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 7: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 8: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 9: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 10: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 11: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 12: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 13: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 14: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 15: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 16: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 17: False
+Subject 1, frac 0.45, Tapping_Right, inner seed 18: True
+Subject 1, frac 0.45, Tapping_Right, inner seed 19: True
+Running subject 2, fraction 0.00...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.00, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 2: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 5: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 7: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 10: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 15: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 18: True
+Subject 2, frac 0.00, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 0: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 1: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 2: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 3: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 4: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 5: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 6: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 7: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 8: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 9: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 10: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 11: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 12: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 13: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 14: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 15: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 16: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 17: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 18: True
+Subject 2, frac 0.00, Tapping_Right, inner seed 19: True
+Running subject 2, fraction 0.05...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.05, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 2: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 5: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 7: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 10: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 15: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 18: True
+Subject 2, frac 0.05, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 0: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 1: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 2: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 3: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 4: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 5: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 6: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 7: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 8: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 9: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 10: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 11: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 12: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 13: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 14: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 15: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 16: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 17: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 18: True
+Subject 2, frac 0.05, Tapping_Right, inner seed 19: True
+Running subject 2, fraction 0.10...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.10, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 2: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 5: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 7: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 10: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 15: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 18: True
+Subject 2, frac 0.10, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 0: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.10, Tapping_Right, inner seed 2: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.10, Tapping_Right, inner seed 4: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 5: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 6: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 7: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 8: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 9: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 10: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 11: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 12: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 13: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 14: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 15: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 16: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 17: True
+Subject 2, frac 0.10, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.10, Tapping_Right, inner seed 19: True
+Running subject 2, fraction 0.15...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.15, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 2: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 5: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 7: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 10: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 15: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 18: True
+Subject 2, frac 0.15, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 2: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 5: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 6: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 9: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 10: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 11: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 12: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 14: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 15: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.15, Tapping_Right, inner seed 17: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 18: True
+Subject 2, frac 0.15, Tapping_Right, inner seed 19: True
+Running subject 2, fraction 0.20...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.20, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 2: False
+Subject 2, frac 0.20, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 5: False
+Subject 2, frac 0.20, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 7: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 10: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 15: False
+Subject 2, frac 0.20, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.20, Tapping_Left, inner seed 18: False
+Subject 2, frac 0.20, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.20, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 2: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 6: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 9: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 12: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 14: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 15: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 17: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.20, Tapping_Right, inner seed 19: False
+Running subject 2, fraction 0.25...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.25, Tapping_Left, inner seed 0: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 1: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 2: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 3: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 4: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 5: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 6: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 7: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 8: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 9: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 10: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 11: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 12: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 13: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 14: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 15: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 16: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.25, Tapping_Left, inner seed 18: False
+Subject 2, frac 0.25, Tapping_Left, inner seed 19: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 2: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 6: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 9: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 12: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 14: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 15: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 17: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.25, Tapping_Right, inner seed 19: False
+Running subject 2, fraction 0.30...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.30, Tapping_Left, inner seed 0: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 1: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 2: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 3: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 4: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 5: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 6: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 7: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 8: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 9: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 10: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 11: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 12: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 13: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 14: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 15: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 16: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 17: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 18: False
+Subject 2, frac 0.30, Tapping_Left, inner seed 19: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 2: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 6: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 9: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 12: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 14: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 15: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 17: True
+Subject 2, frac 0.30, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.30, Tapping_Right, inner seed 19: False
+Running subject 2, fraction 0.35...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.35, Tapping_Left, inner seed 0: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 1: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 2: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 3: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 4: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 5: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 6: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 7: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 8: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 9: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 10: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 11: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 12: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 13: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 14: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 15: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.35, Tapping_Left, inner seed 17: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 18: False
+Subject 2, frac 0.35, Tapping_Left, inner seed 19: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 2: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 6: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 9: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 12: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 14: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 15: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 17: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.35, Tapping_Right, inner seed 19: False
+Running subject 2, fraction 0.40...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.40, Tapping_Left, inner seed 0: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 1: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 2: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 3: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 4: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 5: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 6: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 7: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 8: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 9: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 10: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 11: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 12: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 13: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 14: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 15: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 16: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 17: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 18: False
+Subject 2, frac 0.40, Tapping_Left, inner seed 19: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 1: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 2: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 4: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 6: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 8: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 9: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 12: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 13: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 14: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 15: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 16: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 17: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 18: False
+Subject 2, frac 0.40, Tapping_Right, inner seed 19: False
+Running subject 2, fraction 0.45...
+Reading 0 ... 18874  =      0.000 ...  2415.872 secs...
+Not setting metadata
+23 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Subject 2, frac 0.45, Tapping_Left, inner seed 0: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 1: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 2: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 3: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 4: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 5: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 6: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 7: False
+Subject 2, frac 0.45, Tapping_Left, inner seed 8: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 9: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 10: False
+Subject 2, frac 0.45, Tapping_Left, inner seed 11: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 12: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 13: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 14: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 15: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 16: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 17: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 18: True
+Subject 2, frac 0.45, Tapping_Left, inner seed 19: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 0: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 1: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 2: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 3: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 4: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 5: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 6: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 7: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 8: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 9: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 10: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 11: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 12: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 13: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 14: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 15: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 16: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 17: False
+Subject 2, frac 0.45, Tapping_Right, inner seed 18: True
+Subject 2, frac 0.45, Tapping_Right, inner seed 19: False
+Running subject 3, fraction 0.00...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.00, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.00, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 8: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 14: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 17: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.00, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.05...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.05, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.05, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 8: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 14: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 17: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.05, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.10...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.10, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.10, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 8: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 14: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 17: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.10, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.15...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.15, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.15, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 8: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 14: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 17: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.15, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.20...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.20, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.20, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 8: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 13: False
+Subject 3, frac 0.20, Tapping_Right, inner seed 14: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 17: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.20, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.25...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.25, Tapping_Left, inner seed 0: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 9: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.25, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 8: False
+Subject 3, frac 0.25, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 12: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 14: False
+Subject 3, frac 0.25, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 17: False
+Subject 3, frac 0.25, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.25, Tapping_Right, inner seed 19: False
+Running subject 3, fraction 0.30...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.30, Tapping_Left, inner seed 0: False
+Subject 3, frac 0.30, Tapping_Left, inner seed 1: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 6: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 7: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 8: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 9: False
+Subject 3, frac 0.30, Tapping_Left, inner seed 10: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 13: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 14: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 15: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 17: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.30, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 0: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 1: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 2: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 3: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 4: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 5: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 6: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 7: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 8: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 9: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 10: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 11: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 12: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 14: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 15: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 16: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 17: False
+Subject 3, frac 0.30, Tapping_Right, inner seed 18: True
+Subject 3, frac 0.30, Tapping_Right, inner seed 19: False
+Running subject 3, fraction 0.35...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.35, Tapping_Left, inner seed 0: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 1: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 2: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 3: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 4: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 5: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 6: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 7: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 8: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 9: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 10: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 13: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 14: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 15: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.35, Tapping_Left, inner seed 17: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 18: False
+Subject 3, frac 0.35, Tapping_Left, inner seed 19: True
+Subject 3, frac 0.35, Tapping_Right, inner seed 0: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 1: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 2: True
+Subject 3, frac 0.35, Tapping_Right, inner seed 3: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 4: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 5: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 6: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 7: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 8: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 9: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.35, Tapping_Right, inner seed 11: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 12: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 13: True
+Subject 3, frac 0.35, Tapping_Right, inner seed 14: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 15: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 16: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 17: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 18: False
+Subject 3, frac 0.35, Tapping_Right, inner seed 19: True
+Running subject 3, fraction 0.40...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.40, Tapping_Left, inner seed 0: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 1: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 2: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 3: True
+Subject 3, frac 0.40, Tapping_Left, inner seed 4: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 5: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 6: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 7: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 8: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 9: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 10: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 11: True
+Subject 3, frac 0.40, Tapping_Left, inner seed 12: True
+Subject 3, frac 0.40, Tapping_Left, inner seed 13: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 14: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 15: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 16: True
+Subject 3, frac 0.40, Tapping_Left, inner seed 17: False
+Subject 3, frac 0.40, Tapping_Left, inner seed 18: True
+Subject 3, frac 0.40, Tapping_Left, inner seed 19: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 0: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 1: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 2: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 3: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 4: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 5: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 6: True
+Subject 3, frac 0.40, Tapping_Right, inner seed 7: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 8: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 9: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 10: True
+Subject 3, frac 0.40, Tapping_Right, inner seed 11: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 12: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 13: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 14: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 15: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 16: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 17: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 18: False
+Subject 3, frac 0.40, Tapping_Right, inner seed 19: False
+Running subject 3, fraction 0.45...
+Reading 0 ... 23120  =      0.000 ...  2959.360 secs...
+Not setting metadata
+27 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+26 matching events found
+Applying baseline correction (mode: mean)
+Subject 3, frac 0.45, Tapping_Left, inner seed 0: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 1: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 2: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 3: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 4: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 5: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 6: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 7: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 8: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 9: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 10: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 11: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 12: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 13: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 14: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 15: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 16: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 17: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 18: False
+Subject 3, frac 0.45, Tapping_Left, inner seed 19: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 0: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 1: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 2: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 3: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 4: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 5: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 6: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 7: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 8: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 9: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 10: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 11: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 12: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 13: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 14: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 15: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 16: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 17: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 18: False
+Subject 3, frac 0.45, Tapping_Right, inner seed 19: False
+Running subject 4, fraction 0.00...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.00, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.00, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.00, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.05...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.05, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.05, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.05, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.10...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.10, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.10, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.10, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.15...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.15, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.15, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.15, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.20...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.20, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.20, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.20, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.25...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.25, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 6: False
+Subject 4, frac 0.25, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.25, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 1: False
+Subject 4, frac 0.25, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.25, Tapping_Right, inner seed 19: False
+Running subject 4, fraction 0.30...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.30, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.30, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.30, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.35...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.35, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 2: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 3: False
+Subject 4, frac 0.35, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 5: False
+Subject 4, frac 0.35, Tapping_Left, inner seed 6: False
+Subject 4, frac 0.35, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.35, Tapping_Left, inner seed 19: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 1: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.35, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.40...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.40, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 2: False
+Subject 4, frac 0.40, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 8: False
+Subject 4, frac 0.40, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 10: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 15: False
+Subject 4, frac 0.40, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 17: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.40, Tapping_Left, inner seed 19: False
+Subject 4, frac 0.40, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 1: False
+Subject 4, frac 0.40, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 5: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 6: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 10: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 12: False
+Subject 4, frac 0.40, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 18: True
+Subject 4, frac 0.40, Tapping_Right, inner seed 19: True
+Running subject 4, fraction 0.45...
+Reading 0 ... 23006  =      0.000 ...  2944.768 secs...
+Not setting metadata
+29 matching events found
+Applying baseline correction (mode: mean)
+Not setting metadata
+30 matching events found
+Applying baseline correction (mode: mean)
+Subject 4, frac 0.45, Tapping_Left, inner seed 0: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 1: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 2: False
+Subject 4, frac 0.45, Tapping_Left, inner seed 3: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 4: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 5: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 6: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 7: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 8: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 9: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 10: False
+Subject 4, frac 0.45, Tapping_Left, inner seed 11: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 12: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 13: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 14: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 15: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 16: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 17: False
+Subject 4, frac 0.45, Tapping_Left, inner seed 18: True
+Subject 4, frac 0.45, Tapping_Left, inner seed 19: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 0: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 1: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 2: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 3: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 4: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 5: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 6: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 7: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 8: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 9: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 10: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 11: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 12: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 13: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 14: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 15: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 16: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 17: True
+Subject 4, frac 0.45, Tapping_Right, inner seed 18: False
+Subject 4, frac 0.45, Tapping_Right, inner seed 19: True
+Traceback (most recent call last):
+  File "C:\Users\oscar\OneDrive\School\DTU\Semester_4\BCI_fagprojekt\Group Work\Github\BCI-fNIRS\SWAE_windows\SWAE_ctr_frac_run.py", line 229, in <module>
+    json.dump(results_all, f, indent=4)
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 430, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\oscar\anaconda3\envs\venv\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type bool is not JSON serializable
